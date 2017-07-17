@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Siem Medicos</string>
+
+    <string name="user">User</string>
+    <string name="pass">Password</string>
+    <string name="login">Login</string>
+</resources>

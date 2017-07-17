@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="halfDefaultMargin">8dp</dimen>
+    <dimen name="defaultMargin">16dp</dimen>
+    <dimen name="doubleDefaultMargin">32dp</dimen>
+
+    <dimen name="widthLogo">150dp</dimen>
+    <dimen name="heightLogo">150dp</dimen>
+    <dimen name="marginTopLogo">75dp</dimen>
+</resources>
