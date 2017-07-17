@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -33,10 +36,4 @@ dependencies {
      * GoogleMaps
      */
     compile 'com.google.android.gms:play-services-maps:9.6.1' //todo: 11.0.2
-
-    /**
-     * Butterknife
-     */
-    compile 'com.jakewharton:butterknife:8.7.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 }
