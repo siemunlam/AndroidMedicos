@@ -1,7 +1,6 @@
-package com.siem.siemmedicos;
+package com.siem.siemmedicos.ui;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +12,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.siem.siemmedicos.R;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 

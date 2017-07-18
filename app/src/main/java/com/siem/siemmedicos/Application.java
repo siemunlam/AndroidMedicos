@@ -4,10 +4,6 @@ import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
 
-/**
- * Created by Lucas on 17/7/17.
- */
-
 public class Application extends android.app.Application {
 
     @Override

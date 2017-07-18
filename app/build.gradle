@@ -50,7 +50,7 @@ dependencies {
     /**
      * GoogleMaps
      */
-    compile 'com.google.android.gms:play-services-maps:9.6.1' //todo: 11.0.2
+    compile 'com.google.android.gms:play-services-maps:10.2.1' //todo: 11.0.2
 
     /**
      * Fabric
@@ -58,4 +58,11 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }
+
+    /**
+     * Firebase Cloud Messaging
+     */
+    compile 'com.google.firebase:firebase-messaging:10.2.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

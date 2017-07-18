@@ -1,4 +1,4 @@
-package com.siem.siemmedicos;
+package com.siem.siemmedicos.ui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
+import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends Activity {
