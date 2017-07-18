@@ -1,5 +1,6 @@
 package com.siem.siemmedicos.ui;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -13,15 +14,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.siem.siemmedicos.R;
+import com.siem.siemmedicos.databinding.ActivityMapBinding;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private ActivityMapBinding mBinding;
     private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_map);
+        mBinding.containerExtraData.bringToFront();
 
         MapFragment fragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);

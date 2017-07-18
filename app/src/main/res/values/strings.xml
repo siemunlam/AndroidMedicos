@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Siem Medicos</string>
 
+    <!-- Login -->
     <string name="user">User</string>
     <string name="pass">Password</string>
     <string name="login">Login</string>
@@ -8,4 +9,8 @@
     <!-- Menu -->
     <string name="updateStatus">Actualizar estado</string>
     <string name="logout">Cerrar sesión</string>
+
+    <!-- Map -->
+    <string name="unlink">Desvincular</string>
+    <string name="finalize">Finalizar</string>
 </resources>
