@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityMapBinding;
+import com.siem.siemmedicos.utils.Utils;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -27,8 +28,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_map);
         mBinding.containerExtraData.bringToFront();
 
+        Utils.createSyncAccount(getApplicationContext());
+
         MapFragment fragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Utils.syncNow(this);
+        Utils.setupContentResolver(this);
     }
 
     @Override

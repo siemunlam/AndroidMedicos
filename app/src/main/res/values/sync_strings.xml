@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="account_type" translatable="false">com.siem</string>
+    <string name="content_authority" translatable="false">com.siem.siemmedicos.provider</string>
+    <string name="account_domain" translatable="false">SIEM</string>
+    <string name="broadcast_sync_data" translatable="false">com.siem.siemmedicos.SYNC_DATA</string>
+</resources>
