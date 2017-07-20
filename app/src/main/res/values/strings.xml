@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Siem Medicos</string>
 
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+
     <!-- Login -->
     <string name="user">User</string>
     <string name="pass">Password</string>
@@ -13,4 +16,6 @@
     <!-- Map -->
     <string name="unlink">Desvincular</string>
     <string name="finalize">Finalizar</string>
+    <string name="confirmUnlink">Está seguro que desea desvincularse del auxilio?</string>
+    <string name="confirmFinalize">Está seguro que desea finalizar el auxilio?</string>
 </resources>

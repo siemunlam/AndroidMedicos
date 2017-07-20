@@ -3,9 +3,11 @@ package com.siem.siemmedicos.ui;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,15 +30,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_map);
         mBinding.containerExtraData.bringToFront();
 
-        Utils.createSyncAccount(getApplicationContext());
-
         MapFragment fragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
+
+        mBinding.buttonUnlink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FragmentDialog().getTextViewDialog(MapActivity.this, getString(R.string.confirmUnlink), getString(R.string.accept), null, getString(R.string.cancel), null, false).show();
+            }
+        });
+
+        mBinding.buttonFinalize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FragmentDialog().getTextViewDialog(MapActivity.this, getString(R.string.confirmFinalize), getString(R.string.accept), null, getString(R.string.cancel), null, false).show();
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Utils.createSyncAccount(getApplicationContext());
         Utils.syncNow(this);
         Utils.setupContentResolver(this);
     }

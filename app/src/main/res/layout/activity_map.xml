@@ -13,7 +13,7 @@
             android:gravity="bottom"
             android:id="@+id/containerExtraData"
             android:layout_margin="@dimen/halfDefaultMargin"
-            android:visibility="visible">
+            android:visibility="gone">
 
         </RelativeLayout>
 
@@ -30,12 +30,13 @@
             android:layout_alignParentBottom="true"
             android:id="@+id/containerButtons"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <android.support.v7.widget.AppCompatButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:id="@+id/buttonUnlink"
                 android:background="@color/unlinkButton"
                 android:foreground="?attr/selectableItemBackground"
                 android:text="@string/unlink"/>
@@ -44,6 +45,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:id="@+id/buttonFinalize"
                 android:background="@color/finalizeButton"
                 android:foreground="?attr/selectableItemBackground"
                 android:text="@string/finalize"/>
