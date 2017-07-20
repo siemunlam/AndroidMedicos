@@ -14,5 +14,5 @@
     <!-- Map -->
     <dimen name="heightContainerButtons">75dp</dimen>
     <dimen name="heightContainerExtraData">100dp</dimen>
-    <dimen name="radiusContainerExtraData">20dp</dimen>
+    <dimen name="radiusContainerExtraData">5dp</dimen>
 </resources>
