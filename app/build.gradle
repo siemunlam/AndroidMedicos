@@ -53,6 +53,11 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.2.1' //todo: 11.0.2
 
     /**
+     * Retrofit
+     */
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+
+    /**
      * Fabric
      */
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
