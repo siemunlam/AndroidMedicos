@@ -20,4 +20,13 @@ public class Constants {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_NETWORK_STATE
     };
+
+    /**
+     * Calls API
+     */
+    public static final String API_GOOGLEMAPS_DIRECTIONS = "maps/api/directions/json";
+    public static final String ORIGIN = "origin";
+    public static final String DESTINATION = "destination";
+    public static final String KEY = "key";
+
 }

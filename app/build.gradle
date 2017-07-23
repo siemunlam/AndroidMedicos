@@ -25,6 +25,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "BASE_MAPSGOOGLE_URL", "\"https://maps.googleapis.com/\""
     }
     buildTypes {
         release {
@@ -56,6 +57,7 @@ dependencies {
      * Retrofit
      */
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     /**
      * Fabric

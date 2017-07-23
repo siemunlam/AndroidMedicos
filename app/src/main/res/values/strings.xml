@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Siem Medicos</string>
 
+    <string name="keyDirectionsGoogleMaps" translatable="false">AIzaSyDJS3m2mBPrE3mS2cbo0zQtewPHdgIIBHs</string>
+
     <string name="accept">Aceptar</string>
     <string name="cancel">Cancelar</string>
 
