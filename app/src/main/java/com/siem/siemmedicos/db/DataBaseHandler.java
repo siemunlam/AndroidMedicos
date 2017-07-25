@@ -35,8 +35,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                     + DBContract.Locations.COLUMN_NAME_TIME_LOC + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
                     + DBContract.Locations.COLUMN_NAME_SPEED + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
                     + DBContract.Locations.COLUMN_NAME_PROVIDER + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
-                    + DBContract.Locations.COLUMN_NAME_BEARING + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
-                    + DBContract.Locations.COLUMN_NAME_METHOD_SERVICE + DBContract.TEXT_TYPE + ") ";
+                    + DBContract.Locations.COLUMN_NAME_BEARING + DBContract.TEXT_TYPE + ") ";
 
 
     private DataBaseHandler(Context context) {

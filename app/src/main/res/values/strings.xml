@@ -6,6 +6,10 @@
     <string name="accept">Aceptar</string>
     <string name="cancel">Cancelar</string>
 
+    <!-- Notificacion -->
+    <string name="intensive_mode">Modo Intensivo</string>
+    <string name="normal_mode">Modo Normal</string>
+
     <!-- Login -->
     <string name="user">User</string>
     <string name="pass">Password</string>

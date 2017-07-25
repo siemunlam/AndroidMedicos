@@ -1,5 +1,6 @@
 package com.siem.siemmedicos.utils;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -8,13 +9,66 @@ import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
+import android.support.v4.app.ActivityCompat;
 
 import com.siem.siemmedicos.R;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 public class Utils {
+
+    /**
+     * Para saber si debe correr el servicio de Location en modo intensivo
+     * @param context Contexto
+     * @return true si debe correr en modo intensivo
+     */
+    public static boolean locationIntensiveMode(Context context){
+        return isCharging(context);
+    }
+
+    /**
+     * Para saber si el celular se esta cargando
+     * @param context Contexto
+     * @return true if charging
+     */
+    private static boolean isCharging(Context context) {
+        Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        if(intent == null)
+            return false;
+        int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        return plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB;
+    }
+
+    /**
+     * Chequea si el timestamp de la ubicacion es coherente. Si es mas viejo que 1 mes desde
+     * la fecha actual lo reemplaza por el timestamp del sistema.
+     *
+     */
+    public static void validateLocationTime(Location location){
+        long locationTimestamp = location.getTime();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.add(Calendar.MONTH, -1);
+        if(locationTimestamp < calendar.getTime().getTime()){
+            location.setTime(System.currentTimeMillis());
+        }
+    }
+
+    /**
+     * Para saber si tiene los permisos de Location habilitados
+     * @param context Contexto
+     * @return true si los permisos estan activos
+     */
+    public static boolean isLocationPermissionGranted(Context context){
+        return ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
 
     /**
      * Sincronizar el SynAdapter ahora
@@ -44,7 +98,7 @@ public class Utils {
         try{
             accountManager.addAccountExplicitly(newAccount, null, null);
         }catch(Exception e){
-            Log.i("123456789", "ERROR");
+
         }
     }
 

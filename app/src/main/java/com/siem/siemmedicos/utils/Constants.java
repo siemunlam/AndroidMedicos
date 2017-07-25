@@ -2,6 +2,9 @@ package com.siem.siemmedicos.utils;
 
 import android.Manifest;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class Constants {
 
     /**
@@ -12,6 +15,16 @@ public class Constants {
     public static final String DEMO_ACCOUNT_NAME = "demo@siemmedicos.com";
 
     /**
+     * Shared preferences constants
+     */
+    static final String NAME_SHAREDPREFERENCES = "SIEM_MEDICOS_PREFERENCES";
+
+    /**
+     * Notification Services in Foreground
+     */
+    public static final int ID_NOTIFICATION_SERVICE = 1001;
+
+    /**
      * Permissions
      */
     public static final String[] permissions = {
@@ -20,6 +33,12 @@ public class Constants {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_NETWORK_STATE
     };
+
+    /**
+     * Date
+     */
+    public static final SimpleDateFormat DATE_COMPLET_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+    public static final SimpleDateFormat DATE_USER_FORMAT = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US);
 
     /**
      * Calls API

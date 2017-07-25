@@ -59,7 +59,6 @@ public class DBContract {
         public static final String COLUMN_NAME_SPEED = "speed";
         public static final String COLUMN_NAME_PROVIDER = "provider";
         public static final String COLUMN_NAME_BEARING = "bearing";
-        public static final String COLUMN_NAME_METHOD_SERVICE = "method_service";
     }
 
 }

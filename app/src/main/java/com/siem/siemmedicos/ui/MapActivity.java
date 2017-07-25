@@ -1,9 +1,9 @@
 package com.siem.siemmedicos.ui;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityMapBinding;
+import com.siem.siemmedicos.services.SelectLocationService;
 import com.siem.siemmedicos.utils.Utils;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -29,6 +30,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_map);
         mBinding.containerExtraData.bringToFront();
+
+        startService(new Intent(MapActivity.this, SelectLocationService.class));
 
         MapFragment fragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
