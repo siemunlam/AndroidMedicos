@@ -8,6 +8,11 @@ import java.util.Locale;
 public class Constants {
 
     /**
+     * Maps
+     */
+    public static final float INITIAL_ZOOM = 16.0F;
+
+    /**
      * SyncAdapter
      */
     public static final int ONE_MINUTE = 60 * 1000;
