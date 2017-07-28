@@ -11,7 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/heightContainerExtraData"
             android:background="@drawable/container_extra_data"
-            android:gravity="bottom"
             android:id="@+id/containerExtraData"
             android:layout_margin="@dimen/halfDefaultMargin"
             android:visibility="gone">
@@ -24,8 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/containerButtons"
-            android:layout_toEndOf="@+id/containerButtons"/>
+            android:layout_above="@+id/containerButtons"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,6 +62,7 @@
             android:layout_margin="@dimen/defaultMargin"
             android:src="@drawable/ic_location"
             android:tint="@android:color/black"
+            android:id="@+id/myLocationButton"
             app:backgroundTint="@android:color/white"
             app:fabSize="normal"/>
 

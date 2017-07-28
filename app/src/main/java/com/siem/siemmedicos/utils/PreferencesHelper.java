@@ -12,6 +12,10 @@ public class PreferencesHelper {
     private static final String KEY_LAST_LOCATION_TIME = "LAST_LOCATION_TIME";
     private static final String KEY_LAST_BEARING = "LAST_LOCATION_BEARING";
     private static final String KEY_LAST_PROVIDER = "LAST_LOCATION_PROVIDER";
+    private static final String KEY_LATITUDE_AUXILIO = "KEY_LATITUDE_AUXILIO";
+    private static final String KEY_LONGITUDE_AUXILIO = "KEY_LONGITUDE_AUXILIO";
+    private static final String KEY_MEDICO_ID = "KEY_MEDICO_ID";
+    private static final String KEY_ESTADO = "KEY_ESTADO";
 
     private static PreferencesHelper mInstance = null;
     private SharedPreferences mPreferences;
@@ -86,6 +90,62 @@ public class PreferencesHelper {
 
     public void setLastProvider(String value){
         mPreferences.edit().putString(KEY_LAST_PROVIDER, value).apply();
+    }
+
+
+    //KEY_LATITUDE_AUXILIO
+    public String getLatitudeAuxilio(){
+        return mPreferences.getString(KEY_LATITUDE_AUXILIO, null);
+    }
+
+    public void setLatitudeAuxilio(String value){
+        mPreferences.edit().putString(KEY_LATITUDE_AUXILIO, value).apply();
+    }
+
+    public void cleanLatitudeAuxilio(){
+        mPreferences.edit().remove(KEY_LATITUDE_AUXILIO).apply();
+    }
+
+
+    //KEY_LONGITUDE_AUXILIO
+    public String getLongitudeAuxilio(){
+        return mPreferences.getString(KEY_LONGITUDE_AUXILIO, null);
+    }
+
+    public void setLongitudeAuxilio(String value){
+        mPreferences.edit().putString(KEY_LONGITUDE_AUXILIO, value).apply();
+    }
+
+    public void cleanLongitudeAuxilio(){
+        mPreferences.edit().remove(KEY_LONGITUDE_AUXILIO).apply();
+    }
+
+
+    //KEY_MEDICO_ID
+    public String getMedicoId(){
+        return mPreferences.getString(KEY_MEDICO_ID, null);
+    }
+
+    public void setMedicoId(String value){
+        mPreferences.edit().putString(KEY_MEDICO_ID, value).apply();
+    }
+
+    public void cleanMedicoId(){
+        mPreferences.edit().remove(KEY_MEDICO_ID).apply();
+    }
+
+
+    //KEY_ESTADO
+    public int getEstado(){
+        return mPreferences.getInt(KEY_ESTADO, Constants.EN_ESPERA);
+    }
+
+    public void setEstado(int estado){
+        mPreferences.edit().putInt(KEY_ESTADO, estado).apply();
+    }
+
+    public void clearEstado(){
+        mPreferences.edit().remove(KEY_ESTADO).apply();
     }
 
 }

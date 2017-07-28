@@ -11,6 +11,15 @@ public class Constants {
      * Maps
      */
     public static final float INITIAL_ZOOM = 16.0F;
+    public static final float EMERGENCY_ZOOM = 19.0F;
+
+    /**
+     * Estados
+     */
+    public static final int EN_ESPERA = 0;
+    public static final int EN_AUXILIO = 1;
+    public static final int EN_AUXILIO_CASUAL = 2;
+    public static final int NO_DISPONIBLE = 3;
 
     /**
      * SyncAdapter

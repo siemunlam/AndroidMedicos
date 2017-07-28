@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.siem.siemmedicos.utils.Constants;
+import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.Utils;
 
 public class SelectLocationService extends Service {
 
+    private PreferencesHelper mPreferences;
     private Intent mLocationServiceIntent;
     private Intent mIntensiveLocationServiceIntent;
 
@@ -21,14 +24,14 @@ public class SelectLocationService extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
-
+        mPreferences = PreferencesHelper.getInstance();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         stopLocationsServices();
 
-        if(Utils.locationIntensiveMode(SelectLocationService.this))
+        if(Utils.locationIntensiveMode(SelectLocationService.this) || mPreferences.getEstado() == Constants.EN_AUXILIO)
             startService(mIntensiveLocationServiceIntent);
         else
             startService(mLocationServiceIntent);
