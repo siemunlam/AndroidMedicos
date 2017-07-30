@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -37,7 +38,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             stopService(new Intent(this, LocationService.class));
             startService(new Intent(this, SelectLocationService.class));
             sendNotification("Que texto va??");
+            sendBroadcast();
         }
+    }
+
+    private void sendBroadcast(){
+        Intent intent = new Intent(Constants.BROADCAST_NEW_AUXILIO);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
     private void sendNotification(String messageBody) {

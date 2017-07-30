@@ -1,11 +1,13 @@
 package com.siem.siemmedicos.ui;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -32,6 +35,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -40,6 +44,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityMapBinding;
 import com.siem.siemmedicos.model.app.LastLocation;
+import com.siem.siemmedicos.model.app.Map;
 import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
 import com.siem.siemmedicos.model.googlemapsapi.Step;
 import com.siem.siemmedicos.services.SelectLocationService;
@@ -58,9 +63,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private static final int PERMISSIONS_REQUEST = 100;
 
+    private BroadcastReceiver mNewAuxilioBroadcastReceiver;
     private PreferencesHelper mPreferences;
     private ActivityMapBinding mBinding;
-    private GoogleMap mMap;
+    private Map myMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_map);
         MapFragment fragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
+        instanceVariables();
 
         mBinding.buttonUnlink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +93,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mBinding.myLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Utils.getPassiveLocation(MapActivity.this), Constants.INITIAL_ZOOM));
+                myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Utils.getPassiveLocation(MapActivity.this), Constants.INITIAL_ZOOM));
             }
         });
     }
@@ -94,13 +101,45 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onResume() {
         super.onResume();
+        registerBroadcastReceiver();
         Utils.createSyncAccount(getApplicationContext());
         Utils.syncNow(this);
         Utils.setupContentResolver(this);
         if (checkAllPermissions()) {
-            checkGpsOn();
+            Utils.checkGpsOn(this);
             init();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterBroadcastReceiver();
+    }
+
+    private void registerBroadcastReceiver() {
+        /**
+         * Barcode broadcast receiver setup
+         */
+        mNewAuxilioBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals(Constants.BROADCAST_NEW_AUXILIO)) {
+                    Toast.makeText(MapActivity.this, getString(R.string.asignNuevoAuxilio), Toast.LENGTH_LONG).show();
+                    setearEstado();
+                }
+            }
+        };
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.BROADCAST_NEW_AUXILIO);
+        LocalBroadcastManager bm = LocalBroadcastManager.getInstance(this);
+        bm.registerReceiver(mNewAuxilioBroadcastReceiver, filter);
+    }
+
+    private void unregisterBroadcastReceiver(){
+        LocalBroadcastManager bm = LocalBroadcastManager.getInstance(this);
+        bm.unregisterReceiver(mNewAuxilioBroadcastReceiver);
     }
 
     @Override
@@ -133,40 +172,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        myMap.setMap(googleMap);
 
         LastLocation lastLocation = new LastLocation(Utils.getPassiveLocation(MapActivity.this));
         if (!lastLocation.isNullLocation())
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.INITIAL_ZOOM));
+            myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.INITIAL_ZOOM));
         else
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(lastLocation.getLocation()));
+            myMap.animateCamera(CameraUpdateFactory.newLatLng(lastLocation.getLocation()));
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }mMap.setMyLocationEnabled(false);
         mBinding.containerExtraData.bringToFront();
         mBinding.containerButtons.bringToFront();
         setearEstado();
-    }
-
-    private void checkGpsOn() {
-        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            new FragmentDialog().getTextViewDialog(
-                    MapActivity.this,
-                    "Debe activar el GPS para continuar.",
-                    getString(R.string.accept),
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                        }
-                    },
-                    null,
-                    null,
-                    false
-            ).show();
-        }
     }
 
     @Override
@@ -190,10 +206,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void init() {
         startService(new Intent(MapActivity.this, SelectLocationService.class));
-        instanceVariables();
     }
 
     private void instanceVariables() {
+        myMap = new Map(this);
         mPreferences = PreferencesHelper.getInstance();
     }
 
@@ -209,7 +225,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 lastLocation.getDirections(this, this);
                 mBinding.containerButtons.setVisibility(View.VISIBLE);
                 mBinding.containerExtraData.setVisibility(View.VISIBLE);
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(Constants.EMERGENCY_ZOOM));
+                myMap.animateCamera(CameraUpdateFactory.zoomTo(Constants.EMERGENCY_ZOOM));
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) (getResources().getDimension(R.dimen.defaultMargin) + getResources().getDimension(R.dimen.heightContainerButtons)));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;
@@ -246,13 +262,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             ResponseDirections responseDirections = response.body();
             ArrayList<Step> steps = responseDirections.getSteps();
             PolylineOptions polylineOptions = new PolylineOptions();
-            polylineOptions.add(steps.get(0).getStartLocation());
+            polylineOptions.add(responseDirections.getFirstLocation());
             for (Step step : steps) {
                 polylineOptions.add(step.getEndLocation());
             }
             polylineOptions.width(25);
             polylineOptions.color(ContextCompat.getColor(MapActivity.this, R.color.polyline));
-            Polyline line = mMap.addPolyline(polylineOptions);
+            myMap.addPolyline(polylineOptions);
+            myMap.addFinishMarker(responseDirections.getLastLocation());
         }catch(Exception e){
             Toast.makeText(MapActivity.this, getString(R.string.error), Toast.LENGTH_LONG).show();
         }

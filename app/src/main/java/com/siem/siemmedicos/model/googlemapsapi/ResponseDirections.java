@@ -23,4 +23,12 @@ public class ResponseDirections {
         return leg.getSteps();
     }
 
+    public LatLng getFirstLocation(){
+        return getSteps().get(0).getStartLocation();
+    }
+
+    public LatLng getLastLocation(){
+        return getSteps().get(getSteps().size() - 1).getEndLocation();
+    }
+
 }

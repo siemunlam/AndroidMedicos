@@ -61,4 +61,9 @@ public class Constants {
     public static final String DESTINATION = "destination";
     public static final String KEY = "key";
 
+    /**
+     * Receivers
+     */
+    public static final String BROADCAST_NEW_AUXILIO = "com.siem.siemmedicos.new_auxilio";
+
 }
