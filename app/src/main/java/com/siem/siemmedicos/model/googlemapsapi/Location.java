@@ -10,4 +10,11 @@ public class Location {
     @SerializedName("lng")
     private String mLongitud;
 
+    public String getLatitud() {
+        return mLatitud;
+    }
+
+    public String getLongitud() {
+        return mLongitud;
+    }
 }

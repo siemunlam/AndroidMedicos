@@ -12,17 +12,33 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.R;
+import com.siem.siemmedicos.ui.MapActivity;
 
 import java.util.Calendar;
 import java.util.TimeZone;
 
 public class Utils {
+
+    public static void logout(){
+        PreferencesHelper preferences = PreferencesHelper.getInstance();
+        preferences.cleanEstado();
+        preferences.cleanLastLatitude();
+        preferences.cleanLastLocationBearing();
+        preferences.cleanLastLocationTime();
+        preferences.cleanLastLongitude();
+        preferences.cleanLastProvider();
+        preferences.cleanLatitudeAuxilio();
+        preferences.cleanLongitudeAuxilio();
+        preferences.cleanMedicoId();
+    }
 
     /**
      * Para saber si debe correr el servicio de Location en modo intensivo
@@ -147,5 +163,18 @@ public class Utils {
         return new Account(
                 Constants.DEMO_ACCOUNT_NAME,
                 context.getString(R.string.account_type));
+    }
+
+    /**
+     * Retorna la ubicacion
+     * @return LatLng
+     */
+    public static LatLng getPassiveLocation(Context context) {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return null;
+        }
+        LocationManager locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        Location lastLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        return new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
     }
 }

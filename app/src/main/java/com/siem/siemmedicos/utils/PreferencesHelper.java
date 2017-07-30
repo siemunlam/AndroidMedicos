@@ -48,6 +48,10 @@ public class PreferencesHelper {
         mPreferences.edit().putString(KEY_LAST_LATITUDE, value).apply();
     }
 
+    public void cleanLastLatitude(){
+        mPreferences.edit().remove(KEY_LAST_LATITUDE).apply();
+    }
+
 
     // KEY_LAST_LONGITUDE
     public String getLastLongitude(){
@@ -62,6 +66,10 @@ public class PreferencesHelper {
         mPreferences.edit().putString(KEY_LAST_LONGITUDE, value).apply();
     }
 
+    public void cleanLastLongitude(){
+        mPreferences.edit().remove(KEY_LAST_LONGITUDE).apply();
+    }
+
 
     // KEY_LAST_LOCATION_TIME
     public long getLastLocationTime(){
@@ -70,6 +78,10 @@ public class PreferencesHelper {
 
     public void setLastLocationTime(long value){
         mPreferences.edit().putLong(KEY_LAST_LOCATION_TIME, value).apply();
+    }
+
+    public void cleanLastLocationTime(){
+        mPreferences.edit().remove(KEY_LAST_LOCATION_TIME).apply();
     }
 
 
@@ -82,6 +94,10 @@ public class PreferencesHelper {
         mPreferences.edit().putFloat(KEY_LAST_BEARING, value).apply();
     }
 
+    public void cleanLastLocationBearing(){
+        mPreferences.edit().remove(KEY_LAST_BEARING).apply();
+    }
+
 
     // KEY_LAST_PROVIDER
     public String getLastProvider(String defaultValue){
@@ -90,6 +106,10 @@ public class PreferencesHelper {
 
     public void setLastProvider(String value){
         mPreferences.edit().putString(KEY_LAST_PROVIDER, value).apply();
+    }
+
+    public void cleanLastProvider(){
+        mPreferences.edit().remove(KEY_LAST_PROVIDER).apply();
     }
 
 
@@ -144,7 +164,7 @@ public class PreferencesHelper {
         mPreferences.edit().putInt(KEY_ESTADO, estado).apply();
     }
 
-    public void clearEstado(){
+    public void cleanEstado(){
         mPreferences.edit().remove(KEY_ESTADO).apply();
     }
 

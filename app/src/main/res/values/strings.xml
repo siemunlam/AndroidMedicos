@@ -5,6 +5,7 @@
 
     <string name="accept">Aceptar</string>
     <string name="cancel">Cancelar</string>
+    <string name="error">Hubo un error. Intente de nuevo mas tarde.</string>
 
     <!-- Notificacion -->
     <string name="intensive_mode">Modo Intensivo</string>

@@ -38,18 +38,18 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/buttonUnlink"
-                android:background="@color/unlinkButton"
-                android:foreground="?attr/selectableItemBackground"
-                android:text="@string/unlink"/>
+                android:background="@drawable/button_unlink"
+                android:text="@string/unlink"
+                android:textStyle="bold"/>
 
             <android.support.v7.widget.AppCompatButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/buttonFinalize"
-                android:background="@color/finalizeButton"
-                android:foreground="?attr/selectableItemBackground"
-                android:text="@string/finalize"/>
+                android:background="@drawable/button_finalize"
+                android:text="@string/finalize"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 

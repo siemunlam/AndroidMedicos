@@ -1,11 +1,15 @@
 package com.siem.siemmedicos.ui;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.icu.text.LocaleDisplayNames;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -21,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,17 +34,27 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityMapBinding;
 import com.siem.siemmedicos.model.app.LastLocation;
+import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
+import com.siem.siemmedicos.model.googlemapsapi.Step;
 import com.siem.siemmedicos.services.SelectLocationService;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
+import com.siem.siemmedicos.utils.RetrofitClient;
 import com.siem.siemmedicos.utils.Utils;
 
 import java.util.ArrayList;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, Callback<ResponseDirections> {
 
     private static final int PERMISSIONS_REQUEST = 100;
 
@@ -71,13 +86,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mBinding.myLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-                Location lastLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-                LatLng lastLatLng = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLatLng, Constants.INITIAL_ZOOM));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Utils.getPassiveLocation(MapActivity.this), Constants.INITIAL_ZOOM));
             }
         });
     }
@@ -105,8 +114,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuUpdateStatus:
+                ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText(FirebaseInstanceId.getInstance().getToken(), FirebaseInstanceId.getInstance().getToken());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(this, FirebaseInstanceId.getInstance().getToken(), Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menuLogout:
+                Utils.logout();
+                Intent intent = new Intent(MapActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -117,7 +135,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LastLocation lastLocation = new LastLocation();
+        LastLocation lastLocation = new LastLocation(Utils.getPassiveLocation(MapActivity.this));
         if (!lastLocation.isNullLocation())
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.INITIAL_ZOOM));
         else
@@ -125,7 +143,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
-        }
+        }mMap.setMyLocationEnabled(false);
         mBinding.containerExtraData.bringToFront();
         mBinding.containerButtons.bringToFront();
         setearEstado();
@@ -187,6 +205,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         switch (mPreferences.getEstado()){
             case Constants.EN_AUXILIO:
                 Log.i("123456789", "PASO3");
+                LastLocation lastLocation = new LastLocation(Utils.getPassiveLocation(MapActivity.this));
+                lastLocation.getDirections(this, this);
                 mBinding.containerButtons.setVisibility(View.VISIBLE);
                 mBinding.containerExtraData.setVisibility(View.VISIBLE);
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(Constants.EMERGENCY_ZOOM));
@@ -218,5 +238,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onResponse(@NonNull Call<ResponseDirections> call, @NonNull Response<ResponseDirections> response) {
+        try{
+            ResponseDirections responseDirections = response.body();
+            ArrayList<Step> steps = responseDirections.getSteps();
+            PolylineOptions polylineOptions = new PolylineOptions();
+            polylineOptions.add(steps.get(0).getStartLocation());
+            for (Step step : steps) {
+                polylineOptions.add(step.getEndLocation());
+            }
+            polylineOptions.width(25);
+            polylineOptions.color(ContextCompat.getColor(MapActivity.this, R.color.polyline));
+            Polyline line = mMap.addPolyline(polylineOptions);
+        }catch(Exception e){
+            Toast.makeText(MapActivity.this, getString(R.string.error), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<ResponseDirections> call, Throwable t) {
+        Toast.makeText(MapActivity.this, getString(R.string.error), Toast.LENGTH_LONG).show();
     }
 }

@@ -15,4 +15,7 @@ public class Leg {
     @SerializedName("steps")
     private ArrayList<Step> mSteps;
 
+    public ArrayList<Step> getSteps() {
+        return mSteps;
+    }
 }

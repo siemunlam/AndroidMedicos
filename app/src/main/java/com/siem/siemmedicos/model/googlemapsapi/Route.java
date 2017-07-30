@@ -9,4 +9,7 @@ public class Route {
     @SerializedName("legs")
     private ArrayList<Leg> mLegs;
 
+    public Leg getLeg(int i) {
+        return mLegs.get(i);
+    }
 }

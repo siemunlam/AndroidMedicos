@@ -6,5 +6,8 @@
 
     <!-- Map -->
     <color name="unlinkButton">#FF3636</color>
+    <color name="unlinkButtonPressed">#D10D0D</color>
     <color name="finalizeButton">#5CFF5C</color>
+    <color name="finalizeButtonPressed">#06A106</color>
+    <color name="polyline">#479AFF</color>
 </resources>

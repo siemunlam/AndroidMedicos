@@ -27,8 +27,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 mPreferences.setMedicoId("1");
-                startActivity(new Intent(LoginActivity.this, MapActivity.class));
-                finish();
+                goToMap();
             }
         });
     }
@@ -37,8 +36,12 @@ public class LoginActivity extends Activity {
         mPreferences = PreferencesHelper.getInstance();
         Log.i("123456789", "Token: " + FirebaseInstanceId.getInstance().getToken()); //TODO: Borrar
         if(mPreferences.getMedicoId() != null){
-            startActivity(new Intent(LoginActivity.this, MapActivity.class));
-            finish();
+            goToMap();
         }
+    }
+
+    private void goToMap() {
+        startActivity(new Intent(LoginActivity.this, MapActivity.class));
+        finish();
     }
 }
