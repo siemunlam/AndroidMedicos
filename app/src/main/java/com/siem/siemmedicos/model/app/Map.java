@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -63,8 +64,18 @@ public class Map implements Callback<ResponseDirections> {
         mPolyline = mMap.addPolyline(polylineOptions);
     }
 
-    public void animateCamera(CameraUpdate cameraUpdate) {
-        mMap.animateCamera(cameraUpdate);
+    public void animateCamera(final CameraUpdate cameraUpdate) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mMap.animateCamera(cameraUpdate);
+            }
+        }, 500);
+    }
+
+    public void moveCamera(CameraUpdate cameraUpdate) {
+        mMap.moveCamera(cameraUpdate);
     }
 
     public void addFinishMarker(LatLng latLng) {

@@ -79,7 +79,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mBinding.myLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Utils.getPassiveLocation(MapActivity.this), Constants.INITIAL_ZOOM));
+                myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Utils.getPassiveLocation(MapActivity.this), Constants.NORMAL_ZOOM));
             }
         });
     }
@@ -168,12 +168,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         myMap.setMap(googleMap);
 
-        LastLocation lastLocation = new LastLocation(Utils.getPassiveLocation(MapActivity.this));
-        if (!lastLocation.isNullLocation())
-            myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.INITIAL_ZOOM));
-        else
-            myMap.animateCamera(CameraUpdateFactory.newLatLng(lastLocation.getLocation()));
-
         mBinding.containerExtraData.bringToFront();
         mBinding.containerButtons.bringToFront();
         setearEstado();
@@ -236,7 +230,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 myMap.getDirections(lastLocation);
                 mBinding.containerButtons.setVisibility(View.VISIBLE);
                 mBinding.containerExtraData.setVisibility(View.VISIBLE);
-                myMap.animateCamera(CameraUpdateFactory.zoomTo(Constants.EMERGENCY_ZOOM));
+                myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.EMERGENCY_ZOOM));
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) (getResources().getDimension(R.dimen.defaultMargin) + getResources().getDimension(R.dimen.heightContainerButtons)));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;
@@ -244,6 +238,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.i("123456789", "PASO4");
                 mBinding.containerButtons.setVisibility(View.GONE);
                 mBinding.containerExtraData.setVisibility(View.GONE);
+                lastLocation = new LastLocation(Utils.getPassiveLocation(MapActivity.this));
+                myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.NORMAL_ZOOM));
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) getResources().getDimension(R.dimen.defaultMargin));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;

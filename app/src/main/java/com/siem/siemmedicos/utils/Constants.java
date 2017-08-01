@@ -10,7 +10,8 @@ public class Constants {
     /**
      * Maps
      */
-    public static final float INITIAL_ZOOM = 16.0F;
+    public static final float INITIAL_ZOOM = 1.0F;
+    public static final float NORMAL_ZOOM = 16.0F;
     public static final float EMERGENCY_ZOOM = 19.0F;
 
     /**
