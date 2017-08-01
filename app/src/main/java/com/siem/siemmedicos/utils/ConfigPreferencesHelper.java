@@ -11,7 +11,7 @@ public class ConfigPreferencesHelper {
     private static final int DEFAULT_INTENSIVE_MODE_TIME_TRSHLD = 15000;
 
     private static final String KEY_INTENSIVE_MODE_DIST_TRSHLD = "INTENSIVE_MODE_DIST_TRSHLD";
-    private static final int DEFAULT_INTENSIVE_MODE_DIST_TRSHLD = 80;
+    private static final int DEFAULT_INTENSIVE_MODE_DIST_TRSHLD = 40;
 
     private static final String KEY_INTENSIVE_MODE_BEAR_TRSHLD = "INTENSIVE_MODE_BEAR_TRSHLD";
     private static final int DEFAULT_INTENSIVE_MODE_BEAR_TRSHLD = 30;

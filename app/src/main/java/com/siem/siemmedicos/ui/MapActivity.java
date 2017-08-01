@@ -1,20 +1,14 @@
 package com.siem.siemmedicos.ui;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.icu.text.LocaleDisplayNames;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,27 +16,20 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityMapBinding;
@@ -50,21 +37,14 @@ import com.siem.siemmedicos.db.DBContract;
 import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.model.app.LastLocation;
 import com.siem.siemmedicos.model.app.Map;
-import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
-import com.siem.siemmedicos.model.googlemapsapi.Step;
 import com.siem.siemmedicos.services.SelectLocationService;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
-import com.siem.siemmedicos.utils.RetrofitClient;
 import com.siem.siemmedicos.utils.Utils;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, Callback<ResponseDirections> {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int PERMISSIONS_REQUEST = 100;
 
@@ -239,6 +219,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(lastLatLng != null){
             Log.i("123456789", "New marker location");
             myMap.addPositionMarker(lastLatLng);
+            if(mPreferences.getEstado() == Constants.EN_AUXILIO)
+                myMap.controlateInRoute(lastLatLng);
         }
     }
 
@@ -251,7 +233,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             case Constants.EN_AUXILIO:
                 Log.i("123456789", "PASO3");
                 LastLocation lastLocation = new LastLocation(Utils.getPassiveLocation(MapActivity.this));
-                lastLocation.getDirections(this, this);
+                myMap.getDirections(lastLocation);
                 mBinding.containerButtons.setVisibility(View.VISIBLE);
                 mBinding.containerExtraData.setVisibility(View.VISIBLE);
                 myMap.animateCamera(CameraUpdateFactory.zoomTo(Constants.EMERGENCY_ZOOM));
@@ -283,29 +265,5 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void onResponse(@NonNull Call<ResponseDirections> call, @NonNull Response<ResponseDirections> response) {
-        try{
-            ResponseDirections responseDirections = response.body();
-            ArrayList<Step> steps = responseDirections.getSteps();
-            PolylineOptions polylineOptions = new PolylineOptions();
-            polylineOptions.add(responseDirections.getFirstLocation());
-            for (Step step : steps) {
-                polylineOptions.add(step.getEndLocation());
-            }
-            polylineOptions.width(25);
-            polylineOptions.color(ContextCompat.getColor(MapActivity.this, R.color.polyline));
-            myMap.addPolyline(polylineOptions);
-            myMap.addFinishMarker(responseDirections.getLastLocation());
-        }catch(Exception e){
-            Toast.makeText(MapActivity.this, getString(R.string.error), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onFailure(Call<ResponseDirections> call, Throwable t) {
-        Toast.makeText(MapActivity.this, getString(R.string.error), Toast.LENGTH_LONG).show();
     }
 }

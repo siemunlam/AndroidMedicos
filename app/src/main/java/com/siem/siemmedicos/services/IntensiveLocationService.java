@@ -52,8 +52,13 @@ public class IntensiveLocationService extends BaseLocationServices {
 
         if (timeDiff < TIME_THRESHOLD &&
                 (bearingDiff < BEARING_THRESHOLD || mMylocation.getSpeed() < BEARING_MIN_SPEED) &&
-                distanceDiff < DISTANCE_THRESHOLD)
+                distanceDiff < DISTANCE_THRESHOLD){
+            Log.i("123456789", "timeDiff: " + timeDiff + " - TIME_THRESHOLD: " + TIME_THRESHOLD);
+            Log.i("123456789", "bearingDiff: " + bearingDiff + " - BEARING_THRESHOLD: " + BEARING_THRESHOLD);
+            Log.i("123456789", "mMylocation.getSpeed(): " + mMylocation.getSpeed() + " - BEARING_MIN_SPEED: " + BEARING_MIN_SPEED);
+            Log.i("123456789", "distanceDiff: " + distanceDiff + " - DISTANCE_THRESHOLD: " + DISTANCE_THRESHOLD);
             return;
+        }
 
         // Save the location and reset the threshold counters
         saveInPreferencesLocationData(mMylocation);
