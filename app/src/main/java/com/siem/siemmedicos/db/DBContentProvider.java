@@ -4,6 +4,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -88,6 +89,7 @@ public class DBContentProvider extends ContentProvider {
                         null,
                         contentValues
                 );
+                notifyChange(DBContract.Locations.CONTENT_URI, null);
                 return uri;
 
             default:
@@ -137,6 +139,11 @@ public class DBContentProvider extends ContentProvider {
             default:
                 return 0;
         }
+    }
+
+    private void notifyChange(@NonNull Uri uri, @Nullable ContentObserver observer) {
+        if(getContext() != null)
+            getContext().getContentResolver().notifyChange(uri, observer);
     }
 
 }

@@ -12,6 +12,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -23,6 +24,7 @@ import com.siem.siemmedicos.R;
 
 public class Map {
 
+    private Marker mPositionMarker;
     private Context mContext;
     private GoogleMap mMap;
 
@@ -52,6 +54,15 @@ public class Map {
             .position(latLng)
             .anchor(0, 1f)
             .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons(R.drawable.ic_location_auxilio, 125, 125))));
+    }
+
+    public void addPositionMarker(LatLng latLng){
+        if(mPositionMarker == null) {
+            mPositionMarker = mMap.addMarker(new MarkerOptions()
+                    .position(latLng));
+        }else{
+            mPositionMarker.setPosition(latLng);
+        }
     }
 
     private Bitmap resizeMapIcons(int iconId, int width, int height){

@@ -9,12 +9,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.ContentObserver;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.icu.text.LocaleDisplayNames;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -43,6 +46,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityMapBinding;
+import com.siem.siemmedicos.db.DBContract;
+import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.model.app.LastLocation;
 import com.siem.siemmedicos.model.app.Map;
 import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
@@ -64,6 +69,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final int PERMISSIONS_REQUEST = 100;
 
     private BroadcastReceiver mNewAuxilioBroadcastReceiver;
+    private ContentObserver mObserver;
     private PreferencesHelper mPreferences;
     private ActivityMapBinding mBinding;
     private Map myMap;
@@ -102,6 +108,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onResume() {
         super.onResume();
         registerBroadcastReceiver();
+        registerContentObserver();
         Utils.createSyncAccount(getApplicationContext());
         Utils.syncNow(this);
         Utils.setupContentResolver(this);
@@ -115,12 +122,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onPause() {
         super.onPause();
         unregisterBroadcastReceiver();
+        unregisterContentObserver();
     }
 
     private void registerBroadcastReceiver() {
-        /**
-         * Barcode broadcast receiver setup
-         */
         mNewAuxilioBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -137,9 +142,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         bm.registerReceiver(mNewAuxilioBroadcastReceiver, filter);
     }
 
+    private void registerContentObserver() {
+        getContentResolver().registerContentObserver(DBContract.Locations.CONTENT_URI, true, mObserver);
+    }
+
     private void unregisterBroadcastReceiver(){
         LocalBroadcastManager bm = LocalBroadcastManager.getInstance(this);
         bm.unregisterReceiver(mNewAuxilioBroadcastReceiver);
+    }
+
+    private void unregisterContentObserver() {
+        if (mObserver != null)
+            getContentResolver().unregisterContentObserver(mObserver);
     }
 
     @Override
@@ -211,6 +225,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void instanceVariables() {
         myMap = new Map(this);
         mPreferences = PreferencesHelper.getInstance();
+        mObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
+            public void onChange(boolean selfChange) {
+                newLocation();
+            }
+        };
+    }
+
+    private void newLocation() {
+        Log.i("123456789", "New position location");
+        AppLocation location = new AppLocation();
+        LatLng lastLatLng = location.getLastSaved(this);
+        if(lastLatLng != null){
+            Log.i("123456789", "New marker location");
+            myMap.addPositionMarker(lastLatLng);
+        }
     }
 
     private void setearEstado() {

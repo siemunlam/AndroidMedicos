@@ -2,6 +2,7 @@ package com.siem.siemmedicos.services;
 
 import android.location.Location;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.model.app.AppLocation;
@@ -24,6 +25,7 @@ public class IntensiveLocationService extends BaseLocationServices {
     @Override
     protected void newLocation(Location location) {
         // Ignore the first n measurements, until the precision stabilizes
+        Log.i("123456789", "New location");
         mMeasurementNumber++;
         if (mMeasurementNumber <= MEASUREMENT_TO_IGNORE)
             return;
