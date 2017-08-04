@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.PolyUtil;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
 import com.siem.siemmedicos.model.googlemapsapi.Step;
@@ -60,6 +62,9 @@ public class Map implements Callback<ResponseDirections> {
         polylineOptions.color(ContextCompat.getColor(mContext, R.color.polyline));
         for (LatLng latLng : listLatLng) {
             polylineOptions.add(latLng);
+        }
+        if(mPolyline != null){
+            mPolyline.remove();
         }
         mPolyline = mMap.addPolyline(polylineOptions);
     }
@@ -107,6 +112,7 @@ public class Map implements Callback<ResponseDirections> {
     @Override
     public void onResponse(@NonNull Call<ResponseDirections> call, @NonNull Response<ResponseDirections> response) {
         try{
+            Log.i("123456789", "onResponse");
             ResponseDirections responseDirections = response.body();
             ArrayList<Step> steps = responseDirections.getSteps();
             ArrayList<LatLng> listLatLng = new ArrayList<>();
@@ -123,14 +129,16 @@ public class Map implements Callback<ResponseDirections> {
 
     @Override
     public void onFailure(Call<ResponseDirections> call, Throwable t) {
+        Log.i("123456789", "Failure");
         Toast.makeText(mContext, mContext.getString(R.string.error), Toast.LENGTH_LONG).show();
     }
 
     public void controlateInRoute(LatLng lastLatLng) {
-        /*if(!PolyUtil.isLocationOnPath(lastLatLng, mListLatLng, true)){
-            Toast.makeText(mContext, "Recalculando....", Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(mContext, "En ruta", Toast.LENGTH_LONG).show();
-        }*/
+        if(mPolyline != null){
+            if (!PolyUtil.isLocationOnPath(lastLatLng, mPolyline.getPoints(), true, 50)) {
+                Toast.makeText(mContext, "Recalculando....", Toast.LENGTH_LONG).show();
+                getDirections(new LastLocation(lastLatLng));
+            }
+        }
     }
 }
