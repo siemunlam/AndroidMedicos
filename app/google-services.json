@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "41131483023",
+    "firebase_url": "https://siemmedicos.firebaseio.com",
+    "project_id": "siemmedicos",
+    "storage_bucket": "siemmedicos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41131483023:android:ed85a4aa1872fc29",
+        "android_client_info": {
+          "package_name": "com.siem.siemmedicos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41131483023-p964suff6ecedtvsp1pscko1ng54t9qh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5cuFpc_C6fAy-RHznLghgB4nr017l-xY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
