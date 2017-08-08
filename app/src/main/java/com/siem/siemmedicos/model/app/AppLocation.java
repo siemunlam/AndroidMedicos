@@ -2,11 +2,9 @@ package com.siem.siemmedicos.model.app;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.location.Location;
 import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.db.DBContract;
 import com.siem.siemmedicos.utils.Constants;
 
@@ -92,6 +90,10 @@ public class AppLocation {
         mTimestamp = timestamp;
     }
 
+    public boolean isNullLocation(){
+        return mLatitude == 0 && mLongitude == 0;
+    }
+
     public void save(Context context){
         Log.i("123456789", "New valid location");
         Date now = new Date();
@@ -107,24 +109,6 @@ public class AppLocation {
         values.put(DBContract.Locations.COLUMN_NAME_PROVIDER, getProvider());
         values.put(DBContract.Locations.COLUMN_NAME_BEARING, String.valueOf(getBearing()));
         context.getContentResolver().insert(DBContract.Locations.CONTENT_URI, values);
-    }
-
-    public LatLng getLastSaved(Context context){
-        Cursor cursor = context.getContentResolver().query(
-                DBContract.Locations.CONTENT_URI,
-                null,
-                null,
-                null,
-                DBContract.Locations.COLUMN_NAME_TIMESTAMP_LOC + " DESC LIMIT 1");
-        if(cursor != null){
-            if(cursor.moveToNext()){
-                Double lat = cursor.getDouble(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_LATITUDE));
-                Double lng = cursor.getDouble(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_LONGITUDE));
-                return new LatLng(lat, lng);
-            }
-            cursor.close();
-        }
-        return null;
     }
 
 }

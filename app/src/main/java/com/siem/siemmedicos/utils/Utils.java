@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.BatteryManager;
@@ -21,8 +22,8 @@ import android.support.v4.app.ActivityCompat;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.R;
+import com.siem.siemmedicos.db.DBContract;
 import com.siem.siemmedicos.ui.FragmentDialog;
-import com.siem.siemmedicos.ui.MapActivity;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -202,4 +203,30 @@ public class Utils {
         else
             return new LatLng(0, 0);
     }
+
+    public static Location getLastLocationSaved(Context context){
+        Location location = null;
+        Cursor cursor = context.getContentResolver().query(
+                DBContract.Locations.CONTENT_URI,
+                null,
+                null,
+                null,
+                DBContract.Locations.COLUMN_NAME_TIMESTAMP_LOC + " DESC LIMIT 1");
+        if(cursor != null){
+            if(cursor.moveToNext()){
+                Double lat = cursor.getDouble(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_LATITUDE));
+                Double lng = cursor.getDouble(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_LONGITUDE));
+                String bearing = cursor.getString(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_BEARING));
+                String provider = cursor.getString(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_PROVIDER));
+
+                location = new Location(provider);
+                location.setLatitude(lat);
+                location.setLongitude(lng);
+                location.setBearing(Float.parseFloat(bearing));
+            }
+            cursor.close();
+        }
+        return location;
+    }
+
 }

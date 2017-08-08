@@ -10,26 +10,40 @@ import com.siem.siemmedicos.utils.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LastLocation {
 
     private PreferencesHelper mPreferences;
     private LatLng mLocation;
+    private float mBearing;
 
     public LastLocation(){
         mPreferences = PreferencesHelper.getInstance();
         Double lat = Double.parseDouble(mPreferences.getLastLatitude("0"));
         Double lng = Double.parseDouble(mPreferences.getLastLongitude("0"));
         mLocation = new LatLng(lat, lng);
+        mBearing = mPreferences.getLastLocationBearing(0);
     }
 
     public LastLocation(LatLng lastLatLng){
         mLocation = lastLatLng;
+        mBearing = 0;
     }
 
     public LatLng getLocation(){
         return mLocation;
+    }
+
+    public double getLatitude(){
+        return mLocation.latitude;
+    }
+
+    public double getLongitude(){
+        return mLocation.longitude;
+    }
+
+    public float getBearing() {
+        return mBearing;
     }
 
     public boolean isNullLocation(){

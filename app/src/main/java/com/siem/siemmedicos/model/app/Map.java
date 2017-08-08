@@ -3,9 +3,9 @@ package com.siem.siemmedicos.model.app;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -14,8 +14,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -25,7 +27,7 @@ import com.google.maps.android.PolyUtil;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
 import com.siem.siemmedicos.model.googlemapsapi.Step;
-import com.siem.siemmedicos.ui.MapActivity;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -35,15 +37,17 @@ import retrofit2.Response;
 
 public class Map implements Callback<ResponseDirections> {
 
+    private static final int SIZE_FINISH_MARKER = 125;
+    private static final int SIZE_POSITION_MARKER = 230;
+
     private Marker mPositionMarker;
     private Polyline mPolyline;
-    private ArrayList<LatLng> mListLatLng;
+    private Location mPreviousLocation;
     private Context mContext;
     private GoogleMap mMap;
 
     public Map(Context context){
         mContext = context;
-        mListLatLng = new ArrayList<>();
     }
 
     public void setMap(GoogleMap map) {
@@ -56,7 +60,6 @@ public class Map implements Callback<ResponseDirections> {
     }
 
     public void addPolyline(ArrayList<LatLng> listLatLng) {
-        mListLatLng = listLatLng;
         PolylineOptions polylineOptions = new PolylineOptions();
         polylineOptions.width(25);
         polylineOptions.color(ContextCompat.getColor(mContext, R.color.polyline));
@@ -87,17 +90,48 @@ public class Map implements Callback<ResponseDirections> {
         mMap.addMarker(new MarkerOptions()
             .position(latLng)
             .anchor(0, 1f)
-            .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons(R.drawable.ic_location_auxilio, 125, 125))));
+            .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons(R.drawable.ic_location_auxilio, SIZE_FINISH_MARKER, SIZE_FINISH_MARKER))));
     }
 
-    public void addPositionMarker(LatLng latLng){
+    public void addPositionMarker(Location location){
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        float bearing = getBearing(location);
         if(mPositionMarker == null) {
             mPositionMarker = mMap.addMarker(
                     new MarkerOptions()
-                    .position(latLng));
+                            .position(latLng)
+                            .anchor(0.5f, 0.5f)
+                            .rotation(bearing)
+                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons(R.drawable.ic_ambulance, SIZE_POSITION_MARKER, SIZE_POSITION_MARKER))));
         }else{
             mPositionMarker.setPosition(latLng);
+            mPositionMarker.setRotation(bearing);
         }
+        rotateMap(bearing);
+        mPreviousLocation = location;
+    }
+
+    public void addPositionMarker(LastLocation location){
+        Location newLocation = new Location("GPS");
+        newLocation.setLatitude(location.getLatitude());
+        newLocation.setLongitude(location.getLongitude());
+        addPositionMarker(newLocation);
+    }
+
+    private float getBearing(Location newLocation) {
+        if(mPreviousLocation != null){
+            return (float) Math.atan2(mPreviousLocation.getBearing(), newLocation.getBearing());
+        }else{
+            return newLocation.getBearing();
+        }
+    }
+
+    private void rotateMap(float bearing) {
+        CameraPosition camPos = CameraPosition
+                .builder(mMap.getCameraPosition())
+                .bearing(bearing)
+                .build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camPos));
     }
 
     private Bitmap resizeMapIcons(int iconId, int width, int height){
@@ -106,7 +140,8 @@ public class Map implements Callback<ResponseDirections> {
     }
 
     public void getDirections(LastLocation lastLocation) {
-        lastLocation.getDirections(mContext, this);
+        if(!lastLocation.isNullLocation())
+            lastLocation.getDirections(mContext, this);
     }
 
     @Override
@@ -123,21 +158,24 @@ public class Map implements Callback<ResponseDirections> {
             addPolyline(listLatLng);
             addFinishMarker(responseDirections.getLastLocation());
         }catch(Exception e){
-            Toast.makeText(mContext, mContext.getString(R.string.error), Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, mContext.getString(R.string.errorNoRoute), Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onFailure(Call<ResponseDirections> call, Throwable t) {
         Log.i("123456789", "Failure");
-        Toast.makeText(mContext, mContext.getString(R.string.error), Toast.LENGTH_LONG).show();
+        //Toast.makeText(mContext, mContext.getString(R.string.error), Toast.LENGTH_LONG).show();
     }
 
-    public void controlateInRoute(LatLng lastLatLng) {
+    public void controlateInRoute(Location location) {
+        LatLng lastLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         if(mPolyline != null){
             if (!PolyUtil.isLocationOnPath(lastLatLng, mPolyline.getPoints(), true, 50)) {
                 Toast.makeText(mContext, "Recalculando....", Toast.LENGTH_LONG).show();
                 getDirections(new LastLocation(lastLatLng));
+            }else{
+                Toast.makeText(mContext, "Todo bien....", Toast.LENGTH_LONG).show();
             }
         }
     }

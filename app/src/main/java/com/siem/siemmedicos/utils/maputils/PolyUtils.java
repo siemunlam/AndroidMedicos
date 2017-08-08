@@ -2,13 +2,29 @@ package com.siem.siemmedicos.utils.maputils;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
-import static com.siem.siemmedicos.utils.maputils.MathUtil.*;
-import static java.lang.Math.*;
-import static com.siem.siemmedicos.utils.maputils.SphericalUtil.*;
+import static com.siem.siemmedicos.utils.maputils.MathUtil.EARTH_RADIUS;
+import static com.siem.siemmedicos.utils.maputils.MathUtil.clamp;
+import static com.siem.siemmedicos.utils.maputils.MathUtil.hav;
+import static com.siem.siemmedicos.utils.maputils.MathUtil.havDistance;
+import static com.siem.siemmedicos.utils.maputils.MathUtil.havFromSin;
+import static com.siem.siemmedicos.utils.maputils.MathUtil.inverseMercator;
+import static com.siem.siemmedicos.utils.maputils.MathUtil.mercator;
+import static com.siem.siemmedicos.utils.maputils.MathUtil.sinFromHav;
+import static com.siem.siemmedicos.utils.maputils.MathUtil.sinSumFromHav;
+import static com.siem.siemmedicos.utils.maputils.MathUtil.wrap;
+import static com.siem.siemmedicos.utils.maputils.SphericalUtil.computeDistanceBetween;
+import static java.lang.Math.PI;
+import static java.lang.Math.cos;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static java.lang.Math.sin;
+import static java.lang.Math.sqrt;
+import static java.lang.Math.tan;
+import static java.lang.Math.toRadians;
 
 public class PolyUtils {
 

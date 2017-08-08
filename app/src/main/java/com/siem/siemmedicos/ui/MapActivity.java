@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.databinding.DataBindingUtil;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -29,12 +30,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityMapBinding;
 import com.siem.siemmedicos.db.DBContract;
-import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.model.app.LastLocation;
 import com.siem.siemmedicos.model.app.Map;
 import com.siem.siemmedicos.services.SelectLocationService;
@@ -208,13 +207,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void newLocation() {
         Log.i("123456789", "New position location");
-        AppLocation location = new AppLocation();
-        LatLng lastLatLng = location.getLastSaved(this);
-        if(lastLatLng != null){
+        Location location = Utils.getLastLocationSaved(this);
+        if(location != null){
             Log.i("123456789", "New marker location");
-            myMap.addPositionMarker(lastLatLng);
+            myMap.addPositionMarker(location);
             if(mPreferences.getEstado() == Constants.EN_AUXILIO)
-                myMap.controlateInRoute(lastLatLng);
+                myMap.controlateInRoute(location);
         }
     }
 
@@ -228,9 +226,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.i("123456789", "PASO3");
                 LastLocation lastLocation = new LastLocation(Utils.getPassiveLocation(MapActivity.this));
                 myMap.getDirections(lastLocation);
+                myMap.addPositionMarker(lastLocation);
                 mBinding.containerButtons.setVisibility(View.VISIBLE);
                 mBinding.containerExtraData.setVisibility(View.VISIBLE);
-                myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.EMERGENCY_ZOOM));
+                //myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.EMERGENCY_ZOOM));
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) (getResources().getDimension(R.dimen.defaultMargin) + getResources().getDimension(R.dimen.heightContainerButtons)));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;
@@ -239,7 +238,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 mBinding.containerButtons.setVisibility(View.GONE);
                 mBinding.containerExtraData.setVisibility(View.GONE);
                 lastLocation = new LastLocation(Utils.getPassiveLocation(MapActivity.this));
-                myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.NORMAL_ZOOM));
+                //myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.NORMAL_ZOOM));
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) getResources().getDimension(R.dimen.defaultMargin));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;

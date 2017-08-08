@@ -5,7 +5,10 @@
 
     <string name="accept">Aceptar</string>
     <string name="cancel">Cancelar</string>
+
+    <!-- Error -->
     <string name="error">Hubo un error. Intente de nuevo mas tarde.</string>
+    <string name="errorNoRoute">No se encontró una ruta posible.</string>
 
     <!-- Notificacion -->
     <string name="intensive_mode">Modo Intensivo</string>
