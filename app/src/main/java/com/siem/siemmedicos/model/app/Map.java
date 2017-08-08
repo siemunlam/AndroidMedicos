@@ -94,21 +94,23 @@ public class Map implements Callback<ResponseDirections> {
     }
 
     public void addPositionMarker(Location location){
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        float bearing = getBearing(location);
-        if(mPositionMarker == null) {
-            mPositionMarker = mMap.addMarker(
-                    new MarkerOptions()
-                            .position(latLng)
-                            .anchor(0.5f, 0.5f)
-                            .rotation(bearing)
-                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons(R.drawable.ic_ambulance, SIZE_POSITION_MARKER, SIZE_POSITION_MARKER))));
-        }else{
-            mPositionMarker.setPosition(latLng);
-            mPositionMarker.setRotation(bearing);
+        if(location.getLatitude() != 0 && location.getLongitude() != 0){
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            float bearing = getBearing(location);
+            if(mPositionMarker == null) {
+                mPositionMarker = mMap.addMarker(
+                        new MarkerOptions()
+                                .position(latLng)
+                                .anchor(0.5f, 0.5f)
+                                .rotation(bearing)
+                                .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons(R.drawable.ic_ambulance, SIZE_POSITION_MARKER, SIZE_POSITION_MARKER))));
+            }else{
+                mPositionMarker.setPosition(latLng);
+                mPositionMarker.setRotation(bearing);
+            }
+            rotateMap(bearing);
+            mPreviousLocation = location;
         }
-        rotateMap(bearing);
-        mPreviousLocation = location;
     }
 
     public void addPositionMarker(AppLocation location){
@@ -140,10 +142,8 @@ public class Map implements Callback<ResponseDirections> {
     }
 
     public void getDirections(AppLocation lastLocation) {
-        if(!lastLocation.isNullLocation()) {
+        if(!lastLocation.isNullLocation())
             lastLocation.getDirections(mContext, this);
-            Log.i("123456789", "Lat: " + lastLocation.getLatitude() + " - Lng: " + lastLocation.getLongitude());
-        }
     }
 
     @Override

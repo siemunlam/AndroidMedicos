@@ -79,8 +79,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
-                myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLatLng(), Constants.NORMAL_ZOOM));
-                myMap.addPositionMarker(lastLocation);
+                if(!lastLocation.isNullLocation()){
+                    myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLatLng(), Constants.NORMAL_ZOOM));
+                    myMap.addPositionMarker(lastLocation);
+                }
             }
         });
     }

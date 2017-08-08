@@ -8,7 +8,7 @@ import com.siem.siemmedicos.Application;
 public class ConfigPreferencesHelper {
 
     private static final String KEY_INTENSIVE_MODE_TIME_TRSHLD = "INTENSIVE_MODE_TIME_TRSHLD";
-    private static final int DEFAULT_INTENSIVE_MODE_TIME_TRSHLD = 15000;
+    private static final int DEFAULT_INTENSIVE_MODE_TIME_TRSHLD = 10000;
 
     private static final String KEY_INTENSIVE_MODE_DIST_TRSHLD = "INTENSIVE_MODE_DIST_TRSHLD";
     private static final int DEFAULT_INTENSIVE_MODE_DIST_TRSHLD = 40;
@@ -20,7 +20,7 @@ public class ConfigPreferencesHelper {
     private static final float DEFAULT_INTENSIVE_MODE_BEAR_MIN_SPEED = 10.0f;
 
     private static final String KEY_NORMAL_MODE_TIME_TRSHLD = "NORMAL_MODE_TIME_TRSHLD";
-    private static final int DEFAULT_NORMAL_MODE_TIME_TRSHLD = Constants.ONE_MINUTE;
+    private static final int DEFAULT_NORMAL_MODE_TIME_TRSHLD = Constants.ONE_MINUTE / 2;
 
     private static ConfigPreferencesHelper mInstance = null;
     private SharedPreferences mPreferences;

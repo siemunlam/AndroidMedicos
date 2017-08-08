@@ -26,7 +26,7 @@ public class Constants {
      * SyncAdapter
      */
     public static final int ONE_MINUTE = 60 * 1000;
-    public static final long SYNC_INTERVAL = ONE_MINUTE;
+    public static final long SYNC_INTERVAL = ONE_MINUTE * 5;
     public static final String DEMO_ACCOUNT_NAME = "demo@siemmedicos.com";
 
     /**
