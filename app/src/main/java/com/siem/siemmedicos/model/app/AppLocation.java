@@ -5,10 +5,18 @@ import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.db.DBContract;
+import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
 import com.siem.siemmedicos.utils.Constants;
+import com.siem.siemmedicos.utils.PreferencesHelper;
+import com.siem.siemmedicos.utils.RetrofitClient;
 
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class AppLocation {
 
@@ -32,6 +40,12 @@ public class AppLocation {
         setProvider(location.getProvider());
         setSpeed(location.getSpeed());
         setTime(location.getTime());
+    }
+
+    public AppLocation(LatLng lastLatLng){
+        setLatitude(lastLatLng.latitude);
+        setLongitude(lastLatLng.longitude);
+        setBearing(0);
     }
 
     public double getLatitude() {
@@ -109,6 +123,14 @@ public class AppLocation {
         values.put(DBContract.Locations.COLUMN_NAME_PROVIDER, getProvider());
         values.put(DBContract.Locations.COLUMN_NAME_BEARING, String.valueOf(getBearing()));
         context.getContentResolver().insert(DBContract.Locations.CONTENT_URI, values);
+    }
+
+    public void getDirections(Context context, Callback<ResponseDirections> callback) {
+        PreferencesHelper preferences = PreferencesHelper.getInstance();
+        String latitude = preferences.getLatitudeAuxilio();
+        String longitude = preferences.getLongitudeAuxilio();
+        Call<ResponseDirections> callResponseDirections = RetrofitClient.getMapsGoogleClient().getDirections(mLatitude + "," + mLongitude, latitude + "," + longitude, context.getString(R.string.keyDirectionsGoogleMaps));
+        callResponseDirections.enqueue(callback);
     }
 
 }

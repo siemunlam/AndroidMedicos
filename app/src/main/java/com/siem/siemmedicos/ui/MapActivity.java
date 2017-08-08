@@ -34,7 +34,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityMapBinding;
 import com.siem.siemmedicos.db.DBContract;
-import com.siem.siemmedicos.model.app.LastLocation;
+import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.model.app.Map;
 import com.siem.siemmedicos.services.SelectLocationService;
 import com.siem.siemmedicos.utils.Constants;
@@ -224,7 +224,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         switch (mPreferences.getEstado()){
             case Constants.EN_AUXILIO:
                 Log.i("123456789", "PASO3");
-                LastLocation lastLocation = new LastLocation(Utils.getPassiveLocation(MapActivity.this));
+                AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
                 myMap.getDirections(lastLocation);
                 myMap.addPositionMarker(lastLocation);
                 mBinding.containerButtons.setVisibility(View.VISIBLE);
@@ -237,7 +237,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.i("123456789", "PASO4");
                 mBinding.containerButtons.setVisibility(View.GONE);
                 mBinding.containerExtraData.setVisibility(View.GONE);
-                lastLocation = new LastLocation(Utils.getPassiveLocation(MapActivity.this));
+                lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
                 //myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.NORMAL_ZOOM));
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) getResources().getDimension(R.dimen.defaultMargin));
                 mBinding.myLocationButton.setLayoutParams(lp);

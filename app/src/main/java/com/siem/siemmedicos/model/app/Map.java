@@ -111,7 +111,7 @@ public class Map implements Callback<ResponseDirections> {
         mPreviousLocation = location;
     }
 
-    public void addPositionMarker(LastLocation location){
+    public void addPositionMarker(AppLocation location){
         Location newLocation = new Location("GPS");
         newLocation.setLatitude(location.getLatitude());
         newLocation.setLongitude(location.getLongitude());
@@ -139,7 +139,7 @@ public class Map implements Callback<ResponseDirections> {
         return Bitmap.createScaledBitmap(imageBitmap, width, height, false);
     }
 
-    public void getDirections(LastLocation lastLocation) {
+    public void getDirections(AppLocation lastLocation) {
         if(!lastLocation.isNullLocation())
             lastLocation.getDirections(mContext, this);
     }
@@ -173,7 +173,7 @@ public class Map implements Callback<ResponseDirections> {
         if(mPolyline != null){
             if (!PolyUtil.isLocationOnPath(lastLatLng, mPolyline.getPoints(), true, 50)) {
                 Toast.makeText(mContext, "Recalculando....", Toast.LENGTH_LONG).show();
-                getDirections(new LastLocation(lastLatLng));
+                getDirections(new AppLocation(lastLatLng));
             }else{
                 Toast.makeText(mContext, "Todo bien....", Toast.LENGTH_LONG).show();
             }
