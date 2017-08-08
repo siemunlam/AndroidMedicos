@@ -104,6 +104,10 @@ public class AppLocation {
         mTimestamp = timestamp;
     }
 
+    public LatLng getLatLng(){
+        return new LatLng(mLatitude, mLongitude);
+    }
+
     public boolean isNullLocation(){
         return mLatitude == 0 && mLongitude == 0;
     }

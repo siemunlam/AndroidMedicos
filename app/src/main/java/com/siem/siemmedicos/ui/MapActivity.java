@@ -78,7 +78,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mBinding.myLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Utils.getPassiveLocation(MapActivity.this), Constants.NORMAL_ZOOM));
+                AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
+                myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLatLng(), Constants.NORMAL_ZOOM));
+                myMap.addPositionMarker(lastLocation);
             }
         });
     }
@@ -229,7 +231,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 myMap.addPositionMarker(lastLocation);
                 mBinding.containerButtons.setVisibility(View.VISIBLE);
                 mBinding.containerExtraData.setVisibility(View.VISIBLE);
-                //myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.EMERGENCY_ZOOM));
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) (getResources().getDimension(R.dimen.defaultMargin) + getResources().getDimension(R.dimen.heightContainerButtons)));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;
@@ -237,8 +238,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.i("123456789", "PASO4");
                 mBinding.containerButtons.setVisibility(View.GONE);
                 mBinding.containerExtraData.setVisibility(View.GONE);
-                lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
-                //myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLocation(), Constants.NORMAL_ZOOM));
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) getResources().getDimension(R.dimen.defaultMargin));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;

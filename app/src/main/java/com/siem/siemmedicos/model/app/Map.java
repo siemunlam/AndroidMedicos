@@ -140,8 +140,10 @@ public class Map implements Callback<ResponseDirections> {
     }
 
     public void getDirections(AppLocation lastLocation) {
-        if(!lastLocation.isNullLocation())
+        if(!lastLocation.isNullLocation()) {
             lastLocation.getDirections(mContext, this);
+            Log.i("123456789", "Lat: " + lastLocation.getLatitude() + " - Lng: " + lastLocation.getLongitude());
+        }
     }
 
     @Override
