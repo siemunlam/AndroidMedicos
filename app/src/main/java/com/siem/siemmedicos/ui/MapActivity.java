@@ -43,7 +43,7 @@ import com.siem.siemmedicos.utils.Utils;
 
 import java.util.ArrayList;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallback {
 
     private static final int PERMISSIONS_REQUEST = 100;
 
@@ -78,11 +78,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mBinding.myLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
-                if(!lastLocation.isNullLocation()){
-                    myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLatLng(), Constants.NORMAL_ZOOM));
-                    myMap.addPositionMarker(lastLocation);
-                }
+                myLocationClicked();
             }
         });
     }
@@ -96,7 +92,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Utils.syncNow(this);
         Utils.setupContentResolver(this);
         if (checkAllPermissions()) {
-            Utils.checkGpsOn(this);
             init();
         }
     }
@@ -170,10 +165,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         myMap.setMap(googleMap);
+        myMap.setZoomControlsEnabled(false);
 
         mBinding.containerExtraData.bringToFront();
         mBinding.containerButtons.bringToFront();
         setearEstado();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                myLocationClicked();
+            }
+        }, 2000);
     }
 
     @Override
@@ -196,7 +200,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void init() {
-        startService(new Intent(MapActivity.this, SelectLocationService.class));
+        getLocation();
+    }
+
+    private void myLocationClicked(){
+        AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
+        if(!lastLocation.isNullLocation()){
+            myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLatLng(), Constants.NORMAL_ZOOM));
+            myMap.addPositionMarker(lastLocation);
+        }
     }
 
     private void instanceVariables() {

@@ -43,26 +43,6 @@ public class Utils {
         preferences.cleanMedicoId();
     }
 
-    public static void checkGpsOn(final Activity activity) {
-        LocationManager manager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            new FragmentDialog().getTextViewDialog(
-                    activity,
-                    activity.getString(R.string.activateGPS),
-                    activity.getString(R.string.accept),
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            activity.startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                        }
-                    },
-                    null,
-                    null,
-                    false
-            ).show();
-        }
-    }
-
     /**
      * Para saber si debe correr el servicio de Location en modo intensivo
      * @param context Contexto
@@ -227,6 +207,11 @@ public class Utils {
             cursor.close();
         }
         return location;
+    }
+
+    public static boolean isGPSOn(final Activity activity) {
+        LocationManager manager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
 }

@@ -59,6 +59,10 @@ public class Map implements Callback<ResponseDirections> {
         mMap.setMyLocationEnabled(false);
     }
 
+    public void setZoomControlsEnabled(boolean enable){
+        mMap.getUiSettings().setZoomControlsEnabled(enable);
+    }
+
     public void addPolyline(ArrayList<LatLng> listLatLng) {
         PolylineOptions polylineOptions = new PolylineOptions();
         polylineOptions.width(25);
