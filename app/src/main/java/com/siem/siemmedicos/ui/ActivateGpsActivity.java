@@ -59,6 +59,7 @@ public class ActivateGpsActivity extends AppCompatActivity implements
 
     public void mLocationSetting() {
         mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationSettingsRequest = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
         mResult();
     }
