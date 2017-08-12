@@ -8,7 +8,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -23,7 +22,6 @@ import android.support.v4.app.ActivityCompat;
 import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.db.DBContract;
-import com.siem.siemmedicos.ui.FragmentDialog;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -212,6 +210,11 @@ public class Utils {
     public static boolean isGPSOn(final Activity activity) {
         LocationManager manager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
         return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    public static boolean isInAuxilio(){
+        PreferencesHelper preferences = PreferencesHelper.getInstance();
+        return preferences.getEstado() == Constants.EN_AUXILIO;
     }
 
 }

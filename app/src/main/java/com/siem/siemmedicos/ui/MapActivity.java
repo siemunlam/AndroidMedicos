@@ -17,7 +17,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,7 +35,6 @@ import com.siem.siemmedicos.databinding.ActivityMapBinding;
 import com.siem.siemmedicos.db.DBContract;
 import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.model.app.Map;
-import com.siem.siemmedicos.services.SelectLocationService;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.Utils;
@@ -206,8 +204,9 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private void myLocationClicked(){
         AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
         if(!lastLocation.isNullLocation()){
-            myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLatLng(), Constants.NORMAL_ZOOM));
-            myMap.addPositionMarker(lastLocation);
+            //myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLatLng(), Constants.NORMAL_ZOOM));
+            //myMap.addPositionMarker(lastLocation);
+            addMarker(lastLocation.getLocation());
         }
     }
 
@@ -224,11 +223,14 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private void newLocation() {
         Log.i("123456789", "New position location");
         Location location = Utils.getLastLocationSaved(this);
+        addMarker(location);
+    }
+
+    private void addMarker(Location location) {
         if(location != null){
             Log.i("123456789", "New marker location");
             myMap.addPositionMarker(location);
-            if(mPreferences.getEstado() == Constants.EN_AUXILIO)
-                myMap.controlateInRoute(location);
+            myMap.controlateInRoute(location);
         }
     }
 

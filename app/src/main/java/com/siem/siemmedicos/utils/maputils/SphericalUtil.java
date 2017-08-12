@@ -1,6 +1,7 @@
 package com.siem.siemmedicos.utils.maputils;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
 
 import java.util.List;
 
@@ -245,5 +246,43 @@ public class SphericalUtil {
         double deltaLng = lng1 - lng2;
         double t = tan1 * tan2;
         return 2 * atan2(t * sin(deltaLng), 1 + t * cos(deltaLng));
+    }
+
+    private static double distanceFrom(LatLng thisLatLng, LatLng newLatLng) {
+        double EarthRadiusMeters = 6378137.0; // meters
+        double lat1 = thisLatLng.latitude;
+        double lon1 = thisLatLng.longitude;
+        double lat2 = newLatLng.latitude;
+        double lon2 = newLatLng.longitude;
+        double dLat = (lat2 - lat1) * Math.PI / 180;
+        double dLon = (lon2 - lon1) * Math.PI / 180;
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double d = EarthRadiusMeters * c;
+        return d;
+    }
+
+    public static LatLng getPointAtDistance(Polyline polyline, int metres){
+        if (metres == 0)
+            return polyline.getPoints().get(0);
+        if (metres < 0)
+            return null;
+        if (polyline.getPoints().size() < 2)
+            return null;
+
+        int dist = 0;
+        int oldDist = 0;
+        int i;
+        for (i = 1; (i < polyline.getPoints().size() && dist < metres); i++) {
+            oldDist = dist;
+            dist += distanceFrom(polyline.getPoints().get(i), polyline.getPoints().get(i - 1));
+        }
+        if (dist < metres) {
+            return null;
+        }
+        LatLng p1 = polyline.getPoints().get(i - 2);
+        LatLng p2 = polyline.getPoints().get(i - 1);
+        double m = (metres - oldDist) / (dist - oldDist);
+        return new LatLng(p1.latitude + (p2.latitude - p1.latitude) * m, p1.longitude + (p2.longitude - p1.longitude) * m);
     }
 }

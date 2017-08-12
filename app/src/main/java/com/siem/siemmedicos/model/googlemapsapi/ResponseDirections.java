@@ -13,6 +13,10 @@ public class ResponseDirections {
     @SerializedName("status")
     private String mStatus;
 
+    public String getEncodedPoints(){
+        return mRoutes.get(0).getOverviewPolyline().getPoints();
+    }
+
     public Route getRoute(int i) {
         return mRoutes.get(i);
     }

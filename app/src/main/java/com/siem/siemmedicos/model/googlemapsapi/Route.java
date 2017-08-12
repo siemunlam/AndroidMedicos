@@ -9,7 +9,18 @@ public class Route {
     @SerializedName("legs")
     private ArrayList<Leg> mLegs;
 
+    @SerializedName("overview_polyline")
+    private OverviewPolyline mOverviewPolyline;
+
     public Leg getLeg(int i) {
         return mLegs.get(i);
+    }
+
+    public OverviewPolyline getOverviewPolyline() {
+        return mOverviewPolyline;
+    }
+
+    public void setOverviewPolyline(OverviewPolyline overviewPolyline) {
+        mOverviewPolyline = overviewPolyline;
     }
 }

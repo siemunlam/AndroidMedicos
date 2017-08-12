@@ -112,6 +112,16 @@ public class AppLocation {
         return mLatitude == 0 && mLongitude == 0;
     }
 
+    public Location getLocation() {
+        Location location = new Location(getProvider());
+        location.setLatitude(getLatitude());
+        location.setLongitude(getLongitude());
+        location.setBearing(getBearing());
+        location.setAccuracy(getAccuracy());
+        location.setSpeed(getSpeed());
+        return location;
+    }
+
     public void save(Context context){
         Log.i("123456789", "New valid location");
         Date now = new Date();
@@ -130,11 +140,11 @@ public class AppLocation {
     }
 
     public void getDirections(Context context, Callback<ResponseDirections> callback) {
+        Log.i("123456789", "Get Directions3");
         PreferencesHelper preferences = PreferencesHelper.getInstance();
         String latitude = preferences.getLatitudeAuxilio();
         String longitude = preferences.getLongitudeAuxilio();
         Call<ResponseDirections> callResponseDirections = RetrofitClient.getMapsGoogleClient().getDirections(mLatitude + "," + mLongitude, latitude + "," + longitude, context.getString(R.string.keyDirectionsGoogleMaps));
         callResponseDirections.enqueue(callback);
     }
-
 }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.Utils;
 
@@ -31,7 +30,7 @@ public class SelectLocationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         stopLocationsServices();
 
-        if(Utils.locationIntensiveMode(SelectLocationService.this) || mPreferences.getEstado() == Constants.EN_AUXILIO)
+        if(Utils.locationIntensiveMode(SelectLocationService.this) || Utils.isInAuxilio())
             startService(mIntensiveLocationServiceIntent);
         else
             startService(mLocationServiceIntent);

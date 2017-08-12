@@ -12,7 +12,7 @@ public class Constants {
      */
     public static final float INITIAL_ZOOM = 1.0F;
     public static final float NORMAL_ZOOM = 16.0F;
-    public static final float EMERGENCY_ZOOM = 19.0F;
+    public static final float EMERGENCY_ZOOM = 17.5F;
 
     /**
      * Estados

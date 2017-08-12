@@ -26,9 +26,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
-import com.siem.siemmedicos.model.googlemapsapi.Step;
+import com.siem.siemmedicos.utils.Constants;
+import com.siem.siemmedicos.utils.Utils;
+import com.siem.siemmedicos.utils.maputils.PolyUtils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,7 +65,7 @@ public class Map implements Callback<ResponseDirections> {
         mMap.getUiSettings().setZoomControlsEnabled(enable);
     }
 
-    public void addPolyline(ArrayList<LatLng> listLatLng) {
+    public void addPolyline(List<LatLng> listLatLng) {
         PolylineOptions polylineOptions = new PolylineOptions();
         polylineOptions.width(25);
         polylineOptions.color(ContextCompat.getColor(mContext, R.color.polyline));
@@ -83,7 +85,7 @@ public class Map implements Callback<ResponseDirections> {
             public void run() {
                 mMap.animateCamera(cameraUpdate);
             }
-        }, 500);
+        }, 300);
     }
 
     public void moveCamera(CameraUpdate cameraUpdate) {
@@ -107,12 +109,13 @@ public class Map implements Callback<ResponseDirections> {
                                 .position(latLng)
                                 .anchor(0.5f, 0.5f)
                                 .rotation(bearing)
-                                .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons(R.drawable.ic_ambulance, SIZE_POSITION_MARKER, SIZE_POSITION_MARKER))));
+                                .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons(R.drawable.ic_ambulance, SIZE_POSITION_MARKER, SIZE_POSITION_MARKER)))
+                                .flat(true));
             }else{
                 mPositionMarker.setPosition(latLng);
                 mPositionMarker.setRotation(bearing);
             }
-            rotateMap(bearing);
+            reubicateMap(latLng, bearing);
             mPreviousLocation = location;
         }
     }
@@ -126,18 +129,21 @@ public class Map implements Callback<ResponseDirections> {
 
     private float getBearing(Location newLocation) {
         if(mPreviousLocation != null){
-            return (float) Math.atan2(mPreviousLocation.getBearing(), newLocation.getBearing());
+            return (float) com.google.maps.android.SphericalUtil.computeHeading(new LatLng(mPreviousLocation.getLatitude(), mPreviousLocation.getLongitude()), new LatLng(newLocation.getLatitude(), newLocation.getLongitude()));
         }else{
             return newLocation.getBearing();
         }
     }
 
-    private void rotateMap(float bearing) {
+    private void reubicateMap(LatLng latLng, float bearing) {
+        float zoom = Utils.isInAuxilio() ? Constants.EMERGENCY_ZOOM : Constants.NORMAL_ZOOM;
         CameraPosition camPos = CameraPosition
                 .builder(mMap.getCameraPosition())
                 .bearing(bearing)
+                .zoom(zoom)
+                .target(latLng)
                 .build();
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camPos));
+        animateCamera(CameraUpdateFactory.newCameraPosition(camPos));
     }
 
     private Bitmap resizeMapIcons(int iconId, int width, int height){
@@ -146,8 +152,11 @@ public class Map implements Callback<ResponseDirections> {
     }
 
     public void getDirections(AppLocation lastLocation) {
-        if(!lastLocation.isNullLocation())
+        Log.i("123456789", "Get Directions1");
+        if(!lastLocation.isNullLocation()) {
+            Log.i("123456789", "Get Directions2");
             lastLocation.getDirections(mContext, this);
+        }
     }
 
     @Override
@@ -155,12 +164,7 @@ public class Map implements Callback<ResponseDirections> {
         try{
             Log.i("123456789", "onResponse");
             ResponseDirections responseDirections = response.body();
-            ArrayList<Step> steps = responseDirections.getSteps();
-            ArrayList<LatLng> listLatLng = new ArrayList<>();
-            listLatLng.add(responseDirections.getFirstLocation());
-            for (Step step : steps) {
-                listLatLng.add(step.getEndLocation());
-            }
+            List<LatLng> listLatLng = PolyUtils.decode(responseDirections.getEncodedPoints());
             addPolyline(listLatLng);
             addFinishMarker(responseDirections.getLastLocation());
         }catch(Exception e){
@@ -175,13 +179,17 @@ public class Map implements Callback<ResponseDirections> {
     }
 
     public void controlateInRoute(Location location) {
-        LatLng lastLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        if(mPolyline != null){
-            if (!PolyUtil.isLocationOnPath(lastLatLng, mPolyline.getPoints(), true, 50)) {
-                Toast.makeText(mContext, "Recalculando....", Toast.LENGTH_LONG).show();
-                getDirections(new AppLocation(lastLatLng));
+        if(Utils.isInAuxilio()){
+            LatLng lastLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            if(mPolyline != null){
+                if (!PolyUtil.isLocationOnPath(lastLatLng, mPolyline.getPoints(), true, 50)) {
+                    Toast.makeText(mContext, "Recalculando....", Toast.LENGTH_LONG).show();
+                    getDirections(new AppLocation(lastLatLng));
+                }else{
+                    Toast.makeText(mContext, "Todo bien....", Toast.LENGTH_LONG).show();
+                }
             }else{
-                Toast.makeText(mContext, "Todo bien....", Toast.LENGTH_LONG).show();
+                getDirections(new AppLocation(lastLatLng));
             }
         }
     }
