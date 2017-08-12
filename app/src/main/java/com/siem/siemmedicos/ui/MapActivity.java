@@ -101,6 +101,12 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         unregisterContentObserver();
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        myMap.onDestroy();
+    }
+
     private void registerBroadcastReceiver() {
         mNewAuxilioBroadcastReceiver = new BroadcastReceiver() {
             @Override

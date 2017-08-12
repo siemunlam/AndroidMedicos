@@ -6,7 +6,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.os.Build;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -31,6 +33,7 @@ import com.siem.siemmedicos.utils.Utils;
 import com.siem.siemmedicos.utils.maputils.PolyUtils;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,9 +50,19 @@ public class Map implements Callback<ResponseDirections> {
     private Location mPreviousLocation;
     private Context mContext;
     private GoogleMap mMap;
+    private TextToSpeech mTextToSpeech;
 
     public Map(Context context){
         mContext = context;
+
+        mTextToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    mTextToSpeech.setLanguage(Locale.getDefault());
+                }
+            }
+        });
     }
 
     public void setMap(GoogleMap map) {
@@ -59,6 +72,13 @@ public class Map implements Callback<ResponseDirections> {
             return;
         }
         mMap.setMyLocationEnabled(false);
+    }
+
+    public void onDestroy(){
+        if(mTextToSpeech != null){
+            mTextToSpeech.stop();
+            mTextToSpeech.shutdown();
+        }
     }
 
     public void setZoomControlsEnabled(boolean enable){
@@ -183,7 +203,9 @@ public class Map implements Callback<ResponseDirections> {
             LatLng lastLatLng = new LatLng(location.getLatitude(), location.getLongitude());
             if(mPolyline != null){
                 if (!PolyUtil.isLocationOnPath(lastLatLng, mPolyline.getPoints(), true, 50)) {
-                    Toast.makeText(mContext, "Recalculando....", Toast.LENGTH_LONG).show();
+                    String text = mContext.getString(R.string.recalculate);
+                    Toast.makeText(mContext, text, Toast.LENGTH_LONG).show();
+                    speak(text);
                     getDirections(new AppLocation(lastLatLng));
                 }else{
                     Toast.makeText(mContext, "Todo bien....", Toast.LENGTH_LONG).show();
@@ -191,6 +213,14 @@ public class Map implements Callback<ResponseDirections> {
             }else{
                 getDirections(new AppLocation(lastLatLng));
             }
+        }
+    }
+
+    private void speak(String text) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mTextToSpeech.speak(text,TextToSpeech.QUEUE_FLUSH,null,null);
+        } else {
+            mTextToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 }

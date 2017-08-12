@@ -31,4 +31,5 @@
     <string name="nuevoAuxilio">Nuevo auxilio</string>
     <string name="activateGPS">Debe activar el GPS para continuar.</string>
     <string name="asignNuevoAuxilio">Se te ha asignado a un nuevo auxilio.</string>
+    <string name="recalculate">Recalculando…</string>
 </resources>
