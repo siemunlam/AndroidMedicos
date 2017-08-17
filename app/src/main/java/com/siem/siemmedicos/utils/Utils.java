@@ -38,7 +38,7 @@ public class Utils {
         preferences.cleanLastProvider();
         preferences.cleanLatitudeAuxilio();
         preferences.cleanLongitudeAuxilio();
-        preferences.cleanMedicoId();
+        preferences.cleanMedicoToken();
     }
 
     /**

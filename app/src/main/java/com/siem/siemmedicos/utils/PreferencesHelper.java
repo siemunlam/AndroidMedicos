@@ -14,7 +14,7 @@ public class PreferencesHelper {
     private static final String KEY_LAST_PROVIDER = "LAST_LOCATION_PROVIDER";
     private static final String KEY_LATITUDE_AUXILIO = "KEY_LATITUDE_AUXILIO";
     private static final String KEY_LONGITUDE_AUXILIO = "KEY_LONGITUDE_AUXILIO";
-    private static final String KEY_MEDICO_ID = "KEY_MEDICO_ID";
+    private static final String KEY_MEDICO_TOKEN = "KEY_MEDICO_TOKEN";
     private static final String KEY_ESTADO = "KEY_ESTADO";
 
     private static PreferencesHelper mInstance = null;
@@ -141,17 +141,17 @@ public class PreferencesHelper {
     }
 
 
-    //KEY_MEDICO_ID
-    public String getMedicoId(){
-        return mPreferences.getString(KEY_MEDICO_ID, null);
+    //KEY_MEDICO_TOKEN
+    public String getMedicoToken(){
+        return mPreferences.getString(KEY_MEDICO_TOKEN, null);
     }
 
-    public void setMedicoId(String value){
-        mPreferences.edit().putString(KEY_MEDICO_ID, value).apply();
+    public void setMedicoToken(String value){
+        mPreferences.edit().putString(KEY_MEDICO_TOKEN, value).apply();
     }
 
-    public void cleanMedicoId(){
-        mPreferences.edit().remove(KEY_MEDICO_ID).apply();
+    public void cleanMedicoToken(){
+        mPreferences.edit().remove(KEY_MEDICO_TOKEN).apply();
     }
 
 

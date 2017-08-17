@@ -55,12 +55,19 @@ public class Constants {
     public static final SimpleDateFormat DATE_USER_FORMAT = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US);
 
     /**
-     * Calls API
+     * Calls API Google
      */
     public static final String API_GOOGLEMAPS_DIRECTIONS = "maps/api/directions/json";
     public static final String ORIGIN = "origin";
     public static final String DESTINATION = "destination";
     public static final String KEY = "key";
+
+    /**
+     * Calls API Server
+     */
+    public static final int CODE_SERVER_OK = 200;
+    public static final int CODE_BAD_REQUEST = 400;
+    public static final String API_LOGIN = "auth/token/";
 
     /**
      * Receivers

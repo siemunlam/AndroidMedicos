@@ -26,6 +26,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_MAPSGOOGLE_URL", "\"https://maps.googleapis.com/\""
+        buildConfigField "String", "BASE_API_URL", "\"http://siemunlam.pythonanywhere.com/api/\""
         multiDexEnabled true
     }
     buildTypes {
