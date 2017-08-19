@@ -10,6 +10,9 @@
     <dimen name="widthLogo">200dp</dimen>
     <dimen name="heightLogo">200dp</dimen>
     <dimen name="marginTopLogo">40dp</dimen>
+    <dimen name="heightEdittext">50dp</dimen>
+    <dimen name="paddingIconLogin">8dp</dimen>
+    <dimen name="paddingLeftEdittext">55dp</dimen>
 
     <!-- Map -->
     <dimen name="heightContainerButtons">75dp</dimen>

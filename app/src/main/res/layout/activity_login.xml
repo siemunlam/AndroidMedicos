@@ -23,49 +23,53 @@
             android:focusable="true"
             android:focusableInTouchMode="true"/>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textinputlayoutUser"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/heightEdittext"
             android:layout_below="@+id/imgLogo"
             android:layout_marginTop="@dimen/doubleDefaultMargin"
             android:layout_marginLeft="@dimen/doubleDefaultMargin"
-            android:layout_marginRight="@dimen/doubleDefaultMargin">
+            android:layout_marginRight="@dimen/doubleDefaultMargin"
+            android:id="@+id/contentEdittextUser"
+            android:background="@drawable/edittext_content_login">
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/heightEdittext"
+                android:layout_height="@dimen/heightEdittext"
+                android:src="@drawable/ic_account"
+                android:padding="@dimen/paddingIconLogin"/>
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/edittextUser"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:ems="10"
                 android:hint="@string/user"
                 android:inputType="text"
                 android:maxLines="1"
-                android:maxLength="25"/>
-        </android.support.design.widget.TextInputLayout>
+                android:maxLength="25"
+                android:paddingLeft="@dimen/paddingLeftEdittext"
+                android:background="@drawable/edittext_login"/>
+        </RelativeLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textinputlayoutPass"
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edittextPass"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textinputlayoutUser"
-            android:layout_marginTop="@dimen/halfDefaultMargin"
+            android:layout_height="@dimen/heightEdittext"
+            android:ems="10"
+            android:hint="@string/pass"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:maxLength="25"
+            android:layout_below="@+id/contentEdittextUser"
+            android:layout_marginTop="@dimen/defaultMargin"
             android:layout_marginLeft="@dimen/doubleDefaultMargin"
-            android:layout_marginRight="@dimen/doubleDefaultMargin">
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/edittextPass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/pass"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:maxLength="25"/>
-        </android.support.design.widget.TextInputLayout>
+            android:layout_marginRight="@dimen/doubleDefaultMargin"
+            android:background="@drawable/edittext_content_login"/>
 
         <android.support.v7.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonLogin"
-            android:layout_below="@+id/textinputlayoutPass"
+            android:layout_below="@+id/edittextPass"
             android:layout_marginTop="@dimen/doubleDefaultMargin"
             android:layout_marginLeft="@dimen/doubleDefaultMargin"
             android:layout_marginRight="@dimen/doubleDefaultMargin"
