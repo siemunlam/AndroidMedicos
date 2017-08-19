@@ -23,47 +23,29 @@
             android:focusable="true"
             android:focusableInTouchMode="true"/>
 
-        <RelativeLayout
+        <com.siem.siemmedicos.ui.custom.CustomEdittextLogin
             android:layout_width="match_parent"
             android:layout_height="@dimen/heightEdittext"
             android:layout_below="@+id/imgLogo"
             android:layout_marginTop="@dimen/doubleDefaultMargin"
             android:layout_marginLeft="@dimen/doubleDefaultMargin"
             android:layout_marginRight="@dimen/doubleDefaultMargin"
-            android:id="@+id/contentEdittextUser"
-            android:background="@drawable/edittext_content_login">
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/heightEdittext"
-                android:layout_height="@dimen/heightEdittext"
-                android:src="@drawable/ic_account"
-                android:padding="@dimen/paddingIconLogin"/>
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/edittextUser"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:ems="10"
-                android:hint="@string/user"
-                android:inputType="text"
-                android:maxLines="1"
-                android:maxLength="25"
-                android:paddingLeft="@dimen/paddingLeftEdittext"
-                android:background="@drawable/edittext_login"/>
-        </RelativeLayout>
+            android:id="@+id/edittextUser"
+            android:src="@drawable/ic_account"
+            android:hint="@string/user"
+            android:inputType="text"/>
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edittextPass"
+        <com.siem.siemmedicos.ui.custom.CustomEdittextLogin
             android:layout_width="match_parent"
             android:layout_height="@dimen/heightEdittext"
-            android:ems="10"
-            android:hint="@string/pass"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:maxLength="25"
-            android:layout_below="@+id/contentEdittextUser"
+            android:layout_below="@+id/edittextUser"
             android:layout_marginTop="@dimen/defaultMargin"
             android:layout_marginLeft="@dimen/doubleDefaultMargin"
             android:layout_marginRight="@dimen/doubleDefaultMargin"
-            android:background="@drawable/edittext_content_login"/>
+            android:id="@+id/edittextPass"
+            android:src="@drawable/ic_password"
+            android:hint="@string/pass"
+            android:inputType="textPassword"/>
 
         <android.support.v7.widget.AppCompatButton
             android:layout_width="match_parent"

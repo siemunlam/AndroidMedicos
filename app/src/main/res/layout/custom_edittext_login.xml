@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:test="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/edittext_content_login">
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        test:src="@drawable/ic_account"
+        android:padding="@dimen/paddingIconLogin"
+        android:id="@+id/image"/>
+    <android.support.v7.widget.AppCompatEditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ems="10"
+        test:hint="@string/user"
+        android:maxLines="1"
+        android:maxLength="25"
+        android:paddingLeft="@dimen/paddingLeftEdittext"
+        android:background="@drawable/edittext_login"
+        android:id="@+id/edittext"
+        android:foregroundGravity="center"/>
+</RelativeLayout>

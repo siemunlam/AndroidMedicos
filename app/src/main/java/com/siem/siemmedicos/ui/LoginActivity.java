@@ -47,8 +47,8 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            String user = mBinding.edittextUser.getText().toString();
-                            String pass = mBinding.edittextPass.getText().toString();
+                            String user = mBinding.edittextUser.getText();
+                            String pass = mBinding.edittextPass.getText();
                             Call<LoginResponse> call = RetrofitClient.getServerClient().login(user, pass);
                             call.enqueue(LoginActivity.this);
                         }
@@ -79,8 +79,8 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
     }
 
     private boolean isLoginFullComplete() {
-        String user = mBinding.edittextUser.getText().toString();
-        String pass = mBinding.edittextPass.getText().toString();
+        String user = mBinding.edittextUser.getText();
+        String pass = mBinding.edittextPass.getText();
         List<View> listErrorView = new ArrayList<>();
         if(user.isEmpty())
             listErrorView.add(mBinding.edittextUser);
