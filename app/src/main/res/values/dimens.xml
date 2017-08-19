@@ -7,9 +7,9 @@
     <dimen name="doubleDefaultMargin">32dp</dimen>
 
     <!-- Login -->
-    <dimen name="widthLogo">150dp</dimen>
-    <dimen name="heightLogo">150dp</dimen>
-    <dimen name="marginTopLogo">75dp</dimen>
+    <dimen name="widthLogo">200dp</dimen>
+    <dimen name="heightLogo">200dp</dimen>
+    <dimen name="marginTopLogo">40dp</dimen>
 
     <!-- Map -->
     <dimen name="heightContainerButtons">75dp</dimen>

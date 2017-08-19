@@ -9,15 +9,17 @@
     <!-- Error -->
     <string name="error">Hubo un error. Intente de nuevo mas tarde.</string>
     <string name="errorNoRoute">No se encontró una ruta posible.</string>
+    <string name="errorEmptyFields">Debe completar todos los campos</string>
+    <string name="errorLogin">El correo electrónico o la contraseña no son válidos</string>
 
     <!-- Notificacion -->
     <string name="intensive_mode">Modo Intensivo</string>
     <string name="normal_mode">Modo Normal</string>
 
     <!-- Login -->
-    <string name="user">User</string>
-    <string name="pass">Password</string>
-    <string name="login">Login</string>
+    <string name="user">Usuario</string>
+    <string name="pass">Contraseña</string>
+    <string name="login">Iniciar sesión</string>
 
     <!-- Menu -->
     <string name="updateStatus">Actualizar estado</string>
