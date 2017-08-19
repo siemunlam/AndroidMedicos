@@ -31,6 +31,7 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
 
     private PreferencesHelper mPreferences;
     private ActivityLoginBinding mBinding;
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,26 +88,39 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
         if(pass.isEmpty())
             listErrorView.add(mBinding.edittextPass);
 
-        vibrateToError(listErrorView);
+        missingFields(listErrorView);
         return listErrorView.size() <= 0;
     }
 
-    private void vibrateToError(List<View> listErrorView) {
+    private void missingFields(List<View> listErrorView) {
         if(listErrorView.size() > 0){
-            Toast.makeText(LoginActivity.this, getString(R.string.errorEmptyFields), Toast.LENGTH_LONG).show();
-            //Animation shake = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.vibrate);
-            //mBinding.textinputlayoutUser.startAnimation(shake);
+            mToast = Toast.makeText(LoginActivity.this, getString(R.string.errorEmptyFields), Toast.LENGTH_LONG);
+            mToast.show();
+            vibrate(listErrorView);
+        }
+    }
+
+    private void vibrate(List<View> listErrorView) {
+        for (View view : listErrorView) {
+            Animation shake = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.vibrate);
+            view.startAnimation(shake);
         }
     }
 
     private void serverError(){
         deshabilitarLoading();
-        Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show();
+        mToast = Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG);
+        mToast.show();
     }
 
     private void loginError() {
         deshabilitarLoading();
-        Toast.makeText(LoginActivity.this, getString(R.string.errorLogin), Toast.LENGTH_LONG).show();
+        mToast = Toast.makeText(LoginActivity.this, getString(R.string.errorLogin), Toast.LENGTH_LONG);
+        mToast.show();
+        List<View> listErrorView = new ArrayList<>();
+        listErrorView.add(mBinding.edittextUser);
+        listErrorView.add(mBinding.edittextPass);
+        vibrate(listErrorView);
     }
 
     private void habilitarLoading() {

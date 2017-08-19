@@ -1,8 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rotate
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="100"
-    android:pivotX="50%"
-    android:pivotY="50%"
-    android:fromDegrees="0"
-    android:toDegrees="5"/>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+     android:fillAfter="false" >
+    <rotate
+        android:duration="50"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:fromDegrees="0"
+        android:toDegrees="3"/>
+
+    <rotate
+        android:duration="50"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:fromDegrees="0"
+        android:toDegrees="-6"
+        android:startOffset="50"/>
+
+    <rotate
+        android:duration="50"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:fromDegrees="0"
+        android:toDegrees="6"
+        android:startOffset="100"/>
+
+    <rotate
+        android:duration="50"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:fromDegrees="0"
+        android:toDegrees="-6"
+        android:startOffset="150"/>
+
+    <rotate
+        android:duration="50"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:fromDegrees="0"
+        android:toDegrees="3"
+        android:startOffset="200"/>
+
+    <scale
+        android:duration="200"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:fromXScale="1"
+        android:fromYScale="1"
+        android:toXScale="1.07"
+        android:toYScale="1.07"/>
+
+</set>

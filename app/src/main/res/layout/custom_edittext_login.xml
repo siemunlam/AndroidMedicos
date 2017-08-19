@@ -19,6 +19,7 @@
         android:maxLines="1"
         android:maxLength="25"
         android:paddingLeft="@dimen/paddingLeftEdittext"
+        android:paddingTop="4dp"
         android:background="@drawable/edittext_login"
         android:id="@+id/edittext"
         android:foregroundGravity="center"/>
