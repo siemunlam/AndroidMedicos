@@ -152,6 +152,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 ClipData clip = ClipData.newPlainText(FirebaseInstanceId.getInstance().getToken(), FirebaseInstanceId.getInstance().getToken());
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(this, FirebaseInstanceId.getInstance().getToken(), Toast.LENGTH_LONG).show();
+
+                new FragmentDialog().getRadioButtonsDialog(this, getString(R.string.accept), true).show();
                 return true;
             case R.id.menuLogout:
                 Utils.logout();

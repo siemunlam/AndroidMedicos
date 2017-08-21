@@ -240,4 +240,13 @@ public class Utils {
         context.startService(new Intent(context, SelectLocationService.class));
     }
 
+    public static String getDescriptionEstado(Context context, int estado) {
+        if(Constants.Disponible.getValue() == estado)
+            return Constants.Disponible.getDescription(context);
+        if(Constants.NoDisponible.getValue() == estado)
+            return Constants.NoDisponible.getDescription(context);
+        if(Constants.EnAuxilio.getValue() == estado)
+            return Constants.EnAuxilio.getDescription(context);
+        return null;
+    }
 }
