@@ -13,12 +13,10 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.siem.siemmedicos.R;
-import com.siem.siemmedicos.services.IntensiveLocationService;
-import com.siem.siemmedicos.services.LocationService;
-import com.siem.siemmedicos.services.SelectLocationService;
 import com.siem.siemmedicos.ui.LoginActivity;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
+import com.siem.siemmedicos.utils.Utils;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -29,14 +27,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.i("123456789", "Llego notificacion");
         PreferencesHelper preferences = PreferencesHelper.getInstance();
-        if (remoteMessage.getData().size() > 0 && preferences.getEstado() == Constants.EN_ESPERA) {
+        if (remoteMessage.getData().size() > 0 && preferences.getValueEstado() == Constants.Disponible.getValue()) {
             Log.i("123456789", "Paso1");
             preferences.setLatitudeAuxilio(remoteMessage.getData().get(KEY_LATITUDE));
             preferences.setLongitudeAuxilio(remoteMessage.getData().get(KEY_LONGITUDE));
-            preferences.setEstado(Constants.EN_AUXILIO);
-            stopService(new Intent(this, IntensiveLocationService.class));
-            stopService(new Intent(this, LocationService.class));
-            startService(new Intent(this, SelectLocationService.class));
+            preferences.setValueEstado(Constants.EnAuxilio.getValue());
+            preferences.setDescriptionEstado(Constants.EnAuxilio.getDescription(this));
+            Utils.restarLocationsServices(this);
             sendNotification("Que texto va??");
             sendBroadcast();
         }

@@ -11,4 +11,7 @@ public class LoginResponse {
     @SerializedName("token")
     private String mToken;
 
+    public String getToken() {
+        return mToken;
+    }
 }

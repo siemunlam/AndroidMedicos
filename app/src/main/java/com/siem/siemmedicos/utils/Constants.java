@@ -1,6 +1,9 @@
 package com.siem.siemmedicos.utils;
 
 import android.Manifest;
+import android.content.Context;
+
+import com.siem.siemmedicos.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -17,10 +20,41 @@ public class Constants {
     /**
      * Estados
      */
-    public static final int EN_ESPERA = 0;
-    public static final int EN_AUXILIO = 1;
-    public static final int EN_AUXILIO_CASUAL = 2;
-    public static final int NO_DISPONIBLE = 3;
+    public static class Disponible {
+        private static int value = 1;
+
+        public static int getValue() {
+            return value;
+        }
+
+        public static String getDescription(Context context) {
+            return context.getString(R.string.medicoEstadoDisponible);
+        }
+    }
+
+    public static class NoDisponible {
+        private static int value = 2;
+
+        public static int getValue() {
+            return value;
+        }
+
+        public static String getDescription(Context context) {
+            return context.getString(R.string.medicoEstadoNoDisponible);
+        }
+    }
+
+    public static class EnAuxilio {
+        public static final int value = 3;
+
+        public static int getValue() {
+            return value;
+        }
+
+        public static String getDescription(Context context) {
+            return context.getString(R.string.medicoEstadoEnAuxilio);
+        }
+    }
 
     /**
      * SyncAdapter
@@ -68,6 +102,7 @@ public class Constants {
     public static final int CODE_SERVER_OK = 200;
     public static final int CODE_BAD_REQUEST = 400;
     public static final String API_LOGIN = "auth/token/";
+    public static final String API_LOGOUT = "medicos/logout/";
 
     /**
      * Receivers

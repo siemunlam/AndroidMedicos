@@ -65,7 +65,6 @@ public class BaseLocationServices extends Service {
         mLocationListener = new MyLocationListener();
 
         mMeasurementNumber = 0;
-        mPreferences = PreferencesHelper.getInstance();
         mConfigPreferences = ConfigPreferencesHelper.getInstance();
         mAlarmManager = (AlarmManager) getSystemService(Service.ALARM_SERVICE);
 
@@ -105,11 +104,11 @@ public class BaseLocationServices extends Service {
     }
 
     protected NotificationCompat.Builder createBuilderListening() {
+        mPreferences = PreferencesHelper.getInstance();
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
-        mBuilder.setContentTitle(getString(R.string.app_name));
-        mBuilder.setTicker(getString(R.string.app_name));
         mBuilder.setWhen(0);
+        mBuilder.setContentText(getString(R.string.statusNotification, mPreferences.getDescriptionEstado(this)));
         return mBuilder;
     }
 

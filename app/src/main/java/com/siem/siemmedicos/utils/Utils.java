@@ -22,6 +22,9 @@ import android.support.v4.app.ActivityCompat;
 import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.db.DBContract;
+import com.siem.siemmedicos.services.IntensiveLocationService;
+import com.siem.siemmedicos.services.LocationService;
+import com.siem.siemmedicos.services.SelectLocationService;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -30,7 +33,8 @@ public class Utils {
 
     public static void logout(){
         PreferencesHelper preferences = PreferencesHelper.getInstance();
-        preferences.cleanEstado();
+        preferences.cleanDescriptionEstado();
+        preferences.cleanValueEstado();
         preferences.cleanLastLatitude();
         preferences.cleanLastLocationBearing();
         preferences.cleanLastLocationTime();
@@ -39,6 +43,19 @@ public class Utils {
         preferences.cleanLatitudeAuxilio();
         preferences.cleanLongitudeAuxilio();
         preferences.cleanMedicoToken();
+
+        /*Call<LogoutResponse> response = RetrofitClient.getServerClient().logout("Bearer " + preferences.getMedicoToken());
+        response.enqueue(new Callback<LogoutResponse>() {
+            @Override
+            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                Log.i("123456789", "Code: "+response.code());
+            }
+
+            @Override
+            public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                Log.i("123456789", "Error");
+            }
+        });*/
     }
 
     /**
@@ -214,7 +231,13 @@ public class Utils {
 
     public static boolean isInAuxilio(){
         PreferencesHelper preferences = PreferencesHelper.getInstance();
-        return preferences.getEstado() == Constants.EN_AUXILIO;
+        return preferences.getValueEstado() == Constants.EnAuxilio.getValue();
+    }
+
+    public static void restarLocationsServices(Context context){
+        context.stopService(new Intent(context, IntensiveLocationService.class));
+        context.stopService(new Intent(context, LocationService.class));
+        context.startService(new Intent(context, SelectLocationService.class));
     }
 
 }

@@ -15,7 +15,8 @@ public class PreferencesHelper {
     private static final String KEY_LATITUDE_AUXILIO = "KEY_LATITUDE_AUXILIO";
     private static final String KEY_LONGITUDE_AUXILIO = "KEY_LONGITUDE_AUXILIO";
     private static final String KEY_MEDICO_TOKEN = "KEY_MEDICO_TOKEN";
-    private static final String KEY_ESTADO = "KEY_ESTADO";
+    private static final String KEY_VALUE_ESTADO = "KEY_VALUE_ESTADO";
+    private static final String KEY_DESCRIPTION_ESTADO = "KEY_DESCRIPTION_ESTADO";
 
     private static PreferencesHelper mInstance = null;
     private SharedPreferences mPreferences;
@@ -155,17 +156,30 @@ public class PreferencesHelper {
     }
 
 
-    //KEY_ESTADO
-    public int getEstado(){
-        return mPreferences.getInt(KEY_ESTADO, Constants.EN_ESPERA);
+    //KEY_VALUE_ESTADO
+    public int getValueEstado(){
+        return mPreferences.getInt(KEY_VALUE_ESTADO, Constants.Disponible.getValue());
     }
 
-    public void setEstado(int estado){
-        mPreferences.edit().putInt(KEY_ESTADO, estado).apply();
+    public void setValueEstado(int estado){
+        mPreferences.edit().putInt(KEY_VALUE_ESTADO, estado).apply();
     }
 
-    public void cleanEstado(){
-        mPreferences.edit().remove(KEY_ESTADO).apply();
+    public void cleanValueEstado(){
+        mPreferences.edit().remove(KEY_VALUE_ESTADO).apply();
+    }
+
+    //KEY_DESCRIPTION_ESTADO
+    public String getDescriptionEstado(Context context){
+        return mPreferences.getString(KEY_DESCRIPTION_ESTADO, Constants.Disponible.getDescription(context));
+    }
+
+    public void setDescriptionEstado(String estado){
+        mPreferences.edit().putString(KEY_DESCRIPTION_ESTADO, estado).apply();
+    }
+
+    public void cleanDescriptionEstado(){
+        mPreferences.edit().remove(KEY_DESCRIPTION_ESTADO).apply();
     }
 
 }

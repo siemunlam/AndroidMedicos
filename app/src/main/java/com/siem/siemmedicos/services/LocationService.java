@@ -2,9 +2,7 @@ package com.siem.siemmedicos.services;
 
 import android.location.Location;
 import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
 
-import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.utils.Utils;
 
@@ -26,13 +24,6 @@ public class LocationService extends BaseLocationServices {
                 init();
             }
         };
-    }
-
-    @Override
-    protected NotificationCompat.Builder createBuilderListening() {
-        NotificationCompat.Builder mBuilder = super.createBuilderListening();
-        mBuilder.setContentText(getString(R.string.normal_mode));
-        return mBuilder;
     }
 
     @Override

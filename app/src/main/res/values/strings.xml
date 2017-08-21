@@ -13,8 +13,9 @@
     <string name="errorLogin">El correo electrónico o la contraseña no son válidos</string>
 
     <!-- Notificacion -->
-    <string name="intensive_mode">Modo Intensivo</string>
-    <string name="normal_mode">Modo Normal</string>
+    <string name="intensiveMode">Modo Intensivo</string>
+    <string name="normalMode">Modo Normal</string>
+    <string name="statusNotification">Estado %1$s</string>
 
     <!-- Login -->
     <string name="user">Usuario</string>
@@ -34,4 +35,9 @@
     <string name="activateGPS">Debe activar el GPS para continuar.</string>
     <string name="asignNuevoAuxilio">Se te ha asignado a un nuevo auxilio.</string>
     <string name="recalculate">Recalculando…</string>
+
+    <!-- Estados medico -->
+    <string name="medicoEstadoDisponible">Disponible</string>
+    <string name="medicoEstadoNoDisponible">No Disponible</string>
+    <string name="medicoEstadoEnAuxilio">En Auxilio</string>
 </resources>

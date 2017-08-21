@@ -1,10 +1,8 @@
 package com.siem.siemmedicos.services;
 
 import android.location.Location;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.utils.Utils;
 
@@ -14,13 +12,6 @@ public class IntensiveLocationService extends BaseLocationServices {
 
     private static final String ZERO = "0";
     protected static final long LOCATION_TIMEOUT = 60000;     // 2 min
-
-    @Override
-    protected NotificationCompat.Builder createBuilderListening() {
-        NotificationCompat.Builder mBuilder = super.createBuilderListening();
-        mBuilder.setContentText(getString(R.string.intensive_mode));
-        return mBuilder;
-    }
 
     @Override
     protected void newLocation(Location location) {

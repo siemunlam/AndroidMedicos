@@ -25,7 +25,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -245,8 +244,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        switch (mPreferences.getEstado()){
-            case Constants.EN_AUXILIO:
+        switch (mPreferences.getValueEstado()){
+            case Constants.EnAuxilio.value:
                 Log.i("123456789", "PASO3");
                 AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
                 myMap.getDirections(lastLocation);

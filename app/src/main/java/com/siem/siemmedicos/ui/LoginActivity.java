@@ -11,7 +11,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
-import com.google.firebase.database.Transaction;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityLoginBinding;
@@ -63,6 +62,8 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
         switch(response.code()){
             case Constants.CODE_SERVER_OK:
+                LoginResponse loginResponse = response.body();
+                mPreferences.setMedicoToken(loginResponse.getToken());
                 goToMap();
                 break;
             case Constants.CODE_BAD_REQUEST:
