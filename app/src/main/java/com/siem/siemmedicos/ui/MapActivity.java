@@ -113,6 +113,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 if (intent.getAction().equals(Constants.BROADCAST_NEW_AUXILIO)) {
                     Toast.makeText(MapActivity.this, getString(R.string.asignNuevoAuxilio), Toast.LENGTH_LONG).show();
                     setearEstado();
+                    invalidateOptionsMenu();
                 }
             }
         };
@@ -139,8 +140,10 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_map, menu);
+        if(mPreferences.getValueEstado() != Constants.EnAuxilio.getValue()){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_map, menu);
+        }
         return true;
     }
 

@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
 
@@ -77,7 +76,6 @@ public class FragmentDialog extends Fragment {
         DialogInterface.OnClickListener acceptListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.i("123456789", "ACA: "+mRadioGroup.getCheckedRadioButtonId());
                 //TODO: API CALLL Cambio de estado
                 preferencesHelper.setValueEstado(mRadioGroup.getCheckedRadioButtonId());
                 preferencesHelper.setDescriptionEstado(Utils.getDescriptionEstado(activity, mRadioGroup.getCheckedRadioButtonId()));
