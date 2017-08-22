@@ -22,6 +22,7 @@ import android.support.v4.app.ActivityCompat;
 import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.db.DBContract;
+import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.services.IntensiveLocationService;
 import com.siem.siemmedicos.services.LocationService;
 import com.siem.siemmedicos.services.SelectLocationService;
@@ -31,7 +32,7 @@ import java.util.TimeZone;
 
 public class Utils {
 
-    public static void logout(){
+    public static void logout(Context context){
         PreferencesHelper preferences = PreferencesHelper.getInstance();
         preferences.cleanDescriptionEstado();
         preferences.cleanValueEstado();
@@ -43,6 +44,7 @@ public class Utils {
         preferences.cleanLatitudeAuxilio();
         preferences.cleanLongitudeAuxilio();
         preferences.cleanMedicoToken();
+        DBWrapper.cleanAllDB(context);
 
         /*Call<LogoutResponse> response = RetrofitClient.getServerClient().logout("Bearer " + preferences.getMedicoToken());
         response.enqueue(new Callback<LogoutResponse>() {

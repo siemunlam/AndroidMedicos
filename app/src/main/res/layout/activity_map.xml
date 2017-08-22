@@ -7,15 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <com.siem.siemmedicos.ui.custom.CustomDetallesAuxilio
             android:layout_width="match_parent"
             android:layout_height="@dimen/heightContainerExtraData"
-            android:background="@drawable/container_extra_data"
-            android:id="@+id/containerExtraData"
-            android:layout_margin="@dimen/halfDefaultMargin"
-            android:visibility="gone">
-
-        </RelativeLayout>
+            android:id="@+id/containerDetallesAuxilio"
+            android:visibility="gone"/>
 
         <fragment
             android:name="com.google.android.gms.maps.MapFragment"

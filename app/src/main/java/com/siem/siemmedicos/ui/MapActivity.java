@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.databinding.DataBindingUtil;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,12 +49,14 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private ContentObserver mObserver;
     private PreferencesHelper mPreferences;
     private ActivityMapBinding mBinding;
+    private Typeface mTypeface;
     private Map myMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_map);
+        mTypeface = Typeface.createFromAsset(getAssets(), "fonts/rounded_elegance.ttf");
         MapFragment fragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
         instanceVariables();
@@ -78,6 +81,12 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 myLocationClicked();
             }
         });
+        setTypeface();
+    }
+
+    private void setTypeface() {
+        mBinding.buttonUnlink.setTypeface(mTypeface);
+        mBinding.buttonFinalize.setTypeface(mTypeface);
     }
 
     @Override
@@ -159,7 +168,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 new FragmentDialog().getRadioButtonsDialog(this, getString(R.string.accept), true).show();
                 return true;
             case R.id.menuLogout:
-                Utils.logout();
+                Utils.logout(this);
                 Intent intent = new Intent(MapActivity.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
@@ -175,7 +184,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         myMap.setMap(googleMap);
         myMap.setZoomControlsEnabled(false);
 
-        mBinding.containerExtraData.bringToFront();
+        mBinding.containerDetallesAuxilio.bringToFront();
         mBinding.containerButtons.bringToFront();
         setearEstado();
 
@@ -256,14 +265,14 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 myMap.getDirections(lastLocation);
                 myMap.addPositionMarker(lastLocation);
                 mBinding.containerButtons.setVisibility(View.VISIBLE);
-                mBinding.containerExtraData.setVisibility(View.VISIBLE);
+                mBinding.containerDetallesAuxilio.setVisibility(View.VISIBLE);
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) (getResources().getDimension(R.dimen.defaultMargin) + getResources().getDimension(R.dimen.heightContainerButtons)));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;
             default:
                 Log.i("123456789", "PASO4");
                 mBinding.containerButtons.setVisibility(View.GONE);
-                mBinding.containerExtraData.setVisibility(View.GONE);
+                mBinding.containerDetallesAuxilio.setVisibility(View.GONE);
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) getResources().getDimension(R.dimen.defaultMargin));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;

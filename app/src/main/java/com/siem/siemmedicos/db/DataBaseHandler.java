@@ -19,6 +19,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
      */
     public static final String SQL_DELETE_LOCATIONS =
             "DROP TABLE IF EXISTS " + DBContract.Locations.TABLE_NAME;
+    public static final String SQL_DELETE_INFORMACION_AUXILIO =
+            "DROP TABLE IF EXISTS " + DBContract.InformacionAuxilio.TABLE_NAME;
 
     /**
      * Create tables
@@ -36,6 +38,17 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                     + DBContract.Locations.COLUMN_NAME_SPEED + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
                     + DBContract.Locations.COLUMN_NAME_PROVIDER + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
                     + DBContract.Locations.COLUMN_NAME_BEARING + DBContract.TEXT_TYPE + ") ";
+
+    private static final String SQL_CREATE_INFORMACION_AUXILIO =
+            "CREATE TABLE " + DBContract.InformacionAuxilio.TABLE_NAME + "("
+                    + DBContract.InformacionAuxilio._ID + DBContract.INTEGER_TYPE + DBContract.PRIMARY_KEY + DBContract.AUTOINCREMENT + DBContract.COMMA_SEP
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_LATITUDE + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_LONGITUDE + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_DIRECCION + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_DESCRIPCION + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_HEXA + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_NOMBRE_PACIENTE + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_MOTIVOS + DBContract.TEXT_TYPE + ") ";
 
 
     private DataBaseHandler(Context context) {

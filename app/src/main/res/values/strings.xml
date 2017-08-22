@@ -27,6 +27,7 @@
     <string name="logout">Cerrar sesión</string>
 
     <!-- Map -->
+    <string name="descripcionAuxilio">Auxilio %1$s</string>
     <string name="unlink">Desvincular</string>
     <string name="finalize">Finalizar</string>
     <string name="confirmUnlink">Está seguro que desea desvincularse del auxilio?</string>

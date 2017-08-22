@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:test="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/container_extra_data"
+    android:layout_margin="@dimen/halfDefaultMargin"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="@dimen/heightContainerExtraData"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_notification"
+        android:padding="@dimen/defaultMargin"
+        android:id="@+id/iconAuxilio"
+        android:tint="@android:color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/iconAuxilio"
+        android:layout_toEndOf="@+id/iconAuxilio"
+        android:orientation="vertical"
+        android:padding="4dp"
+        android:gravity="center_vertical">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:id="@+id/textviewDescriptionAuxilio"
+            test:text="Auxilio Rojo"
+            android:layout_marginBottom="4dp"
+            android:textSize="@dimen/textsizeDetallesAuxilio"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="1"
+            android:scrollHorizontally="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:id="@+id/textviewDireccion"
+            test:text="Florencio Varela 1310 1 B. En frente del kiosko"
+            android:textSize="@dimen/textsizeDetallesAuxilio"
+            android:maxLines="2"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -17,6 +17,7 @@ public class DBContentProvider extends ContentProvider {
 
     public static final int LOCATIONS = 1;
     public static final int LOCATION = 2;
+    public static final int INFORMACION_AUXILIO = 3;
 
     private DataBaseHandler dbHandler;
     private SQLiteDatabase db;
@@ -26,6 +27,7 @@ public class DBContentProvider extends ContentProvider {
     static {
         sUriMatcher.addURI(cAuthority, DBContract.LOCATIONS, LOCATIONS);
         sUriMatcher.addURI(cAuthority, DBContract.LOCATION, LOCATION);
+        sUriMatcher.addURI(cAuthority, DBContract.INFORMACION_AUXILIO, INFORMACION_AUXILIO);
     }
 
     public DBContentProvider() {
@@ -48,6 +50,9 @@ public class DBContentProvider extends ContentProvider {
             case LOCATION:
                 return DBContract.MIME_ITEM + "/" + DBContract.LOCATIONS;
 
+            case INFORMACION_AUXILIO:
+                return DBContract.MIME_DIR + "/" + DBContract.INFORMACION_AUXILIO;
+
             default:
                 return null;
         }
@@ -63,6 +68,17 @@ public class DBContentProvider extends ContentProvider {
             case LOCATIONS:
                 return db.query(
                         DBContract.Locations.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+
+            case INFORMACION_AUXILIO:
+                return db.query(
+                        DBContract.InformacionAuxilio.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -92,6 +108,14 @@ public class DBContentProvider extends ContentProvider {
                 notifyChange(DBContract.Locations.CONTENT_URI, null);
                 return uri;
 
+            case INFORMACION_AUXILIO:
+                db.insert(
+                        DBContract.InformacionAuxilio.TABLE_NAME,
+                        null,
+                        contentValues
+                );
+                return uri;
+
             default:
                 return uri;
         }
@@ -117,6 +141,13 @@ public class DBContentProvider extends ContentProvider {
                         new String[]{Long.toString(ContentUris.parseId(uri))}
                 );
 
+            case INFORMACION_AUXILIO:
+                return db.delete(
+                        DBContract.InformacionAuxilio.TABLE_NAME,
+                        selection,
+                        selectionArgs
+                );
+
             default:
                 return 0;
         }
@@ -131,6 +162,14 @@ public class DBContentProvider extends ContentProvider {
             case LOCATIONS:
                 return db.update(
                         DBContract.Locations.TABLE_NAME,
+                        values,
+                        selection,
+                        selectionArgs
+                );
+
+            case INFORMACION_AUXILIO:
+                return db.update(
+                        DBContract.InformacionAuxilio.TABLE_NAME,
                         values,
                         selection,
                         selectionArgs
