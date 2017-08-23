@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.db.DBContract;
+import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
@@ -141,10 +142,8 @@ public class AppLocation {
 
     public void getDirections(Context context, Callback<ResponseDirections> callback) {
         Log.i("123456789", "Get Directions3");
-        PreferencesHelper preferences = PreferencesHelper.getInstance();
-        String latitude = preferences.getLatitudeAuxilio();
-        String longitude = preferences.getLongitudeAuxilio();
-        Call<ResponseDirections> callResponseDirections = RetrofitClient.getMapsGoogleClient().getDirections(mLatitude + "," + mLongitude, latitude + "," + longitude, context.getString(R.string.keyDirectionsGoogleMaps));
+        Auxilio auxilio = DBWrapper.getAuxilio(context);
+        Call<ResponseDirections> callResponseDirections = RetrofitClient.getMapsGoogleClient().getDirections(mLatitude + "," + mLongitude, auxilio.getLatitude() + "," + auxilio.getLongitude(), context.getString(R.string.keyDirectionsGoogleMaps));
         callResponseDirections.enqueue(callback);
     }
 }

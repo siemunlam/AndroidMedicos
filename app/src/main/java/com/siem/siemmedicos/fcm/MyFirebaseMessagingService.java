@@ -13,30 +13,51 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.siem.siemmedicos.R;
+import com.siem.siemmedicos.db.DBWrapper;
+import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.ui.LoginActivity;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.Utils;
 
+import java.util.Map;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String KEY_LATITUDE = "Lat";
     private static final String KEY_LONGITUDE = "Lng";
+    private static final String KEY_DIRECCION = "Direccion";
+    private static final String KEY_PACIENTE = "Paciente";
+    private static final String KEY_COLOR_DESCRIPCION = "ColorDescripcion";
+    private static final String KEY_COLOR_HEXA = "ColorHexa";
+    private static final String KEY_MOTIVOS = "Motivos";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.i("123456789", "Llego notificacion");
         PreferencesHelper preferences = PreferencesHelper.getInstance();
         if (remoteMessage.getData().size() > 0 && preferences.getValueEstado() == Constants.Disponible.getValue()) {
-            Log.i("123456789", "Paso1");
-            preferences.setLatitudeAuxilio(remoteMessage.getData().get(KEY_LATITUDE));
-            preferences.setLongitudeAuxilio(remoteMessage.getData().get(KEY_LONGITUDE));
+            Auxilio auxilio = getAuxilio(remoteMessage.getData());
+            DBWrapper.saveAuxilio(this, auxilio);
             preferences.setValueEstado(Constants.EnAuxilio.getValue());
             preferences.setDescriptionEstado(Constants.EnAuxilio.getDescription(this));
             Utils.restarLocationsServices(this);
             sendNotification("Que texto va??");
             sendBroadcast();
         }
+    }
+
+    private Auxilio getAuxilio(Map<String, String> data) {
+        Auxilio auxilio = new Auxilio();
+        auxilio.setLatitude(data.get(KEY_LATITUDE));
+        auxilio.setLongitude(data.get(KEY_LONGITUDE));
+        auxilio.setDireccion(data.get(KEY_DIRECCION));
+        auxilio.setNombrePaciente(data.get(KEY_PACIENTE));
+        auxilio.setColorDescripcion(data.get(KEY_COLOR_DESCRIPCION));
+        auxilio.setColorHexadecimal(data.get(KEY_COLOR_HEXA));
+        auxilio.setMotivos(data.get(KEY_MOTIVOS));
+
+        return auxilio;
     }
 
     private void sendBroadcast(){

@@ -40,5 +40,5 @@
     <!-- Estados medico -->
     <string name="medicoEstadoDisponible">Disponible</string>
     <string name="medicoEstadoNoDisponible">No Disponible</string>
-    <string name="medicoEstadoEnAuxilio">En Auxilio</string>
+    <string name="medicoEstadoEnAuxilio">Asignado a Auxilio</string>
 </resources>

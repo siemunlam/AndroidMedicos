@@ -12,8 +12,6 @@ public class PreferencesHelper {
     private static final String KEY_LAST_LOCATION_TIME = "LAST_LOCATION_TIME";
     private static final String KEY_LAST_BEARING = "LAST_LOCATION_BEARING";
     private static final String KEY_LAST_PROVIDER = "LAST_LOCATION_PROVIDER";
-    private static final String KEY_LATITUDE_AUXILIO = "KEY_LATITUDE_AUXILIO";
-    private static final String KEY_LONGITUDE_AUXILIO = "KEY_LONGITUDE_AUXILIO";
     private static final String KEY_MEDICO_TOKEN = "KEY_MEDICO_TOKEN";
     private static final String KEY_VALUE_ESTADO = "KEY_VALUE_ESTADO";
     private static final String KEY_DESCRIPTION_ESTADO = "KEY_DESCRIPTION_ESTADO";
@@ -111,34 +109,6 @@ public class PreferencesHelper {
 
     public void cleanLastProvider(){
         mPreferences.edit().remove(KEY_LAST_PROVIDER).apply();
-    }
-
-
-    //KEY_LATITUDE_AUXILIO
-    public String getLatitudeAuxilio(){
-        return mPreferences.getString(KEY_LATITUDE_AUXILIO, null);
-    }
-
-    public void setLatitudeAuxilio(String value){
-        mPreferences.edit().putString(KEY_LATITUDE_AUXILIO, value).apply();
-    }
-
-    public void cleanLatitudeAuxilio(){
-        mPreferences.edit().remove(KEY_LATITUDE_AUXILIO).apply();
-    }
-
-
-    //KEY_LONGITUDE_AUXILIO
-    public String getLongitudeAuxilio(){
-        return mPreferences.getString(KEY_LONGITUDE_AUXILIO, null);
-    }
-
-    public void setLongitudeAuxilio(String value){
-        mPreferences.edit().putString(KEY_LONGITUDE_AUXILIO, value).apply();
-    }
-
-    public void cleanLongitudeAuxilio(){
-        mPreferences.edit().remove(KEY_LONGITUDE_AUXILIO).apply();
     }
 
 

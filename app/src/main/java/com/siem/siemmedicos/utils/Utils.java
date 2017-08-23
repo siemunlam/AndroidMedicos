@@ -41,8 +41,6 @@ public class Utils {
         preferences.cleanLastLocationTime();
         preferences.cleanLastLongitude();
         preferences.cleanLastProvider();
-        preferences.cleanLatitudeAuxilio();
-        preferences.cleanLongitudeAuxilio();
         preferences.cleanMedicoToken();
         DBWrapper.cleanAllDB(context);
 
