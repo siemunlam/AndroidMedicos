@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
 import com.siem.siemmedicos.R;
+import com.siem.siemmedicos.utils.Constants;
 
 /**
  * Created by Lucas on 19/8/17.
@@ -36,7 +37,7 @@ public class CustomEdittextLogin extends RelativeLayout {
         mContext = context;
         mImage = (AppCompatImageView)findViewById(R.id.image);
         mEdittext = (AppCompatEditText)findViewById(R.id.edittext);
-        mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/rounded_elegance.ttf");
+        mTypeface = Typeface.createFromAsset(context.getAssets(), Constants.PRIMARY_FONT);
 
         setAttrs(attrs);
     }

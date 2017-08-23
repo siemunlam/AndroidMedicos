@@ -18,6 +18,11 @@ public class Constants {
     public static final float EMERGENCY_ZOOM = 17.5F;
 
     /**
+     * Fonts
+     */
+    public static final String PRIMARY_FONT = "fonts/rounded_elegance.ttf";
+
+    /**
      * Estados
      */
     public static class Disponible {

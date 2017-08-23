@@ -26,7 +26,7 @@ public class FragmentDialog extends Fragment {
                                     DialogInterface.OnClickListener cancelListener,
                                     boolean cancelable){
         View view = View.inflate(activity, R.layout.dialog_text, null);
-        Typeface mTypeface = Typeface.createFromAsset(activity.getAssets(), "fonts/rounded_elegance.ttf");
+        Typeface mTypeface = Typeface.createFromAsset(activity.getAssets(), Constants.PRIMARY_FONT);
         final AppCompatTextView mTextView = (AppCompatTextView)view.findViewById(R.id.textview);
         mTextView.setTypeface(mTypeface);
         mTextView.setText(textShow);
@@ -42,7 +42,7 @@ public class FragmentDialog extends Fragment {
                                         String acceptText,
                                         boolean cancelable){
         final PreferencesHelper preferencesHelper = PreferencesHelper.getInstance();
-        Typeface mTypeface = Typeface.createFromAsset(activity.getAssets(), "fonts/rounded_elegance.ttf");
+        Typeface mTypeface = Typeface.createFromAsset(activity.getAssets(), Constants.PRIMARY_FONT);
         View view = View.inflate(activity, R.layout.dialog_radiobuttons, null);
         final RadioGroup mRadioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
 

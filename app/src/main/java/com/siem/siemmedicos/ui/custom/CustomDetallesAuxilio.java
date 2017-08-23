@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.model.app.Auxilio;
+import com.siem.siemmedicos.utils.Constants;
 
 /**
  * Created by Lucas on 21/8/17.
@@ -43,7 +44,7 @@ public class CustomDetallesAuxilio extends RelativeLayout {
         mIconAuxilio = (AppCompatImageView)findViewById(R.id.iconAuxilio);
         mTextviewDescriptionAuxilio = (AppCompatTextView)findViewById(R.id.textviewDescriptionAuxilio);
         mTextviewDireccion = (AppCompatTextView)findViewById(R.id.textviewDireccion);
-        mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/rounded_elegance.ttf");
+        mTypeface = Typeface.createFromAsset(context.getAssets(), Constants.PRIMARY_FONT);
         mTextviewDescriptionAuxilio.setTypeface(mTypeface);
         mTextviewDireccion.setTypeface(mTypeface);
 

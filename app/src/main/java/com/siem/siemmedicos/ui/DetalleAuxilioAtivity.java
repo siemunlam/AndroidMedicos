@@ -13,6 +13,7 @@ import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityDetallesAuxilioBinding;
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.Auxilio;
+import com.siem.siemmedicos.utils.Constants;
 
 /**
  * Created by Lucas on 22/8/17.
@@ -29,7 +30,7 @@ public class DetalleAuxilioAtivity extends AppCompatActivity implements OnStreet
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detalles_auxilio);
         StreetViewPanoramaFragment streetViewPanoramaFragment = (StreetViewPanoramaFragment) getFragmentManager().findFragmentById(R.id.streetViewPanorama);
         streetViewPanoramaFragment.getStreetViewPanoramaAsync(this);
-        mTypeface = Typeface.createFromAsset(getAssets(), "fonts/rounded_elegance.ttf");
+        mTypeface = Typeface.createFromAsset(getAssets(), Constants.PRIMARY_FONT);
         mBinding.scrollview.setVerticalScrollBarEnabled(false);
         mBinding.textviewPacienteTitle.setTypeface(mTypeface);
         mBinding.textviewPaciente.setTypeface(mTypeface);
