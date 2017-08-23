@@ -33,7 +33,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityMapBinding;
 import com.siem.siemmedicos.db.DBContract;
+import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.AppLocation;
+import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.model.app.Map;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
@@ -264,6 +266,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
                 myMap.getDirections(lastLocation);
                 myMap.addPositionMarker(lastLocation);
+                Auxilio auxilio = DBWrapper.getAuxilio(this);
+                mBinding.containerDetallesAuxilio.setDatos(auxilio);
                 mBinding.containerButtons.setVisibility(View.VISIBLE);
                 mBinding.containerDetallesAuxilio.setVisibility(View.VISIBLE);
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) (getResources().getDimension(R.dimen.defaultMargin) + getResources().getDimension(R.dimen.heightContainerButtons)));

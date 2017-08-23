@@ -11,7 +11,6 @@ import com.siem.siemmedicos.db.DBContract;
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
 import com.siem.siemmedicos.utils.Constants;
-import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.RetrofitClient;
 
 import java.util.Date;

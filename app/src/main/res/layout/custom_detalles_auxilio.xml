@@ -23,7 +23,7 @@
         android:layout_toRightOf="@+id/iconAuxilio"
         android:layout_toEndOf="@+id/iconAuxilio"
         android:orientation="vertical"
-        android:padding="4dp"
+        android:padding="6dp"
         android:gravity="center_vertical">
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
@@ -31,7 +31,6 @@
             android:textColor="@android:color/black"
             android:id="@+id/textviewDescriptionAuxilio"
             test:text="Auxilio Rojo"
-            android:layout_marginBottom="4dp"
             android:textSize="@dimen/textsizeDetallesAuxilio"
             android:singleLine="true"
             android:ellipsize="marquee"

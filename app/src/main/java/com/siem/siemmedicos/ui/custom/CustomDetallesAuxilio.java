@@ -1,6 +1,7 @@
 package com.siem.siemmedicos.ui.custom;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -8,6 +9,7 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
 import com.siem.siemmedicos.R;
+import com.siem.siemmedicos.model.app.Auxilio;
 
 /**
  * Created by Lucas on 21/8/17.
@@ -41,7 +43,6 @@ public class CustomDetallesAuxilio extends RelativeLayout {
         mTextviewDescriptionAuxilio.setTypeface(mTypefaceBold);
         mTextviewDireccion.setTypeface(mTypefaceBold);
 
-
     }
 
     public void setColorFilter(int color){
@@ -53,6 +54,16 @@ public class CustomDetallesAuxilio extends RelativeLayout {
     }
 
     public void setDescriptionColor(String color){
-        mTextviewDireccion.setText(mContext.getString(R.string.descripcionAuxilio, color));
+        mTextviewDescriptionAuxilio.setText(mContext.getString(R.string.descripcionAuxilio, color));
+    }
+
+    public void setDatos(Auxilio auxilio) {
+        setDireccion(auxilio.getDireccion());
+        setDescriptionColor(auxilio.getColorDescripcion());
+        try{
+            setColorFilter(Color.parseColor(auxilio.getColorHexadecimal()));
+        }catch(Exception e){
+
+        }
     }
 }
