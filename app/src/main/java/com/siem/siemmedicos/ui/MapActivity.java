@@ -83,6 +83,13 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 myLocationClicked();
             }
         });
+
+        mBinding.containerDetallesAuxilio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MapActivity.this, DetalleAuxilioAtivity.class));
+            }
+        });
         setTypeface();
     }
 
@@ -225,8 +232,6 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private void myLocationClicked(){
         AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
         if(!lastLocation.isNullLocation()){
-            //myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLocation.getLatLng(), Constants.NORMAL_ZOOM));
-            //myMap.addPositionMarker(lastLocation);
             addMarker(lastLocation.getLocation());
         }
     }

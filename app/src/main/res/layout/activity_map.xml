@@ -11,7 +11,11 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/heightContainerExtraData"
             android:id="@+id/containerDetallesAuxilio"
-            android:visibility="gone"/>
+            android:clickable="true"
+            android:background="@drawable/container_extra_data"
+            android:layout_margin="@dimen/halfDefaultMargin"
+            android:visibility="gone"
+            android:maxLines="2"/>
 
         <fragment
             android:name="com.google.android.gms.maps.MapFragment"

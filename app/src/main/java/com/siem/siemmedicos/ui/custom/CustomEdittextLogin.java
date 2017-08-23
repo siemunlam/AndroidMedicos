@@ -17,7 +17,7 @@ import com.siem.siemmedicos.R;
 public class CustomEdittextLogin extends RelativeLayout {
 
     private Context mContext;
-    private Typeface mTypefaceBold;
+    private Typeface mTypeface;
     private AppCompatImageView mImage;
     private AppCompatEditText mEdittext;
 
@@ -36,7 +36,7 @@ public class CustomEdittextLogin extends RelativeLayout {
         mContext = context;
         mImage = (AppCompatImageView)findViewById(R.id.image);
         mEdittext = (AppCompatEditText)findViewById(R.id.edittext);
-        mTypefaceBold = Typeface.createFromAsset(context.getAssets(), "fonts/rounded_elegance.ttf");
+        mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/rounded_elegance.ttf");
 
         setAttrs(attrs);
     }
@@ -47,7 +47,7 @@ public class CustomEdittextLogin extends RelativeLayout {
             mImage.setImageDrawable(typed.getDrawable(R.styleable.customComponents_android_src));
             mEdittext.setHint(typed.getString(R.styleable.customComponents_android_hint));
             mEdittext.setInputType(typed.getInt(R.styleable.customComponents_android_inputType, 0));
-            mEdittext.setTypeface(mTypefaceBold);
+            mEdittext.setTypeface(mTypeface);
             typed.recycle();
         }
     }

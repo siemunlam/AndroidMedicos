@@ -4,14 +4,12 @@
     xmlns:test="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/container_extra_data"
-    android:layout_margin="@dimen/halfDefaultMargin"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:id="@+id/container">
 
     <android.support.v7.widget.AppCompatImageView
         android:layout_width="@dimen/heightContainerExtraData"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/heightContainerExtraData"
         android:src="@drawable/ic_notification"
         android:padding="@dimen/defaultMargin"
         android:id="@+id/iconAuxilio"
@@ -45,7 +43,6 @@
             android:textColor="@android:color/black"
             android:id="@+id/textviewDireccion"
             test:text="Florencio Varela 1310 1 B. En frente del kiosko"
-            android:textSize="@dimen/textsizeDetallesAuxilio"
-            android:maxLines="2"/>
+            android:textSize="@dimen/textsizeDetallesAuxilio"/>
     </LinearLayout>
 </RelativeLayout>

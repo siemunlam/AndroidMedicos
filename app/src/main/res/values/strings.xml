@@ -37,6 +37,10 @@
     <string name="asignNuevoAuxilio">Se te ha asignado a un nuevo auxilio.</string>
     <string name="recalculate">Recalculando…</string>
 
+    <!-- Detalles Auxilio -->
+    <string name="paciente">Paciente</string>
+    <string name="motivos">Motivos</string>
+
     <!-- Estados medico -->
     <string name="medicoEstadoDisponible">Disponible</string>
     <string name="medicoEstadoNoDisponible">No Disponible</string>

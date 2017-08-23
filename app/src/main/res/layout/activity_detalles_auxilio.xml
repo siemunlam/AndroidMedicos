@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:test="http://schemas.android.com/tools">
+    <data>
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/halfDefaultMargin"
+        android:id="@+id/scrollview">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <fragment
+                android:name="com.google.android.gms.maps.StreetViewPanoramaFragment"
+                android:id="@+id/streetViewPanorama"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/heightStreetView"/>
+
+            <com.siem.siemmedicos.ui.custom.CustomDetallesAuxilio
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/heightContainerExtraData"
+                android:id="@+id/containerDetallesAuxilio" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:id="@+id/textviewPacienteTitle"
+                android:text="@string/paciente"
+                android:textSize="@dimen/textsizeTitle"
+                android:paddingLeft="@dimen/halfDefaultMargin"
+                android:paddingRight="@dimen/halfDefaultMargin"/>
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:id="@+id/textviewPaciente"
+                test:text="Frontalini Lucas"
+                android:textSize="@dimen/textsizeData"
+                android:layout_marginLeft="@dimen/halfDefaultMargin"
+                android:layout_marginStart="@dimen/halfDefaultMargin"
+                android:paddingLeft="@dimen/halfDefaultMargin"
+                android:paddingRight="@dimen/halfDefaultMargin"/>
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:id="@+id/textviewMotivosTitle"
+                android:text="@string/motivos"
+                android:textSize="@dimen/textsizeTitle"
+                android:layout_marginTop="@dimen/halfDefaultMargin"
+                android:paddingLeft="@dimen/halfDefaultMargin"
+                android:paddingRight="@dimen/halfDefaultMargin"/>
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:id="@+id/textviewMotivos"
+                test:text="- Hemorragia leve\n- Hospital privado\n- Edad mayor a 65 años"
+                android:textSize="@dimen/textsizeData"
+                android:layout_marginLeft="@dimen/halfDefaultMargin"
+                android:layout_marginStart="@dimen/halfDefaultMargin"
+                android:paddingLeft="@dimen/halfDefaultMargin"
+                android:paddingRight="@dimen/halfDefaultMargin"/>
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

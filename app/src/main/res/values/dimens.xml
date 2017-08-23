@@ -19,4 +19,9 @@
     <dimen name="heightContainerExtraData">100dp</dimen>
     <dimen name="radiusContainerExtraData">5dp</dimen>
     <dimen name="textsizeDetallesAuxilio">16sp</dimen>
+
+    <!-- Detalles Auxilio -->
+    <dimen name="heightStreetView">200dp</dimen>
+    <dimen name="textsizeTitle">18sp</dimen>
+    <dimen name="textsizeData">23sp</dimen>
 </resources>
