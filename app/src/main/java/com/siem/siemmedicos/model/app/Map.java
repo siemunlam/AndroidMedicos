@@ -81,6 +81,10 @@ public class Map implements Callback<ResponseDirections> {
         }
     }
 
+    public boolean isReady(){
+        return mMap != null;
+    }
+
     public void setZoomControlsEnabled(boolean enable){
         mMap.getUiSettings().setZoomControlsEnabled(enable);
     }

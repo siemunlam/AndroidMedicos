@@ -18,7 +18,7 @@ import com.siem.siemmedicos.utils.Constants;
 /**
  * Created by Lucas on 22/8/17.
  */
-public class DetalleAuxilioAtivity extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
+public class DetalleAuxilioActivity extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
 
     private ActivityDetallesAuxilioBinding mBinding;
     private Auxilio mAuxilio;
@@ -44,7 +44,7 @@ public class DetalleAuxilioAtivity extends AppCompatActivity implements OnStreet
         mAuxilio = DBWrapper.getAuxilio(this);
         mBinding.containerDetallesAuxilio.setDatos(mAuxilio);
         mBinding.textviewPaciente.setText(mAuxilio.getNombrePaciente());
-        mBinding.textviewMotivos.setText(mAuxilio.getMotivos());
+        mBinding.textviewMotivos.setText(mAuxilio.getParsedMotivos());
     }
 
     @Override

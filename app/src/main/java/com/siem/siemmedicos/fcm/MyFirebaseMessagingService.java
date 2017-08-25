@@ -12,25 +12,31 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.Auxilio;
+import com.siem.siemmedicos.model.app.Motivo;
+import com.siem.siemmedicos.model.app.Motivos;
 import com.siem.siemmedicos.ui.LoginActivity;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.Utils;
 
+import org.json.JSONArray;
+
+import java.util.Arrays;
 import java.util.Map;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
+import static com.siem.siemmedicos.utils.Constants.KEY_COLOR_DESCRIPCION;
+import static com.siem.siemmedicos.utils.Constants.KEY_COLOR_HEXA;
+import static com.siem.siemmedicos.utils.Constants.KEY_DIRECCION;
+import static com.siem.siemmedicos.utils.Constants.KEY_LATITUDE;
+import static com.siem.siemmedicos.utils.Constants.KEY_LONGITUDE;
+import static com.siem.siemmedicos.utils.Constants.KEY_MOTIVOS;
+import static com.siem.siemmedicos.utils.Constants.KEY_PACIENTE;
 
-    private static final String KEY_LATITUDE = "Lat";
-    private static final String KEY_LONGITUDE = "Lng";
-    private static final String KEY_DIRECCION = "Direccion";
-    private static final String KEY_PACIENTE = "Paciente";
-    private static final String KEY_COLOR_DESCRIPCION = "ColorDescripcion";
-    private static final String KEY_COLOR_HEXA = "ColorHexa";
-    private static final String KEY_MOTIVOS = "Motivos";
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -48,6 +54,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private Auxilio getAuxilio(Map<String, String> data) {
+        Gson gson = new Gson();
         Auxilio auxilio = new Auxilio();
         auxilio.setLatitude(data.get(KEY_LATITUDE));
         auxilio.setLongitude(data.get(KEY_LONGITUDE));
@@ -55,7 +62,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         auxilio.setNombrePaciente(data.get(KEY_PACIENTE));
         auxilio.setColorDescripcion(data.get(KEY_COLOR_DESCRIPCION));
         auxilio.setColorHexadecimal(data.get(KEY_COLOR_HEXA));
-        auxilio.setMotivos(data.get(KEY_MOTIVOS));
+
+        try{
+            JSONArray jsonArray = new JSONArray(data.get(KEY_MOTIVOS));
+            Motivo[] arrayMotivos = gson.fromJson(jsonArray.toString(), Motivo[].class);
+            Motivos motivos = new Motivos();
+            motivos.setListMotivos(Arrays.asList(arrayMotivos));
+            auxilio.setMotivos(motivos);
+        }catch(Exception e){
+            //TODO: Exception
+        }
 
         return auxilio;
     }

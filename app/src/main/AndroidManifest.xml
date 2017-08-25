@@ -32,7 +32,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.DetalleAuxilioAtivity"
+            android:name=".ui.DetalleAuxilioActivity"
             android:screenOrientation="portrait">
         </activity>
 

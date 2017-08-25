@@ -21,6 +21,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + DBContract.Locations.TABLE_NAME;
     public static final String SQL_DELETE_INFORMACION_AUXILIO =
             "DROP TABLE IF EXISTS " + DBContract.InformacionAuxilio.TABLE_NAME;
+    public static final String SQL_DELETE_MOTIVO_AUXILIO =
+            "DROP TABLE IF EXISTS " + DBContract.MotivoAuxilio.TABLE_NAME;
 
     /**
      * Create tables
@@ -47,9 +49,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                     + DBContract.InformacionAuxilio.COLUMN_NAME_DIRECCION + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
                     + DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_DESCRIPCION + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
                     + DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_HEXA + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
-                    + DBContract.InformacionAuxilio.COLUMN_NAME_NOMBRE_PACIENTE + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
-                    + DBContract.InformacionAuxilio.COLUMN_NAME_MOTIVOS + DBContract.TEXT_TYPE + ") ";
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_NOMBRE_PACIENTE + DBContract.TEXT_TYPE + ") ";
 
+    private static final String SQL_CREATE_MOTIVO_AUXILIO =
+            "CREATE TABLE " + DBContract.MotivoAuxilio.TABLE_NAME + "("
+                    + DBContract.MotivoAuxilio._ID + DBContract.INTEGER_TYPE + DBContract.PRIMARY_KEY + DBContract.AUTOINCREMENT + DBContract.COMMA_SEP
+                    + DBContract.MotivoAuxilio.COLUMN_NAME_ID_AUXILIO + DBContract.INTEGER_TYPE + DBContract.COMMA_SEP
+                    + DBContract.MotivoAuxilio.COLUMN_NAME_MOTIVO + DBContract.TEXT_TYPE + ") ";
 
     private DataBaseHandler(Context context) {
         super(context, DBNAME, null, DATABASE_VERSION);

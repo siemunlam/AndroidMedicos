@@ -18,6 +18,7 @@ public class DBContentProvider extends ContentProvider {
     public static final int LOCATIONS = 1;
     public static final int LOCATION = 2;
     public static final int INFORMACION_AUXILIO = 3;
+    public static final int MOTIVO_AUXILIO = 4;
 
     private DataBaseHandler dbHandler;
     private SQLiteDatabase db;
@@ -28,6 +29,7 @@ public class DBContentProvider extends ContentProvider {
         sUriMatcher.addURI(cAuthority, DBContract.LOCATIONS, LOCATIONS);
         sUriMatcher.addURI(cAuthority, DBContract.LOCATION, LOCATION);
         sUriMatcher.addURI(cAuthority, DBContract.INFORMACION_AUXILIO, INFORMACION_AUXILIO);
+        sUriMatcher.addURI(cAuthority, DBContract.MOTIVO_AUXILIO, MOTIVO_AUXILIO);
     }
 
     public DBContentProvider() {
@@ -52,6 +54,9 @@ public class DBContentProvider extends ContentProvider {
 
             case INFORMACION_AUXILIO:
                 return DBContract.MIME_DIR + "/" + DBContract.INFORMACION_AUXILIO;
+
+            case MOTIVO_AUXILIO:
+                return DBContract.MIME_DIR + "/" + DBContract.MOTIVO_AUXILIO;
 
             default:
                 return null;
@@ -79,6 +84,17 @@ public class DBContentProvider extends ContentProvider {
             case INFORMACION_AUXILIO:
                 return db.query(
                         DBContract.InformacionAuxilio.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+
+            case MOTIVO_AUXILIO:
+                return db.query(
+                        DBContract.MotivoAuxilio.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -116,6 +132,14 @@ public class DBContentProvider extends ContentProvider {
                 );
                 return uri;
 
+            case MOTIVO_AUXILIO:
+                db.insert(
+                        DBContract.MotivoAuxilio.TABLE_NAME,
+                        null,
+                        contentValues
+                );
+                return uri;
+
             default:
                 return uri;
         }
@@ -148,6 +172,13 @@ public class DBContentProvider extends ContentProvider {
                         selectionArgs
                 );
 
+            case MOTIVO_AUXILIO:
+                return db.delete(
+                        DBContract.MotivoAuxilio.TABLE_NAME,
+                        selection,
+                        selectionArgs
+                );
+
             default:
                 return 0;
         }
@@ -170,6 +201,14 @@ public class DBContentProvider extends ContentProvider {
             case INFORMACION_AUXILIO:
                 return db.update(
                         DBContract.InformacionAuxilio.TABLE_NAME,
+                        values,
+                        selection,
+                        selectionArgs
+                );
+
+            case MOTIVO_AUXILIO:
+                return db.update(
+                        DBContract.MotivoAuxilio.TABLE_NAME,
                         values,
                         selection,
                         selectionArgs

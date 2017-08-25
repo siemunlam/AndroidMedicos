@@ -87,7 +87,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         mBinding.containerDetallesAuxilio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MapActivity.this, DetalleAuxilioAtivity.class));
+                startActivity(new Intent(MapActivity.this, DetalleAuxilioActivity.class));
             }
         });
         setTypeface();
@@ -226,6 +226,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     }
 
     private void init() {
+        if(myMap.isReady())
+            setearEstado();
         getLocation();
     }
 

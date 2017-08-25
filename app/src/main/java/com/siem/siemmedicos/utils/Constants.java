@@ -79,6 +79,18 @@ public class Constants {
     public static final int ID_NOTIFICATION_SERVICE = 1001;
 
     /**
+     * Push Notifications Keys
+     */
+    public static final String KEY_LATITUDE = "Lat";
+    public static final String KEY_LONGITUDE = "Lng";
+    public static final String KEY_DIRECCION = "Direccion";
+    public static final String KEY_PACIENTE = "Paciente";
+    public static final String KEY_COLOR_DESCRIPCION = "ColorDescripcion";
+    public static final String KEY_COLOR_HEXA = "ColorHexa";
+    public static final String KEY_MOTIVOS = "Motivos";
+    public static final String KEY_MOTIVO = "Motivo";
+
+    /**
      * Permissions
      */
     public static final String[] permissions = {

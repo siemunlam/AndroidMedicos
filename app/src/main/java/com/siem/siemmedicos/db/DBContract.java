@@ -31,6 +31,7 @@ public class DBContract {
     public static final String LOCATIONS = "locations";
     public static final String LOCATION = LOCATIONS + "/#";
     public static final String INFORMACION_AUXILIO = "informacion_auxilio";
+    public static final String MOTIVO_AUXILIO = "motivo_auxilio";
 
     /**
      * Tipos MIME
@@ -74,6 +75,15 @@ public class DBContract {
         public static final String COLUMN_NAME_COLOR_DESCRIPCION = "color_descripcion";
         public static final String COLUMN_NAME_COLOR_HEXA = "color_hexa";
         public static final String COLUMN_NAME_NOMBRE_PACIENTE = "nombre_paciente";
-        public static final String COLUMN_NAME_MOTIVOS = "motivos";
+    }
+
+    public static abstract class MotivoAuxilio implements BaseColumns {
+        public static final String TABLE_NAME = "motivo_auxilio";
+
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendEncodedPath(MOTIVO_AUXILIO).build();
+
+        public static final String COLUMN_NAME_ID_AUXILIO = "id_auxilio";
+        public static final String COLUMN_NAME_MOTIVO = "motivo";
     }
 }

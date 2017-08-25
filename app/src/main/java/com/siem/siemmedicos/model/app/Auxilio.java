@@ -1,5 +1,7 @@
 package com.siem.siemmedicos.model.app;
 
+import android.text.TextUtils;
+
 /**
  * Created by Lucas on 22/8/17.
  */
@@ -12,7 +14,7 @@ public class Auxilio {
     private String mColorDescripcion;
     private String mColorHexadecimal;
     private String mNombrePaciente;
-    private String mMotivos;
+    private Motivos mMotivos;
 
     public String getLatitude() {
         return mLatitude;
@@ -62,11 +64,18 @@ public class Auxilio {
         mNombrePaciente = nombrePaciente;
     }
 
-    public String getMotivos() {
+    public Motivos getMotivos() {
         return mMotivos;
     }
 
-    public void setMotivos(String motivos) {
+    public void setMotivos(Motivos motivos) {
         mMotivos = motivos;
+    }
+
+    public String getParsedMotivos(){
+        if(getMotivos().getListMotivos() != null)
+            return TextUtils.join("\n", getMotivos().getListMotivos());
+        else
+            return "";
     }
 }
