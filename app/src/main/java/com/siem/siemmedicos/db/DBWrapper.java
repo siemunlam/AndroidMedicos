@@ -1,9 +1,11 @@
 package com.siem.siemmedicos.db;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.model.app.Motivo;
@@ -59,7 +61,7 @@ public class DBWrapper {
                 cvInfo
         );
 
-        //TODO: Error.... saveMotivos(context, auxilio, ContentUris.parseId(uri));
+        saveMotivos(context, auxilio, ContentUris.parseId(uri));
     }
 
     private static void saveMotivos(Context context, Auxilio auxilio, long informacionAuxilioId) {

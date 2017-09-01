@@ -20,4 +20,9 @@ public class Motivo {
     public String getMotivo() {
         return mMotivo;
     }
+
+    @Override
+    public String toString(){
+        return getMotivo();
+    }
 }

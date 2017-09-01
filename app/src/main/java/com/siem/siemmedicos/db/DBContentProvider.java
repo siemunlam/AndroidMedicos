@@ -116,29 +116,29 @@ public class DBContentProvider extends ContentProvider {
 
         switch (match) {
             case LOCATIONS:
-                db.insert(
+                long id = db.insert(
                         DBContract.Locations.TABLE_NAME,
                         null,
                         contentValues
                 );
                 notifyChange(DBContract.Locations.CONTENT_URI, null);
-                return uri;
+                return Uri.parse(DBContract.Locations.CONTENT_URI + "/" + id);
 
             case INFORMACION_AUXILIO:
-                db.insert(
+                id = db.insert(
                         DBContract.InformacionAuxilio.TABLE_NAME,
                         null,
                         contentValues
                 );
-                return uri;
+                return Uri.parse(DBContract.InformacionAuxilio.CONTENT_URI + "/" + id);
 
             case MOTIVO_AUXILIO:
-                db.insert(
+                id = db.insert(
                         DBContract.MotivoAuxilio.TABLE_NAME,
                         null,
                         contentValues
                 );
-                return uri;
+                return Uri.parse(DBContract.MotivoAuxilio.CONTENT_URI + "/" + id);
 
             default:
                 return uri;
