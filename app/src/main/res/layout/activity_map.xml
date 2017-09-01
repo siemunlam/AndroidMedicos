@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:test="http://schemas.android.com/tools">
     <data>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/appBarLayout">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary">
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    test:text="Toolbar Title"
+                    android:layout_gravity="start"
+                    android:id="@+id/toolbar_title"
+                    android:textColor="@android:color/white"/>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
 
         <com.siem.siemmedicos.ui.custom.CustomDetallesAuxilio
             android:layout_width="match_parent"
@@ -15,7 +35,8 @@
             android:background="@drawable/container_extra_data"
             android:layout_margin="@dimen/halfDefaultMargin"
             android:visibility="gone"
-            android:maxLines="2"/>
+            android:maxLines="2"
+            android:layout_below="@+id/appBarLayout"/>
 
         <fragment
             android:name="com.google.android.gms.maps.MapFragment"
@@ -23,7 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_above="@+id/containerButtons"/>
+            android:layout_above="@+id/containerButtons"
+            android:layout_below="@+id/appBarLayout"/>
 
         <LinearLayout
             android:layout_width="match_parent"

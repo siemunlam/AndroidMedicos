@@ -107,6 +107,7 @@ public class BaseLocationServices extends Service {
         mPreferences = PreferencesHelper.getInstance();
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        //TODO: Cambiar icono por ambulancia
         mBuilder.setWhen(0);
         mBuilder.setContentText(getString(R.string.statusNotification, mPreferences.getDescriptionEstado(this)));
         return mBuilder;

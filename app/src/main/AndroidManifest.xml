@@ -28,7 +28,8 @@
         </activity>
         <activity
             android:name=".ui.MapActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".ui.DetalleAuxilioActivity"
