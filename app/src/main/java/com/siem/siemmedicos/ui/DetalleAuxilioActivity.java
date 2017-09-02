@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
 import com.google.android.gms.maps.StreetViewPanorama;
@@ -28,6 +29,7 @@ public class DetalleAuxilioActivity extends AppCompatActivity implements OnStree
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detalles_auxilio);
+        setToolbar();
         StreetViewPanoramaFragment streetViewPanoramaFragment = (StreetViewPanoramaFragment) getFragmentManager().findFragmentById(R.id.streetViewPanorama);
         streetViewPanoramaFragment.getStreetViewPanoramaAsync(this);
         mTypeface = Typeface.createFromAsset(getAssets(), Constants.PRIMARY_FONT);
@@ -45,6 +47,15 @@ public class DetalleAuxilioActivity extends AppCompatActivity implements OnStree
         mBinding.containerDetallesAuxilio.setDatos(mAuxilio);
         mBinding.textviewPaciente.setText(mAuxilio.getNombrePaciente());
         mBinding.textviewMotivos.setText(mAuxilio.getParsedMotivos());
+    }
+
+    private void setToolbar() {
+        setSupportActionBar(mBinding.appBarLayout.getToolbar());
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setTitle("");
+        else
+            mBinding.appBarLayout.setVisibility(View.GONE);
+        mBinding.appBarLayout.setText(getString(R.string.name));
     }
 
     @Override

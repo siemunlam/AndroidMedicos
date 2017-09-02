@@ -58,8 +58,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_map);
-        mTypeface = Typeface.createFromAsset(getAssets(), Constants.PRIMARY_FONT);
         setToolbar();
+        mTypeface = Typeface.createFromAsset(getAssets(), Constants.PRIMARY_FONT);
         MapFragment fragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
         instanceVariables();
