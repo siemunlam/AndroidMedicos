@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.model.app.Motivo;

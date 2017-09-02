@@ -58,14 +58,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_map);
-        setSupportActionBar(mBinding.toolbar);
-        //TODO: If != null.
-        //TODO: Hacer un customToolbar
-        //TODO: Usar ese customToolbar en una baseActivity
-        getSupportActionBar().setTitle("");
-        mBinding.toolbarTitle.setText(getString(R.string.app_name));
         mTypeface = Typeface.createFromAsset(getAssets(), Constants.PRIMARY_FONT);
-        mBinding.toolbarTitle.setTypeface(mTypeface);
+        setToolbar();
         MapFragment fragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
         instanceVariables();
@@ -98,6 +92,15 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
             }
         });
         setTypeface();
+    }
+
+    private void setToolbar() {
+        setSupportActionBar(mBinding.appBarLayout.getToolbar());
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setTitle("");
+        else
+            mBinding.appBarLayout.setVisibility(View.GONE);
+        mBinding.appBarLayout.setText(getString(R.string.name));
     }
 
     private void setTypeface() {

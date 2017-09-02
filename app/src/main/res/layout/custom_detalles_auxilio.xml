@@ -21,7 +21,10 @@
         android:layout_toRightOf="@+id/iconAuxilio"
         android:layout_toEndOf="@+id/iconAuxilio"
         android:orientation="vertical"
-        android:padding="6dp"
+        android:layout_marginRight="@dimen/defaultMargin"
+        android:layout_marginEnd="@dimen/defaultMargin"
+        android:layout_marginLeft="6dp"
+        android:layout_marginStart="6dp"
         android:gravity="center_vertical">
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"

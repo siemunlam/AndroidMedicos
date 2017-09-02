@@ -5,6 +5,7 @@
     <dimen name="halfDefaultMargin">8dp</dimen>
     <dimen name="defaultMargin">16dp</dimen>
     <dimen name="doubleDefaultMargin">32dp</dimen>
+    <dimen name="textsizeToolbarLogo">26sp</dimen>
 
     <!-- Login -->
     <dimen name="widthLogo">200dp</dimen>
