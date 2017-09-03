@@ -1,4 +1,4 @@
-package com.siem.siemmedicos.ui;
+package com.siem.siemmedicos.ui.activity;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;

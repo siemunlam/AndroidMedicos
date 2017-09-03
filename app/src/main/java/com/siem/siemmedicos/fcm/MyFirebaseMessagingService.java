@@ -18,7 +18,7 @@ import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.model.app.Motivo;
 import com.siem.siemmedicos.model.app.Motivos;
-import com.siem.siemmedicos.ui.LoginActivity;
+import com.siem.siemmedicos.ui.activity.LoginActivity;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.Utils;

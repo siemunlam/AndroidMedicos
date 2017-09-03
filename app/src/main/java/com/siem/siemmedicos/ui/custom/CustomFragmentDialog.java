@@ -1,4 +1,4 @@
-package com.siem.siemmedicos.ui;
+package com.siem.siemmedicos.ui.custom;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -16,7 +16,7 @@ import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.Utils;
 
-public class FragmentDialog extends Fragment {
+public class CustomFragmentDialog extends Fragment {
 
     public Dialog getTextViewDialog(Activity activity,
                                     String textShow,
@@ -25,7 +25,7 @@ public class FragmentDialog extends Fragment {
                                     String cancelText,
                                     DialogInterface.OnClickListener cancelListener,
                                     boolean cancelable){
-        View view = View.inflate(activity, R.layout.dialog_text, null);
+        View view = View.inflate(activity, R.layout.custom_dialog_text, null);
         Typeface mTypeface = Typeface.createFromAsset(activity.getAssets(), Constants.PRIMARY_FONT);
         final AppCompatTextView mTextView = (AppCompatTextView)view.findViewById(R.id.textview);
         mTextView.setTypeface(mTypeface);
@@ -43,7 +43,7 @@ public class FragmentDialog extends Fragment {
                                         boolean cancelable){
         final PreferencesHelper preferencesHelper = PreferencesHelper.getInstance();
         Typeface mTypeface = Typeface.createFromAsset(activity.getAssets(), Constants.PRIMARY_FONT);
-        View view = View.inflate(activity, R.layout.dialog_radiobuttons, null);
+        View view = View.inflate(activity, R.layout.custom_dialog_radiobuttons, null);
         final RadioGroup mRadioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
 
         final AppCompatRadioButton radioButtonDisponible = new AppCompatRadioButton(activity);

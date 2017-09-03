@@ -19,7 +19,7 @@
         android:name=".Application">
 
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -27,17 +27,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MapActivity"
+            android:name=".ui.activity.MapActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".ui.DetalleAuxilioActivity"
+            android:name=".ui.activity.DetalleAuxilioActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".ui.FinalizarAuxilioActivity"
+            android:name=".ui.activity.FinalizarAuxilioActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

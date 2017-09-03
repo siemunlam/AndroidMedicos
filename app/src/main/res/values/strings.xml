@@ -42,6 +42,9 @@
     <string name="paciente">Paciente</string>
     <string name="motivos">Motivos</string>
 
+    <!-- Confirmacion Auxilio -->
+    <string name="pudoAsistirPaciente">Pudo asistir al paciente?</string>
+
     <!-- Estados medico -->
     <string name="medicoEstadoDisponible">Disponible</string>
     <string name="medicoEstadoNoDisponible">No Disponible</string>

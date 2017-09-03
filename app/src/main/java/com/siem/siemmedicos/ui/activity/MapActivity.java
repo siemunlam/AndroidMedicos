@@ -1,4 +1,4 @@
-package com.siem.siemmedicos.ui;
+package com.siem.siemmedicos.ui.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
@@ -37,6 +37,7 @@ import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.model.app.Map;
+import com.siem.siemmedicos.ui.custom.CustomFragmentDialog;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.Utils;
@@ -67,14 +68,14 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         mBinding.buttonUnlink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new FragmentDialog().getTextViewDialog(MapActivity.this, getString(R.string.confirmUnlink), getString(R.string.accept), null, getString(R.string.cancel), null, false).show();
+                new CustomFragmentDialog().getTextViewDialog(MapActivity.this, getString(R.string.confirmUnlink), getString(R.string.accept), null, getString(R.string.cancel), null, false).show();
             }
         });
 
         mBinding.buttonFinalize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new FragmentDialog().getTextViewDialog(MapActivity.this, getString(R.string.confirmFinalize), getString(R.string.accept), null, getString(R.string.cancel), null, false).show();
+                new CustomFragmentDialog().getTextViewDialog(MapActivity.this, getString(R.string.confirmFinalize), getString(R.string.accept), null, getString(R.string.cancel), null, false).show();
             }
         });
 
@@ -88,7 +89,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         mBinding.containerDetallesAuxilio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.startActivityWithTransition(MapActivity.this, new Intent(MapActivity.this, DetalleAuxilioActivity.class));
+               //TODO: Change Utils.startActivityWithTransition(MapActivity.this, new Intent(MapActivity.this, DetalleAuxilioActivity.class));
+                Utils.startActivityWithTransition(MapActivity.this, new Intent(MapActivity.this, FinalizarAuxilioActivity.class));
             }
         });
         setTypeface();
@@ -184,7 +186,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(this, FirebaseInstanceId.getInstance().getToken(), Toast.LENGTH_LONG).show();
 
-                new FragmentDialog().getRadioButtonsDialog(this, getString(R.string.accept), true).show();
+                new CustomFragmentDialog().getRadioButtonsDialog(this, getString(R.string.accept), true).show();
                 return true;
             case R.id.menuLogout:
                 Utils.logout(this);
