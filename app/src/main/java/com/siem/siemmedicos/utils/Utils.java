@@ -249,4 +249,17 @@ public class Utils {
             return Constants.EnAuxilio.getDescription(context);
         return null;
     }
+
+    public static void addStartTransitionAnimation(Activity activity){
+        activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    public static void addFinishTransitionAnimation(Activity activity){
+        activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    public static void startActivityWithTransition(Activity activity, Intent intent) {
+        activity.startActivity(intent);
+        addStartTransitionAnimation(activity);
+    }
 }

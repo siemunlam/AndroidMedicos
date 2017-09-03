@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
@@ -15,6 +16,7 @@ import com.siem.siemmedicos.databinding.ActivityDetallesAuxilioBinding;
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.utils.Constants;
+import com.siem.siemmedicos.utils.Utils;
 
 /**
  * Created by Lucas on 22/8/17.
@@ -51,9 +53,11 @@ public class DetalleAuxilioActivity extends AppCompatActivity implements OnStree
 
     private void setToolbar() {
         setSupportActionBar(mBinding.appBarLayout.getToolbar());
-        if(getSupportActionBar() != null)
+        if(getSupportActionBar() != null) {
             getSupportActionBar().setTitle("");
-        else
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }else
             mBinding.appBarLayout.setVisibility(View.GONE);
         mBinding.appBarLayout.setText(getString(R.string.name));
     }
@@ -64,5 +68,22 @@ public class DetalleAuxilioActivity extends AppCompatActivity implements OnStree
 
         streetViewPanorama.setUserNavigationEnabled(false);
         streetViewPanorama.setZoomGesturesEnabled(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed(){
+        supportFinishAfterTransition();
+        Utils.addFinishTransitionAnimation(this);
     }
 }
