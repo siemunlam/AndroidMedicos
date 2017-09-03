@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
@@ -103,8 +102,7 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
 
     private void vibrate(List<View> listErrorView) {
         for (View view : listErrorView) {
-            Animation shake = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.vibrate);
-            view.startAnimation(shake);
+            view.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, R.anim.vibrate));
         }
     }
 

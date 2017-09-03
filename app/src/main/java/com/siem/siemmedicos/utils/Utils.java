@@ -258,6 +258,10 @@ public class Utils {
         activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
+    public static void addDefaultFinishTransitionAnimation(Activity activity){
+        activity.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
+    }
+
     public static void startActivityWithTransition(Activity activity, Intent intent) {
         activity.startActivity(intent);
         addStartTransitionAnimation(activity);

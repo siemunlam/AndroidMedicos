@@ -6,7 +6,6 @@ import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -27,7 +26,7 @@ import com.siem.siemmedicos.utils.Utils;
  * Created by Lucas on 7/8/17.
  */
 
-public class ActivateGpsActivity extends AppCompatActivity implements
+public class ActivateGpsActivity extends ToolbarActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
 

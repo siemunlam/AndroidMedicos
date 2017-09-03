@@ -59,7 +59,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_map);
-        setToolbar();
+        setToolbar(false);
         mTypeface = Typeface.createFromAsset(getAssets(), Constants.PRIMARY_FONT);
         MapFragment fragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
@@ -75,7 +75,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         mBinding.buttonFinalize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CustomFragmentDialog().getTextViewDialog(MapActivity.this, getString(R.string.confirmFinalize), getString(R.string.accept), null, getString(R.string.cancel), null, false).show();
+                Utils.startActivityWithTransition(MapActivity.this, new Intent(MapActivity.this, FinalizarAuxilioActivity.class));
             }
         });
 
@@ -89,20 +89,16 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         mBinding.containerDetallesAuxilio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //TODO: Change Utils.startActivityWithTransition(MapActivity.this, new Intent(MapActivity.this, DetalleAuxilioActivity.class));
-                Utils.startActivityWithTransition(MapActivity.this, new Intent(MapActivity.this, FinalizarAuxilioActivity.class));
+                Utils.startActivityWithTransition(MapActivity.this, new Intent(MapActivity.this, DetalleAuxilioActivity.class));
             }
         });
         setTypeface();
     }
 
-    private void setToolbar() {
-        setSupportActionBar(mBinding.appBarLayout.getToolbar());
-        if(getSupportActionBar() != null)
-            getSupportActionBar().setTitle("");
-        else
-            mBinding.appBarLayout.setVisibility(View.GONE);
-        mBinding.appBarLayout.setText(getString(R.string.name));
+    @Override
+    public void onBackPressed(){
+        supportFinishAfterTransition();
+        Utils.addDefaultFinishTransitionAnimation(this);
     }
 
     private void setTypeface() {

@@ -28,4 +28,6 @@
 
     <!-- Confirmacion Auxilio -->
     <dimen name="textsizeQuestions">20sp</dimen>
+    <!-- Possitive -->
+    <dimen name="textsizeOptions">18sp</dimen>
 </resources>

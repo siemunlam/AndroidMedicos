@@ -44,6 +44,12 @@
 
     <!-- Confirmacion Auxilio -->
     <string name="pudoAsistirPaciente">Pudo asistir al paciente?</string>
+    <!-- Possitive -->
+    <string name="ubicacionIncorrecta">Ubicación incorrecta</string>
+    <string name="sinRespuesta">No respondió nadie</string>
+    <string name="yaTrasladado">Ya fue trasladado</string>
+    <string name="otroMotivo">Otro</string>
+    <string name="observaciones">Observaciones</string>
 
     <!-- Estados medico -->
     <string name="medicoEstadoDisponible">Disponible</string>
