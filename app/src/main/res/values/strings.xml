@@ -50,6 +50,10 @@
     <string name="yaTrasladado">Ya fue trasladado</string>
     <string name="otroMotivo">Otro</string>
     <string name="observaciones">Observaciones</string>
+    <!-- Negative -->
+    <string name="bienCategorizadoQuestion">Auxilio bien categorizado?</string>
+    <string name="subcategorizado">Subcategorizado</string>
+    <string name="supercategorizado">Supercategorizado</string>
 
     <!-- Estados medico -->
     <string name="medicoEstadoDisponible">Disponible</string>

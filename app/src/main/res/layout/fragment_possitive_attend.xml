@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#00f">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bienCategorizadoQuestion"
+            android:textSize="@dimen/textsizeQuestions"
+            android:textColor="@android:color/black"
+            android:id="@+id/switchBienCategorizado"
+            android:checked="true"
+            android:foreground="?android:attr/selectableItemBackground"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radiogroup">
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/subcategorizado"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/textsizeOptions"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/supercategorizado"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/textsizeOptions"
+                android:foreground="?android:attr/selectableItemBackground"/>
+        </RadioGroup>
+
+    </LinearLayout>
+</layout>
