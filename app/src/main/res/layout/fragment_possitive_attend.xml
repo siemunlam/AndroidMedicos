@@ -21,7 +21,8 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/radiogroup">
+            android:id="@+id/radiogroup"
+            android:visibility="gone">
 
             <android.support.v7.widget.AppCompatRadioButton
                 android:layout_width="match_parent"
@@ -39,6 +40,11 @@
                 android:textSize="@dimen/textsizeOptions"
                 android:foreground="?android:attr/selectableItemBackground"/>
         </RadioGroup>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00f"></RelativeLayout>
 
     </LinearLayout>
 </layout>
