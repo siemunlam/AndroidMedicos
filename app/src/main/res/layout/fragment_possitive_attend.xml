@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
     </data>
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/radiogroup"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:layout_below="@+id/switchBienCategorizado">
 
             <android.support.v7.widget.AppCompatRadioButton
                 android:layout_width="match_parent"
@@ -43,8 +43,58 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#00f"></RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radiogroup"
+            android:layout_marginLeft="@dimen/defaultMargin"
+            android:layout_marginRight="@dimen/defaultMargin"
+            android:layout_marginTop="@dimen/defaultMargin"
+            android:id="@+id/titlePacientes">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pacientes"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/textsizeTitlePacientes"/>
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_person_add"
+                android:layout_alignParentRight="true"
+                android:id="@+id/agregarPaciente"/>
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_person_remove"
+                android:layout_toLeftOf="@+id/agregarPaciente"
+                android:layout_marginRight="@dimen/defaultMargin"
+                android:id="@+id/removerPaciente"/>
+        </RelativeLayout>
 
-    </LinearLayout>
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/pager"
+            android:layout_below="@+id/titlePacientes"
+            android:layout_above="@+id/viewPagerIndicator"
+            android:layout_marginLeft="@dimen/defaultMargin"
+            android:layout_marginRight="@dimen/defaultMargin"/>
+
+        <RelativeLayout
+            android:id="@+id/viewPagerIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/heightPagerIndicator"
+            android:layout_alignParentBottom="true"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/viewPagerCountDots"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:orientation="horizontal" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 </layout>

@@ -30,4 +30,6 @@
     <dimen name="textsizeQuestions">20sp</dimen>
     <!-- Possitive -->
     <dimen name="textsizeOptions">18sp</dimen>
+    <dimen name="textsizeTitlePacientes">20sp</dimen>
+    <dimen name="heightPagerIndicator">25dp</dimen>
 </resources>
