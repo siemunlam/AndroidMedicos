@@ -1,7 +1,5 @@
 package com.siem.siemmedicos.model;
 
-import com.siem.siemmedicos.R;
-
 /**
  * Created by Lucas on 4/9/17.
  */

@@ -56,6 +56,23 @@ public class PossitiveAttendFragment extends AttendFragment implements ViewPager
                 Paciente paciente = new Paciente();
                 mAdapter.addPaciente(paciente);
                 addDot();
+                mBinding.pager.setCurrentItem(mListDots.size() - 1);
+                controlateRemoverPaciente();
+            }
+        });
+
+        mBinding.removerPaciente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListDots.size() > 1){
+                    int position = mBinding.pager.getCurrentItem();
+                    removeDot(position);
+                    mAdapter.removePaciente(position);
+                    mBinding.pager.setCurrentItem(position > 0 ? position - 1 : 0);
+                    if(position == 0)
+                        onPageSelected(0);
+                    controlateRemoverPaciente();
+                }
             }
         });
 
@@ -106,6 +123,32 @@ public class PossitiveAttendFragment extends AttendFragment implements ViewPager
 
         params.setMargins(4, 0, 4, 0);
         mBinding.viewPagerCountDots.addView(mListDots.get(lastAdded), params);
+    }
+
+    private void removeDot(int position){
+        mListDots.remove(position);
+        mBinding.viewPagerCountDots.removeViewAt(position);
+    }
+
+    private void controlateRemoverPaciente() {
+        if(mListDots.size() > 1)
+            showRemovePaciente();
+        else
+            hideRemoverPaciente();
+    }
+
+    private void hideRemoverPaciente(){
+        if(mBinding.removerPaciente.getVisibility() != View.GONE){
+            mBinding.removerPaciente.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.hide_center));
+            mBinding.removerPaciente.setVisibility(View.GONE);
+        }
+    }
+
+    private void showRemovePaciente(){
+        if(mBinding.removerPaciente.getVisibility() != View.VISIBLE){
+            mBinding.removerPaciente.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.show_center));
+            mBinding.removerPaciente.setVisibility(View.VISIBLE);
+        }
     }
 
     /**

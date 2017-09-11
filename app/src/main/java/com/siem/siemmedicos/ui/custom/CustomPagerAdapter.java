@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.siem.siemmedicos.R;
-import com.siem.siemmedicos.model.ModelObject;
 import com.siem.siemmedicos.model.app.Paciente;
 
 import java.util.ArrayList;
@@ -31,6 +30,11 @@ public class CustomPagerAdapter extends PagerAdapter {
 
     public void addPaciente(Paciente paciente){
         mList.add(paciente);
+        notifyDataSetChanged();
+    }
+
+    public void removePaciente(int position){
+        mList.remove(position);
         notifyDataSetChanged();
     }
 
@@ -59,9 +63,8 @@ public class CustomPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public CharSequence getPageTitle(int position) {
-        //ModelObject customPagerEnum = mList.get(position);
-        return "";
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 
 }

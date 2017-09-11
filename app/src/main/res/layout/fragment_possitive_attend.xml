@@ -67,7 +67,8 @@
                 android:src="@drawable/ic_person_remove"
                 android:layout_toLeftOf="@+id/agregarPaciente"
                 android:layout_marginRight="@dimen/defaultMargin"
-                android:id="@+id/removerPaciente"/>
+                android:id="@+id/removerPaciente"
+                android:visibility="gone"/>
         </RelativeLayout>
 
         <android.support.v4.view.ViewPager

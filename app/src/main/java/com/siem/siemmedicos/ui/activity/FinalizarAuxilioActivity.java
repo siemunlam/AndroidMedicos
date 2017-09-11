@@ -53,7 +53,7 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
     @Override
     public void showButton() {
         if(mBinding.sendButton.getVisibility() != View.VISIBLE){
-            mBinding.sendButton.startAnimation(AnimationUtils.loadAnimation(FinalizarAuxilioActivity.this, R.anim.show_center_button));
+            mBinding.sendButton.startAnimation(AnimationUtils.loadAnimation(FinalizarAuxilioActivity.this, R.anim.show_center));
             mBinding.sendButton.setVisibility(View.VISIBLE);
         }
     }
@@ -61,7 +61,7 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
     @Override
     public void hideButton(){
         if(mBinding.sendButton.getVisibility() != View.GONE){
-            mBinding.sendButton.startAnimation(AnimationUtils.loadAnimation(FinalizarAuxilioActivity.this, R.anim.hide_center_button));
+            mBinding.sendButton.startAnimation(AnimationUtils.loadAnimation(FinalizarAuxilioActivity.this, R.anim.hide_center));
             mBinding.sendButton.setVisibility(View.GONE);
         }
     }
