@@ -1,6 +1,7 @@
 package com.siem.siemmedicos.ui.custom;
 
 import android.app.Activity;
+import android.databinding.DataBindingUtil;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.siem.siemmedicos.R;
+import com.siem.siemmedicos.databinding.CustomPagePacienteBinding;
 import com.siem.siemmedicos.model.app.Paciente;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class CustomPagerAdapter extends PagerAdapter {
 
     private Activity mActivity;
     private List<Paciente> mList;
+    private CustomPagePacienteBinding mBinding;
 
     public CustomPagerAdapter(Activity activity) {
         mActivity = activity;
@@ -35,21 +38,12 @@ public class CustomPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup collection, final int position) {
         final Paciente paciente = mList.get(position);
         LayoutInflater inflater = LayoutInflater.from(mActivity);
-        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.custom_page_paciente, collection, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.custom_page_paciente, collection, false);
+        ViewGroup layout = (ViewGroup) mBinding.getRoot();
         collection.addView(layout);
-        AppCompatEditText edittextNombre = (AppCompatEditText)layout.findViewById(R.id.edittextNombre);
-        AppCompatEditText edittextApellido = (AppCompatEditText)layout.findViewById(R.id.edittextApellido);
-        AppCompatEditText edittextDni = (AppCompatEditText)layout.findViewById(R.id.edittextDni);
-        AppCompatEditText edittextEdad = (AppCompatEditText)layout.findViewById(R.id.edittextEdad);
-        AppCompatEditText edittextDiagnostico = (AppCompatEditText)layout.findViewById(R.id.edittextDiagnostico);
+        bindData(paciente);
 
-        edittextNombre.setText(paciente.getNombre());
-        edittextApellido.setText(paciente.getApellido());
-        edittextDni.setText(paciente.getDni());
-        edittextEdad.setText(paciente.getEdad());
-        edittextDiagnostico.setText(paciente.getDiagnostico());
-
-        edittextNombre.addTextChangedListener(new TextWatcher() {
+        /*edittextNombre.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
 
@@ -112,9 +106,17 @@ public class CustomPagerAdapter extends PagerAdapter {
             public void afterTextChanged(Editable editable) {
                 paciente.setDiagnostico(editable.toString());
             }
-        });
+        });*/
 
         return layout;
+    }
+
+    private void bindData(Paciente paciente) {
+        mBinding.edittextNombre.setText(paciente.getNombre());
+        mBinding.edittextApellido.setText(paciente.getApellido());
+        mBinding.edittextDni.setText(paciente.getDni());
+        mBinding.edittextEdad.setText(paciente.getEdad());
+        mBinding.edittextDiagnostico.setText(paciente.getDiagnostico());
     }
 
     @Override
