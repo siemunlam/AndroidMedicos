@@ -57,8 +57,9 @@
     <string name="nombre">Nombre</string>
     <string name="apellido">Apellido</string>
     <string name="dni">DNI</string>
-    <string name="fechaNacimiento">Fecha de nacimiento</string>
+    <string name="edad">Edad</string>
     <string name="pacientes">Pacientes</string>
+    <string name="diagnostico">Diagnóstico</string>
 
     <!-- Estados medico -->
     <string name="medicoEstadoDisponible">Disponible</string>

@@ -9,8 +9,16 @@ public class Paciente {
     private String mNombre;
     private String mApellido;
     private String mDni;
-    private String mFechaNacimiento;
-    private String mObservaciones;
+    private String mEdad;
+    private String mDiagnostico;
+
+    public Paciente(){
+        mNombre = "";
+        mApellido = "";
+        mDni = "";
+        mEdad = "";
+        mDiagnostico = "";
+    }
 
     public String getNombre() {
         return mNombre;
@@ -36,19 +44,19 @@ public class Paciente {
         mDni = dni;
     }
 
-    public String getFechaNacimiento() {
-        return mFechaNacimiento;
+    public String getEdad() {
+        return mEdad;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
-        mFechaNacimiento = fechaNacimiento;
+    public void setEdad(String edad) {
+        mEdad = edad;
     }
 
-    public String getObservaciones() {
-        return mObservaciones;
+    public String getDiagnostico() {
+        return mDiagnostico;
     }
 
-    public void setObservaciones(String observaciones) {
-        mObservaciones = observaciones;
+    public void setDiagnostico(String diagnostico) {
+        mDiagnostico = diagnostico;
     }
 }

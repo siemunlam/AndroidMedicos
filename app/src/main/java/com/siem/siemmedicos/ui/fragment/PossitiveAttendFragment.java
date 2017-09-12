@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -37,7 +38,7 @@ public class PossitiveAttendFragment extends AttendFragment implements ViewPager
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_possitive_attend, container, false);
         View view = mBinding.getRoot();
 
-        mAdapter = new CustomPagerAdapter(getContext());
+        mAdapter = new CustomPagerAdapter(getActivity());
         mBinding.pager.setAdapter(mAdapter);
         mBinding.pager.setCurrentItem(FIRST_ITEM_SELECTED);
         mBinding.pager.addOnPageChangeListener(this);
@@ -47,6 +48,7 @@ public class PossitiveAttendFragment extends AttendFragment implements ViewPager
             @Override
             public void onClick(View v) {
                 setRadiogroupVisibility();
+                controlateSendButton();
             }
         });
 
@@ -73,6 +75,20 @@ public class PossitiveAttendFragment extends AttendFragment implements ViewPager
                         onPageSelected(0);
                     controlateRemoverPaciente();
                 }
+            }
+        });
+
+        mBinding.radioSubcategorizado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                controlateSendButton();
+            }
+        });
+
+        mBinding.radioSupercategorizado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                controlateSendButton();
             }
         });
 
@@ -149,6 +165,17 @@ public class PossitiveAttendFragment extends AttendFragment implements ViewPager
             mBinding.removerPaciente.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.show_center));
             mBinding.removerPaciente.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void controlateSendButton(){
+        if(!mBinding.switchBienCategorizado.isChecked() &&
+                !mBinding.radioSubcategorizado.isChecked() &&
+                !mBinding.radioSupercategorizado.isChecked()){
+            mListener.hideButton();
+            return;
+        }
+
+        mListener.showButton();
     }
 
     /**
