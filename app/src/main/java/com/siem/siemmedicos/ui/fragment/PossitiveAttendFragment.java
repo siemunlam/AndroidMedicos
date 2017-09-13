@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.FragmentPossitiveAttendBinding;
+import com.siem.siemmedicos.interfaces.PossitiveChangeVisibilityButtonListener;
 import com.siem.siemmedicos.model.app.Paciente;
 import com.siem.siemmedicos.ui.custom.CustomPagerAdapter;
 
@@ -25,7 +26,9 @@ import java.util.List;
  * Created by Lucas on 3/9/17.
  */
 
-public class PossitiveAttendFragment extends AttendFragment implements ViewPager.OnPageChangeListener {
+public class PossitiveAttendFragment extends AttendFragment implements
+        ViewPager.OnPageChangeListener,
+        PossitiveChangeVisibilityButtonListener {
 
     private static final int FIRST_ITEM_SELECTED = 0;
 
@@ -38,7 +41,7 @@ public class PossitiveAttendFragment extends AttendFragment implements ViewPager
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_possitive_attend, container, false);
         View view = mBinding.getRoot();
 
-        mAdapter = new CustomPagerAdapter(getActivity());
+        mAdapter = new CustomPagerAdapter(getActivity(), this);
         mBinding.pager.setAdapter(mAdapter);
         mBinding.pager.setCurrentItem(FIRST_ITEM_SELECTED);
         mBinding.pager.addOnPageChangeListener(this);
@@ -167,10 +170,17 @@ public class PossitiveAttendFragment extends AttendFragment implements ViewPager
         }
     }
 
-    private void controlateSendButton(){
+    /**
+     * PossitiveChangeVisibilityButtonListener
+     */
+    @Override
+    public void controlateSendButton(){
         if(!mBinding.switchBienCategorizado.isChecked() &&
                 !mBinding.radioSubcategorizado.isChecked() &&
                 !mBinding.radioSupercategorizado.isChecked()){
+            mListener.hideButton();
+            return;
+        }else if(!mAdapter.haveData()){
             mListener.hideButton();
             return;
         }

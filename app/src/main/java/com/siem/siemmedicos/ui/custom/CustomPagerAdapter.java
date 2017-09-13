@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.CustomPagePacienteBinding;
+import com.siem.siemmedicos.interfaces.PossitiveChangeVisibilityButtonListener;
 import com.siem.siemmedicos.model.app.Paciente;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +28,14 @@ public class CustomPagerAdapter extends PagerAdapter {
     private Activity mActivity;
     private List<Paciente> mList;
     private CustomPagePacienteBinding mBinding;
+    private WeakReference<PossitiveChangeVisibilityButtonListener> mListener;
 
-    public CustomPagerAdapter(Activity activity) {
+    public CustomPagerAdapter(Activity activity, PossitiveChangeVisibilityButtonListener listener) {
         mActivity = activity;
         mList = new ArrayList<>();
         Paciente paciente = new Paciente();
         mList.add(paciente);
+        mListener = new WeakReference<>(listener);
     }
 
     @Override
@@ -43,7 +47,7 @@ public class CustomPagerAdapter extends PagerAdapter {
         collection.addView(layout);
         bindData(paciente);
 
-        /*edittextNombre.addTextChangedListener(new TextWatcher() {
+        mBinding.edittextNombre.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
 
@@ -56,7 +60,7 @@ public class CustomPagerAdapter extends PagerAdapter {
             }
         });
 
-        edittextApellido.addTextChangedListener(new TextWatcher() {
+        mBinding.edittextApellido.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
 
@@ -69,7 +73,7 @@ public class CustomPagerAdapter extends PagerAdapter {
             }
         });
 
-        edittextDni.addTextChangedListener(new TextWatcher() {
+        mBinding.edittextDni.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
 
@@ -82,7 +86,7 @@ public class CustomPagerAdapter extends PagerAdapter {
             }
         });
 
-        edittextEdad.addTextChangedListener(new TextWatcher() {
+        mBinding.edittextEdad.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
 
@@ -95,7 +99,7 @@ public class CustomPagerAdapter extends PagerAdapter {
             }
         });
 
-        edittextDiagnostico.addTextChangedListener(new TextWatcher() {
+        mBinding.edittextDiagnostico.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
 
@@ -105,8 +109,9 @@ public class CustomPagerAdapter extends PagerAdapter {
             @Override
             public void afterTextChanged(Editable editable) {
                 paciente.setDiagnostico(editable.toString());
+                if(mListener.get() != null) mListener.get().controlateSendButton();
             }
-        });*/
+        });
 
         return layout;
     }
@@ -139,6 +144,10 @@ public class CustomPagerAdapter extends PagerAdapter {
         return POSITION_NONE;
     }
 
+    public void setListener(PossitiveChangeVisibilityButtonListener listener){
+        mListener = new WeakReference<>(listener);
+    }
+
     public void addPaciente(Paciente paciente){
         mList.add(paciente);
         notifyDataSetChanged();
@@ -150,8 +159,11 @@ public class CustomPagerAdapter extends PagerAdapter {
     }
 
     public boolean haveData(){
-        //TODO: Change
-        return true;
+        for (Paciente paciente : mList) {
+            if(!paciente.getDiagnostico().equals(""))
+                return true;
+        }
+        return false;
     }
 
 }
