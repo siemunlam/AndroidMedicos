@@ -1,9 +1,8 @@
 package com.siem.siemmedicos.fcm;
 
-import android.util.Log;
-
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.siem.siemmedicos.utils.PreferencesHelper;
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -15,7 +14,8 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     }
 
     private void sendRegistrationToServer(String token) {
-        Log.i("123456789", "Token: " + token);
+        PreferencesHelper preferences = PreferencesHelper.getInstance();
+        preferences.setFirebaseToken(token);
     }
 
 }

@@ -43,6 +43,7 @@ public class Utils {
         preferences.cleanLastLongitude();
         preferences.cleanLastProvider();
         preferences.cleanMedicoToken();
+        preferences.cleanFirebaseToken();
         DBWrapper.cleanAllDB(context);
 
 

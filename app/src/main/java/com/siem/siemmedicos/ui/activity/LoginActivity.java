@@ -138,6 +138,7 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
 
     private void controlarMedicoLogueado() {
         mPreferences = PreferencesHelper.getInstance();
+        mPreferences.setFirebaseToken(FirebaseInstanceId.getInstance().getToken());
         Log.i("123456789", "Token: " + FirebaseInstanceId.getInstance().getToken()); //TODO: Borrar
         if(mPreferences.getMedicoToken() != null){
             goToMap();

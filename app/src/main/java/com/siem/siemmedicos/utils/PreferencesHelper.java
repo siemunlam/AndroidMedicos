@@ -15,6 +15,7 @@ public class PreferencesHelper {
     private static final String KEY_MEDICO_TOKEN = "KEY_MEDICO_TOKEN";
     private static final String KEY_VALUE_ESTADO = "KEY_VALUE_ESTADO";
     private static final String KEY_DESCRIPTION_ESTADO = "KEY_DESCRIPTION_ESTADO";
+    private static final String KEY_FIREBASE_TOKEN = "KEY_FIREBASE_TOKEN";
 
     private static PreferencesHelper mInstance = null;
     private SharedPreferences mPreferences;
@@ -154,6 +155,19 @@ public class PreferencesHelper {
 
     public void cleanDescriptionEstado(){
         mPreferences.edit().remove(KEY_DESCRIPTION_ESTADO).apply();
+    }
+
+    //KEY_FIREBASE_TOKEN
+    public String getFirebaseToken(){
+        return mPreferences.getString(KEY_FIREBASE_TOKEN, "");
+    }
+
+    public void setFirebaseToken(String token){
+        mPreferences.edit().putString(KEY_FIREBASE_TOKEN, token).apply();
+    }
+
+    public void cleanFirebaseToken(){
+        mPreferences.edit().remove(KEY_FIREBASE_TOKEN).apply();
     }
 
 }
