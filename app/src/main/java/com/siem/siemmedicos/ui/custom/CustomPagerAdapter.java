@@ -3,7 +3,6 @@ package com.siem.siemmedicos.ui.custom;
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;

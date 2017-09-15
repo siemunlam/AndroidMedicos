@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:id="@+id/content"
+    xmlns:test="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textsizeQuestions"
+        android:textColor="@android:color/black"
+        test:text="Pudo asistir al paciente?"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/textview"/>
+
+    <ToggleButton
+        android:layout_width="@dimen/switchWidth"
+        android:layout_height="@dimen/switchHeight"
+        android:background="@drawable/custom_switch"
+        android:gravity="end|center"
+        android:paddingLeft="@dimen/switchPaddingLeft"
+        android:paddingRight="@dimen/switchPaddingRight"
+        android:layout_alignParentRight="true"
+        android:id="@+id/toggleButton"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="2dp"
+        android:clickable="false"
+        android:textOn="@string/si"
+        android:textOff="@string/no"/>
+
+</RelativeLayout>

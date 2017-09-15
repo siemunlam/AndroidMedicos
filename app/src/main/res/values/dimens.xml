@@ -32,4 +32,14 @@
     <dimen name="textsizeOptions">18sp</dimen>
     <dimen name="textsizeTitlePacientes">20sp</dimen>
     <dimen name="heightPagerIndicator">25dp</dimen>
+
+    <!-- Custom Switch -->
+    <dimen name="switchRadius">5dp</dimen>
+    <dimen name="marginSwitch">2dp</dimen>
+    <dimen name="marginHorizontalSwitch">35dp</dimen>
+    <dimen name="shadowMarginHorizontalSwitch">33dp</dimen> <!-- marginHorizontalSwitch - 2dp -->
+    <dimen name="switchPaddingLeft">12dp</dimen>
+    <dimen name="switchPaddingRight">8dp</dimen>
+    <dimen name="switchWidth">65dp</dimen>
+    <dimen name="switchHeight">25dp</dimen>
 </resources>

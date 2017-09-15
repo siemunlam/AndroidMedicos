@@ -3,6 +3,7 @@
     <color name="colorPrimary">#027AA6</color>
     <color name="colorPrimaryDark">#004e78</color>
     <color name="colorAccent">#00BD46</color>
+    <color name="colorAccentLight">#AEE6C3</color>
 
     <!-- Map -->
     <color name="unlinkButton">#FF3636</color>
@@ -10,4 +11,8 @@
     <color name="finalizeButton">#5CFF5C</color>
     <color name="finalizeButtonPressed">#06A106</color>
     <color name="polyline">#479AFF</color>
+    
+    <!-- Switch -->
+    <color name="colorSwitchOff">#ADADAD</color>
+    <color name="colorSwitchOffLight">#EBEBEB</color>
 </resources>

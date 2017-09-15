@@ -47,7 +47,7 @@ public class PossitiveAttendFragment extends AttendFragment implements
         mBinding.pager.addOnPageChangeListener(this);
         setUiPageViewController();
 
-        mBinding.switchBienCategorizado.setOnClickListener(new View.OnClickListener() {
+        mBinding.switchBienCategorizado.setOnClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setRadiogroupVisibility();
@@ -101,12 +101,9 @@ public class PossitiveAttendFragment extends AttendFragment implements
     private void setRadiogroupVisibility() {
         if (mBinding.switchBienCategorizado.isChecked()) {
             Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.hide_top_radiogroup);
-            mBinding.radiogroup.setAnimation(animation);
             animation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
+                public void onAnimationStart(Animation animation) {}
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
@@ -114,13 +111,15 @@ public class PossitiveAttendFragment extends AttendFragment implements
                 }
 
                 @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
+                public void onAnimationRepeat(Animation animation) {}
             });
+            mBinding.radiogroup.setAnimation(animation);
+            mBinding.radiogroup.startAnimation(animation);
         } else {
             mBinding.radiogroup.setVisibility(View.VISIBLE);
-            mBinding.radiogroup.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.show_top_radiogroup));
+            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.show_top_radiogroup);
+            mBinding.radiogroup.setAnimation(animation);
+            mBinding.radiogroup.startAnimation(animation);
         }
     }
 

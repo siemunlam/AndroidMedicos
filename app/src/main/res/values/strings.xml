@@ -61,6 +61,10 @@
     <string name="pacientes">Pacientes</string>
     <string name="diagnostico">Diagnóstico</string>
 
+    <!-- Custom Switch -->
+    <string name="si">Si</string>
+    <string name="no">No</string>
+
     <!-- Estados medico -->
     <string name="medicoEstadoDisponible">Disponible</string>
     <string name="medicoEstadoNoDisponible">No Disponible</string>

@@ -19,16 +19,12 @@
             android:layout_height="match_parent"
             android:padding="@dimen/halfDefaultMargin">
 
-            <android.support.v7.widget.SwitchCompat
+            <com.siem.siemmedicos.ui.custom.CustomSwitchCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pudoAsistirPaciente"
-                android:textSize="@dimen/textsizeQuestions"
-                android:textColor="@android:color/black"
                 android:id="@+id/switchAsistioPaciente"
-                android:checked="false"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:layout_marginBottom="@dimen/defaultMargin"/>
+                android:text="@string/pudoAsistirPaciente"
+                android:checked="false"/>
 
             <FrameLayout
                 android:layout_width="match_parent"

@@ -29,7 +29,7 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
         setToolbar(true);
         setFragment();
 
-        mBinding.switchAsistioPaciente.setOnClickListener(new View.OnClickListener() {
+        mBinding.switchAsistioPaciente.setOnClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setFragment();

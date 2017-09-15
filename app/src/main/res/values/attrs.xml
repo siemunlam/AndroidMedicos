@@ -7,6 +7,8 @@
         <attr name="android:inputType"/>
         <attr name="android:clickable"/>
         <attr name="android:maxLines"/>
+        <attr name="android:text"/>
+        <attr name="android:checked"/>
     </declare-styleable>
 
 </resources>

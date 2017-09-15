@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -55,6 +56,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private Typeface mTypeface;
     private Map myMap;
 
+    //TODO: SavedInstanceState
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +71,20 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         mBinding.buttonUnlink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CustomFragmentDialog().getTextViewDialog(MapActivity.this, getString(R.string.confirmUnlink), getString(R.string.accept), null, getString(R.string.cancel), null, false).show();
+                new CustomFragmentDialog().getTextViewDialog(
+                        MapActivity.this,
+                        getString(R.string.confirmUnlink),
+                        getString(R.string.accept),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        },
+                        getString(R.string.cancel),
+                        null,
+                        false
+                ).show();
             }
         });
 
