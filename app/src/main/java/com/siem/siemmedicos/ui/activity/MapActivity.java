@@ -1,5 +1,6 @@
 package com.siem.siemmedicos.ui.activity;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -48,6 +49,7 @@ import java.util.ArrayList;
 public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallback {
 
     private static final int PERMISSIONS_REQUEST = 100;
+    private static final int LOGOUT_ACTIVITY = 105;
 
     private BroadcastReceiver mNewAuxilioBroadcastReceiver;
     private ContentObserver mObserver;
@@ -201,14 +203,26 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 new CustomFragmentDialog().getRadioButtonsDialog(this, getString(R.string.accept), true).show();
                 return true;
             case R.id.menuLogout:
-                Utils.logout(this);
-                Intent intent = new Intent(MapActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-                finish();
+                startActivityForResult(new Intent(MapActivity.this, LogoutActivity.class), LOGOUT_ACTIVITY);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        switch(requestCode){
+            case LOGOUT_ACTIVITY:
+                if(resultCode == Activity.RESULT_OK){
+                    Intent intentLogin = new Intent(MapActivity.this, LoginActivity.class);
+                    intentLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intentLogin);
+                    finish();
+                }
+                break;
         }
     }
 

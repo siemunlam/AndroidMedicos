@@ -33,6 +33,7 @@ import java.util.TimeZone;
 public class Utils {
 
     public static void logout(Context context){
+        //TODO: Corroborar que este todo borrado
         PreferencesHelper preferences = PreferencesHelper.getInstance();
         preferences.cleanDescriptionEstado();
         preferences.cleanValueEstado();
@@ -44,15 +45,19 @@ public class Utils {
         preferences.cleanMedicoToken();
         DBWrapper.cleanAllDB(context);
 
-        /*Call<LogoutResponse> response = RetrofitClient.getServerClient().logout("Bearer " + preferences.getMedicoToken());
-        response.enqueue(new Callback<LogoutResponse>() {
+
+
+        /*Call<Object> response = RetrofitClient.getServerClient().updateFCM("JWT " + preferences.getMedicoToken(), "aaa");
+        response.enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+            public void onResponse(Call<Object> call, Response<Object> response) {
                 Log.i("123456789", "Code: "+response.code());
+                //200 OK
+                //401 - 500 logout
             }
 
             @Override
-            public void onFailure(Call<LogoutResponse> call, Throwable t) {
+            public void onFailure(Call<Object> call, Throwable t) {
                 Log.i("123456789", "Error");
             }
         });*/

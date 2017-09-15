@@ -23,6 +23,9 @@
     <string name="pass">Contraseña</string>
     <string name="login">Iniciar sesión</string>
 
+    <!-- Logout -->
+    <string name="saliendo">Saliendo...</string>
+
     <!-- Menu -->
     <string name="updateStatus">Actualizar estado</string>
     <string name="logout">Cerrar sesión</string>

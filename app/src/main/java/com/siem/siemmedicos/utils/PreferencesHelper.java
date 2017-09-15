@@ -117,6 +117,10 @@ public class PreferencesHelper {
         return mPreferences.getString(KEY_MEDICO_TOKEN, null);
     }
 
+    public String getAuthorization(){
+        return "JWT " + mPreferences.getString(KEY_MEDICO_TOKEN, null);
+    }
+
     public void setMedicoToken(String value){
         mPreferences.edit().putString(KEY_MEDICO_TOKEN, value).apply();
     }

@@ -1,7 +1,6 @@
 package com.siem.siemmedicos.interfaces;
 
 import com.siem.siemmedicos.model.serverapi.LoginResponse;
-import com.siem.siemmedicos.model.serverapi.LogoutResponse;
 import com.siem.siemmedicos.utils.Constants;
 
 import retrofit2.Call;
@@ -16,11 +15,17 @@ public interface ServerApi {
     @FormUrlEncoded
     @POST(Constants.API_LOGIN)
     Call<LoginResponse> login(
-            @Field("username") String username,
-            @Field("password") String password);
+            @Field(Constants.USERNAME) String username,
+            @Field(Constants.PASSWORD) String password);
 
     @PUT(Constants.API_LOGOUT)
-    Call<LogoutResponse> logout(
-            @Header("authorization") String authorization);
+    Call<Object> logout(
+            @Header(Constants.AUTHORIZATION) String authorization);
+
+    @FormUrlEncoded
+    @PUT(Constants.API_UPDATE_FCM)
+    Call<Object> updateFCM(
+            @Header(Constants.AUTHORIZATION) String authorization,
+            @Field(Constants.FCM_CODE) String fcm_code);
 
 }

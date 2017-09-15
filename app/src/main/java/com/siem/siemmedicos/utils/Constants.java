@@ -115,12 +115,19 @@ public class Constants {
     public static final String KEY = "key";
 
     /**
-     * Calls API Server
+     * API Server
      */
     public static final int CODE_SERVER_OK = 200;
     public static final int CODE_BAD_REQUEST = 400;
+    public static final int CODE_UNAUTHORIZED = 401;
+    public static final int CODE_SERVER_ERROR = 500;
     public static final String API_LOGIN = "auth/token/";
     public static final String API_LOGOUT = "medicos/logout/";
+    public static final String API_UPDATE_FCM = "medicos/fcbUpdate/";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String AUTHORIZATION = "authorization";
+    public static final String FCM_CODE = "fcm_code";
 
     /**
      * Receivers
