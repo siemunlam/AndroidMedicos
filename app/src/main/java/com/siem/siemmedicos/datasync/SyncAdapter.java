@@ -35,10 +35,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
         Log.i("123456789", "PASOOOOOOOOO");
-        mPreferences = PreferencesHelper.getInstance();
-        String firebaseToken = mPreferences.getFirebaseToken();
-        if(!firebaseToken.isEmpty()){
-            sendFirebaseToken(firebaseToken);
+        if(Utils.isLogued()){
+            mPreferences = PreferencesHelper.getInstance();
+            String firebaseToken = mPreferences.getFirebaseToken();
+            if(!firebaseToken.isEmpty()){
+                sendFirebaseToken(firebaseToken);
+            }
         }
     }
 

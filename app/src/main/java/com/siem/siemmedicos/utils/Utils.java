@@ -65,6 +65,15 @@ public class Utils {
     }
 
     /**
+     * Comprobar si el medico esta logueado
+     * @return boolean logueado o no
+     */
+    public static boolean isLogued(){
+        PreferencesHelper preferences = PreferencesHelper.getInstance();
+        return preferences.getMedicoToken() != null;
+    }
+
+    /**
      * Para saber si debe correr el servicio de Location en modo intensivo
      * @param context Contexto
      * @return true si debe correr en modo intensivo
