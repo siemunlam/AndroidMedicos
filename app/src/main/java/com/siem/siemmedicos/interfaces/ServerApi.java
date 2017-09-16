@@ -28,4 +28,11 @@ public interface ServerApi {
             @Header(Constants.AUTHORIZATION) String authorization,
             @Field(Constants.FCM_CODE) String fcm_code);
 
+    @FormUrlEncoded
+    @PUT(Constants.API_UPDATE_UBICACION)
+    Call<Object> updateUbicacion(
+            @Header(Constants.AUTHORIZATION) String authorization,
+            @Field(Constants.LATITUD) String latitud,
+            @Field(Constants.LONGITUD) String longitud);
+
 }

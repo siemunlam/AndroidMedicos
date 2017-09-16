@@ -6,9 +6,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.model.app.Motivo;
 import com.siem.siemmedicos.model.app.Motivos;
+import com.siem.siemmedicos.utils.Constants;
+import com.siem.siemmedicos.utils.Utils;
+
+import java.util.Date;
 
 /**
  * Created by Lucas on 21/8/17.
@@ -21,7 +27,10 @@ public class DBWrapper {
         cleanAuxilio(context);
     }
 
-    private static void cleanLocations(Context context) {
+    /**
+     * Locations
+     */
+    public static void cleanLocations(Context context) {
         context.getContentResolver().delete(
                 DBContract.Locations.CONTENT_URI,
                 null,
@@ -29,6 +38,74 @@ public class DBWrapper {
         );
     }
 
+    public static void deleteLocation(Context context, int id){
+        context.getContentResolver().delete(
+                DBContract.Locations.CONTENT_URI,
+                DBContract.Locations._ID + " = ? ",
+                new String[]{ String.valueOf(id) }
+        );
+    }
+
+    public static AppLocation getLastLocation(Context context){
+        Cursor cursor = context.getContentResolver().query(
+                DBContract.Locations.CONTENT_URI,
+                null,
+                null,
+                null,
+                null
+        );
+
+        AppLocation location = null;
+        if(cursor != null){
+            if(cursor.moveToNext()){
+                int id = cursor.getInt(cursor.getColumnIndex(DBContract.Locations._ID));
+                String latitude = cursor.getString(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_LATITUDE));
+                String longitude = cursor.getString(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_LONGITUDE));
+                String bearing = cursor.getString(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_BEARING));
+                String accuracy = cursor.getString(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_ACCURACY));
+                String time = cursor.getString(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_TIMESTAMP_LOC));
+                String speed = cursor.getString(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_SPEED));
+                String provider = cursor.getString(cursor.getColumnIndex(DBContract.Locations.COLUMN_NAME_PROVIDER));
+                LatLng latLng = new LatLng(
+                        Double.parseDouble(latitude),
+                        Double.parseDouble(longitude)
+                );
+
+                location = new AppLocation(latLng, Float.parseFloat(bearing));
+                location.setId(id);
+                location.setAccuracy(Float.parseFloat(accuracy));
+                location.setTime(Long.parseLong(time));
+                location.setSpeed(Float.parseFloat(speed));
+                location.setProvider(provider);
+            }
+            cursor.close();
+        }
+
+        return location;
+    }
+
+    public static void saveLocation(Context context, AppLocation location){
+        AppLocation lastLocation = getLastLocation(context);
+        float bearing = (lastLocation != null ? Utils.getBearing(lastLocation.getLatitude(), lastLocation.getLongitude(), location.getLatitude(), location.getLongitude()) : location.getBearing());
+        Date now = new Date();
+        ContentValues values = new ContentValues();
+        values.put(DBContract.Locations.COLUMN_NAME_LATITUDE, String.valueOf(location.getLatitude()));
+        values.put(DBContract.Locations.COLUMN_NAME_LONGITUDE, String.valueOf(location.getLongitude()));
+        values.put(DBContract.Locations.COLUMN_NAME_ACCURACY, String.valueOf(location.getAccuracy()));
+        values.put(DBContract.Locations.COLUMN_NAME_TIMESTAMP_SAVE, String.valueOf(now.getTime()));
+        values.put(DBContract.Locations.COLUMN_NAME_TIME_SAVE, Constants.DATE_COMPLET_FORMAT.format(now));
+        values.put(DBContract.Locations.COLUMN_NAME_TIMESTAMP_LOC, String.valueOf(location.getTime()));
+        values.put(DBContract.Locations.COLUMN_NAME_TIME_LOC, Constants.DATE_COMPLET_FORMAT.format(new Date(location.getTime())));
+        values.put(DBContract.Locations.COLUMN_NAME_SPEED, String.valueOf(location.getSpeed()));
+        values.put(DBContract.Locations.COLUMN_NAME_PROVIDER, location.getProvider());
+        values.put(DBContract.Locations.COLUMN_NAME_BEARING, String.valueOf(bearing));
+        cleanLocations(context);
+        context.getContentResolver().insert(DBContract.Locations.CONTENT_URI, values);
+    }
+
+    /**
+     * Auxilio
+     */
     public static void cleanAuxilio(Context context) {
         context.getContentResolver().delete(
                 DBContract.InformacionAuxilio.CONTENT_URI,

@@ -1,25 +1,21 @@
 package com.siem.siemmedicos.model.app;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.R;
-import com.siem.siemmedicos.db.DBContract;
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
-import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.RetrofitClient;
-
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class AppLocation {
 
+    private int _id;
     private double mLatitude;
     private double mLongitude;
     private float mAccuracy;
@@ -42,10 +38,22 @@ public class AppLocation {
         setTime(location.getTime());
     }
 
-    public AppLocation(LatLng lastLatLng){
+    public AppLocation(LatLng lastLatLng, float bearing){
         setLatitude(lastLatLng.latitude);
         setLongitude(lastLatLng.longitude);
-        setBearing(0);
+        setBearing(bearing);
+    }
+
+    public int getId() {
+        return _id;
+    }
+
+    public void setId(int id) {
+        _id = id;
+    }
+
+    public AppLocation(LatLng lastLatLng){
+        this(lastLatLng, 0);
     }
 
     public double getLatitude() {
@@ -124,19 +132,7 @@ public class AppLocation {
 
     public void save(Context context){
         Log.i("123456789", "New valid location");
-        Date now = new Date();
-        ContentValues values = new ContentValues();
-        values.put(DBContract.Locations.COLUMN_NAME_LATITUDE, String.valueOf(getLatitude()));
-        values.put(DBContract.Locations.COLUMN_NAME_LONGITUDE, String.valueOf(getLongitude()));
-        values.put(DBContract.Locations.COLUMN_NAME_ACCURACY, String.valueOf(getAccuracy()));
-        values.put(DBContract.Locations.COLUMN_NAME_TIMESTAMP_SAVE, String.valueOf(now.getTime()));
-        values.put(DBContract.Locations.COLUMN_NAME_TIME_SAVE, Constants.DATE_COMPLET_FORMAT.format(now));
-        values.put(DBContract.Locations.COLUMN_NAME_TIMESTAMP_LOC, String.valueOf(getTime()));
-        values.put(DBContract.Locations.COLUMN_NAME_TIME_LOC, Constants.DATE_COMPLET_FORMAT.format(new Date(getTime())));
-        values.put(DBContract.Locations.COLUMN_NAME_SPEED, String.valueOf(getSpeed()));
-        values.put(DBContract.Locations.COLUMN_NAME_PROVIDER, getProvider());
-        values.put(DBContract.Locations.COLUMN_NAME_BEARING, String.valueOf(getBearing()));
-        context.getContentResolver().insert(DBContract.Locations.CONTENT_URI, values);
+        DBWrapper.saveLocation(context, this);
     }
 
     public void getDirections(Context context, Callback<ResponseDirections> callback) {

@@ -8,6 +8,8 @@ import android.content.SyncResult;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.siem.siemmedicos.db.DBWrapper;
+import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.RetrofitClient;
@@ -37,14 +39,16 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Log.i("123456789", "PASOOOOOOOOO");
         if(Utils.isLogued()){
             mPreferences = PreferencesHelper.getInstance();
-            String firebaseToken = mPreferences.getFirebaseToken();
-            if(!firebaseToken.isEmpty()){
-                sendFirebaseToken(firebaseToken);
-            }
+            sendFirebaseToken();
+            sendLocation();
         }
     }
 
-    private void sendFirebaseToken(String firebaseToken) {
+    private void sendFirebaseToken() {
+        String firebaseToken = mPreferences.getFirebaseToken();
+        if(firebaseToken.isEmpty()){
+            return;
+        }
         Call<Object> response = RetrofitClient.getServerClient().updateFCM(mPreferences.getAuthorization(), firebaseToken);
         response.enqueue(new Callback<Object>() {
             @Override
@@ -62,6 +66,29 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             @Override
             public void onFailure(Call<Object> call, Throwable t) {}
         });
+    }
+
+    private void sendLocation() {
+        final AppLocation lastLocation = DBWrapper.getLastLocation(mContext);
+        if(lastLocation != null){
+            Call<Object> response = RetrofitClient.getServerClient().updateUbicacion(mPreferences.getAuthorization(), String.valueOf(lastLocation.getLatitude()), String.valueOf(lastLocation.getLongitude()));
+            response.enqueue(new Callback<Object>() {
+                @Override
+                public void onResponse(Call<Object> call, Response<Object> response) {
+                    switch(response.code()){
+                        case Constants.CODE_SERVER_OK:
+                            DBWrapper.deleteLocation(mContext, lastLocation.getId());
+                            break;
+                        case Constants.CODE_UNAUTHORIZED:
+                            Utils.logout(mContext);
+                            break;
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Object> call, Throwable t) {}
+            });
+        }
     }
 
 }

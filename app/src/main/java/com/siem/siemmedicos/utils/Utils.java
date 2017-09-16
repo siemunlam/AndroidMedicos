@@ -45,23 +45,6 @@ public class Utils {
         preferences.cleanMedicoToken();
         preferences.cleanFirebaseToken();
         DBWrapper.cleanAllDB(context);
-
-
-
-        /*Call<Object> response = RetrofitClient.getServerClient().updateFCM("JWT " + preferences.getMedicoToken(), "aaa");
-        response.enqueue(new Callback<Object>() {
-            @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
-                Log.i("123456789", "Code: "+response.code());
-                //200 OK
-                //401 - 500 logout
-            }
-
-            @Override
-            public void onFailure(Call<Object> call, Throwable t) {
-                Log.i("123456789", "Error");
-            }
-        });*/
     }
 
     /**
@@ -212,6 +195,18 @@ public class Utils {
             return new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
         else
             return new LatLng(0, 0);
+    }
+
+    public static float getBearing(Location previousLocation, Location newLocation) {
+        if(previousLocation != null){
+            return getBearing(previousLocation.getLatitude(), previousLocation.getLongitude(), newLocation.getLatitude(), newLocation.getLongitude());
+        }else{
+            return newLocation.getBearing();
+        }
+    }
+
+    public static float getBearing(double previousLatitude, double previousLongitude, double newLatitude, double newLongitude) {
+        return (float) com.google.maps.android.SphericalUtil.computeHeading(new LatLng(previousLatitude, previousLongitude), new LatLng(newLatitude, newLongitude));
     }
 
     public static Location getLastLocationSaved(Context context){

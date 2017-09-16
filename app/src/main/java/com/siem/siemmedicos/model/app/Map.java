@@ -126,7 +126,7 @@ public class Map implements Callback<ResponseDirections> {
     public void addPositionMarker(Location location){
         if(location.getLatitude() != 0 && location.getLongitude() != 0){
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            float bearing = getBearing(location);
+            float bearing = Utils.getBearing(mPreviousLocation, location);
             if(mPositionMarker == null) {
                 mPositionMarker = mMap.addMarker(
                         new MarkerOptions()
@@ -149,14 +149,6 @@ public class Map implements Callback<ResponseDirections> {
         newLocation.setLatitude(location.getLatitude());
         newLocation.setLongitude(location.getLongitude());
         addPositionMarker(newLocation);
-    }
-
-    private float getBearing(Location newLocation) {
-        if(mPreviousLocation != null){
-            return (float) com.google.maps.android.SphericalUtil.computeHeading(new LatLng(mPreviousLocation.getLatitude(), mPreviousLocation.getLongitude()), new LatLng(newLocation.getLatitude(), newLocation.getLongitude()));
-        }else{
-            return newLocation.getBearing();
-        }
     }
 
     private void reubicateMap(LatLng latLng, float bearing) {

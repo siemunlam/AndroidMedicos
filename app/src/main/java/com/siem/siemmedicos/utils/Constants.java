@@ -123,11 +123,15 @@ public class Constants {
     public static final int CODE_SERVER_ERROR = 500;
     public static final String API_LOGIN = "auth/token/";
     public static final String API_LOGOUT = "medicos/logout/";
-    public static final String API_UPDATE_FCM = "medicos/fcbUpdate/";
+    public static final String API_UPDATE_FCM = "medicos/fcmUpdate/";
+    public static final String API_UPDATE_UBICACION = "medicos/ubicacionUpdate/";
+
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     public static final String AUTHORIZATION = "authorization";
     public static final String FCM_CODE = "fcm_code";
+    public static final String LATITUD = "latitud_gps";
+    public static final String LONGITUD = "longitud_gps";
 
     /**
      * Receivers
