@@ -12,6 +12,7 @@
     <string name="errorNoRoute">No se encontró una ruta posible.</string>
     <string name="errorEmptyFields">Debe completar todos los campos</string>
     <string name="errorLogin">El correo electrónico o la contraseña no son válidos</string>
+    <string name="errorUpdateEstado">Hubo un error al actualizar el estado</string>
 
     <!-- Notificacion -->
     <string name="intensiveMode">Modo Intensivo</string>

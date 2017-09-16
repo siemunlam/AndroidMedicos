@@ -125,6 +125,7 @@ public class Constants {
     public static final String API_LOGOUT = "medicos/logout/";
     public static final String API_UPDATE_FCM = "medicos/fcmUpdate/";
     public static final String API_UPDATE_UBICACION = "medicos/ubicacionUpdate/";
+    public static final String API_UPDATE_ESTADO_MEDICO = "medicos/estadoUpdate/";
 
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
@@ -132,6 +133,7 @@ public class Constants {
     public static final String FCM_CODE = "fcm_code";
     public static final String LATITUD = "latitud_gps";
     public static final String LONGITUD = "longitud_gps";
+    public static final String ESTADO = "estado";
 
     /**
      * Receivers

@@ -35,4 +35,10 @@ public interface ServerApi {
             @Field(Constants.LATITUD) String latitud,
             @Field(Constants.LONGITUD) String longitud);
 
+    @FormUrlEncoded
+    @PUT(Constants.API_UPDATE_ESTADO_MEDICO)
+    Call<Object> updateEstadoMedico(
+            @Header(Constants.AUTHORIZATION) String authorization,
+            @Field(Constants.ESTADO) int estado);
+
 }

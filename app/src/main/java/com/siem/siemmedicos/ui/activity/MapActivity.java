@@ -195,12 +195,13 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuUpdateStatus:
+                //TODO: Borrar
                 ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText(FirebaseInstanceId.getInstance().getToken(), FirebaseInstanceId.getInstance().getToken());
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(this, FirebaseInstanceId.getInstance().getToken(), Toast.LENGTH_LONG).show();
 
-                new CustomFragmentDialog().getRadioButtonsDialog(this, getString(R.string.accept), true).show();
+                new CustomFragmentDialog().getRadioButtonsEstadoDialog(this, getString(R.string.accept), true).show();
                 return true;
             case R.id.menuLogout:
                 startActivityForResult(new Intent(MapActivity.this, LogoutActivity.class), LOGOUT_ACTIVITY);
