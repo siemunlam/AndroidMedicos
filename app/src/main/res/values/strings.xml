@@ -13,6 +13,7 @@
     <string name="errorEmptyFields">Debe completar todos los campos</string>
     <string name="errorLogin">El correo electrónico o la contraseña no son válidos</string>
     <string name="errorUpdateEstado">Hubo un error al actualizar el estado</string>
+    <string name="errorUnlink">Hubo un error al desvincularse del auxilio</string>
 
     <!-- Notificacion -->
     <string name="intensiveMode">Modo Intensivo</string>
@@ -25,7 +26,7 @@
     <string name="login">Iniciar sesión</string>
 
     <!-- Logout -->
-    <string name="saliendo">Saliendo...</string>
+    <string name="saliendo">Saliendo&#8230;</string>
 
     <!-- Menu -->
     <string name="updateStatus">Actualizar estado</string>
@@ -37,7 +38,7 @@
     <string name="finalize">Finalizar</string>
     <string name="confirmUnlink">Está seguro que desea desvincularse del auxilio?</string>
     <string name="confirmFinalize">Está seguro que desea finalizar el auxilio?</string>
-    <string name="nuevoAuxilio">Nuevo auxilio</string>
+    <string name="nuevoAuxilio">Se te ha asignado a un nuevo auxilio</string>
     <string name="activateGPS">Debe activar el GPS para continuar.</string>
     <string name="asignNuevoAuxilio">Se te ha asignado a un nuevo auxilio.</string>
     <string name="recalculate">Recalculando…</string>

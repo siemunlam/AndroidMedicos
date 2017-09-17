@@ -26,38 +26,49 @@ public class Constants {
     /**
      * Estados
      */
-    public static class Disponible {
+    public interface Estado{
+        int getValue();
+        String getDescription(Context context);
+    }
+
+    public static class Disponible implements Estado{
         private static int value = 1;
 
-        public static int getValue() {
+        @Override
+        public int getValue() {
             return value;
         }
 
-        public static String getDescription(Context context) {
+        @Override
+        public String getDescription(Context context) {
             return context.getString(R.string.medicoEstadoDisponible);
         }
     }
 
-    public static class NoDisponible {
+    public static class NoDisponible implements Estado{
         private static int value = 2;
 
-        public static int getValue() {
+        @Override
+        public int getValue() {
             return value;
         }
 
-        public static String getDescription(Context context) {
+        @Override
+        public String getDescription(Context context) {
             return context.getString(R.string.medicoEstadoNoDisponible);
         }
     }
 
-    public static class EnAuxilio {
+    public static class EnAuxilio implements Estado{
         public static final int value = 3;
 
-        public static int getValue() {
+        @Override
+        public int getValue() {
             return value;
         }
 
-        public static String getDescription(Context context) {
+        @Override
+        public String getDescription(Context context) {
             return context.getString(R.string.medicoEstadoEnAuxilio);
         }
     }
@@ -126,6 +137,7 @@ public class Constants {
     public static final String API_UPDATE_FCM = "medicos/fcmUpdate/";
     public static final String API_UPDATE_UBICACION = "medicos/ubicacionUpdate/";
     public static final String API_UPDATE_ESTADO_MEDICO = "medicos/estadoUpdate/";
+    public static final String API_DESVINCULAR_AUXILIO = "medicos/desvincularAsignacion/";
 
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";

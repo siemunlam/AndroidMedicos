@@ -87,6 +87,7 @@ public class Map implements Callback<ResponseDirections> {
 
     public void setZoomControlsEnabled(boolean enable){
         mMap.getUiSettings().setZoomControlsEnabled(enable);
+        mMap.getUiSettings().setMapToolbarEnabled(enable);
     }
 
     public void addPolyline(List<LatLng> listLatLng) {
@@ -217,6 +218,14 @@ public class Map implements Callback<ResponseDirections> {
             mTextToSpeech.speak(text,TextToSpeech.QUEUE_FLUSH,null,null);
         } else {
             mTextToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        }
+    }
+
+    public void cleanMapAuxilio(){
+        mMap.clear();
+        if(mPreviousLocation != null){
+            addPositionMarker(mPreviousLocation);
+            mPositionMarker = null;
         }
     }
 }

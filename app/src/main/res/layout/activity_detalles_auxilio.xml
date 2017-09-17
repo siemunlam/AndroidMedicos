@@ -28,7 +28,8 @@
                     android:name="com.google.android.gms.maps.StreetViewPanoramaFragment"
                     android:id="@+id/streetViewPanorama"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/heightStreetView"/>
+                    android:layout_height="@dimen/heightStreetView"
+                    android:layout_marginBottom="@dimen/halfDefaultMargin"/>
 
                 <com.siem.siemmedicos.ui.custom.CustomDetallesAuxilio
                     android:layout_width="match_parent"

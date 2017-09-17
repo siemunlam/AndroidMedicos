@@ -42,13 +42,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.i("123456789", "Llego notificacion");
         PreferencesHelper preferences = PreferencesHelper.getInstance();
-        if (remoteMessage.getData().size() > 0 && preferences.getValueEstado() == Constants.Disponible.getValue()) {
+        if (remoteMessage.getData().size() > 0 && preferences.getValueEstado() == new Constants.Disponible().getValue()) {
             Auxilio auxilio = getAuxilio(remoteMessage.getData());
             DBWrapper.saveAuxilio(this, auxilio);
-            preferences.setValueEstado(Constants.EnAuxilio.getValue());
-            preferences.setDescriptionEstado(Constants.EnAuxilio.getDescription(this));
-            Utils.restarLocationsServices(this);
-            sendNotification("Que texto va??");
+            Utils.updateEstado(this, new Constants.EnAuxilio());
+            sendNotification("Auxilio " + auxilio.getColorDescripcion());
             sendBroadcast();
         }
     }

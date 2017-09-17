@@ -55,16 +55,18 @@ public class CustomFragmentDialog extends Fragment {
         final RadioGroup mRadioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
 
         final AppCompatRadioButton radioButtonDisponible = new AppCompatRadioButton(activity);
-        radioButtonDisponible.setText(Constants.Disponible.getDescription(activity));
+        Constants.Estado disponible = new Constants.Disponible();
+        radioButtonDisponible.setText(disponible.getDescription(activity));
         radioButtonDisponible.setTypeface(mTypeface);
-        radioButtonDisponible.setId(Constants.Disponible.getValue());
-        radioButtonDisponible.setChecked(mPreferencesHelper.getValueEstado() == Constants.Disponible.getValue());
+        radioButtonDisponible.setId(disponible.getValue());
+        radioButtonDisponible.setChecked(mPreferencesHelper.getValueEstado() == disponible.getValue());
 
         final AppCompatRadioButton radioButtonNoDisponible = new AppCompatRadioButton(activity);
-        radioButtonNoDisponible.setText(Constants.NoDisponible.getDescription(activity));
+        Constants.Estado noDisponible = new Constants.NoDisponible();
+        radioButtonNoDisponible.setText(noDisponible.getDescription(activity));
         radioButtonNoDisponible.setTypeface(mTypeface);
-        radioButtonNoDisponible.setId(Constants.NoDisponible.getValue());
-        radioButtonNoDisponible.setChecked(mPreferencesHelper.getValueEstado() == Constants.NoDisponible.getValue());
+        radioButtonNoDisponible.setId(noDisponible.getValue());
+        radioButtonNoDisponible.setChecked(mPreferencesHelper.getValueEstado() == noDisponible.getValue());
 
         radioButtonDisponible.setOnClickListener(new View.OnClickListener() {
             @Override

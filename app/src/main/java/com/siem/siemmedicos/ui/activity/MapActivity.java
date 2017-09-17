@@ -42,9 +42,14 @@ import com.siem.siemmedicos.model.app.Map;
 import com.siem.siemmedicos.ui.custom.CustomFragmentDialog;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
+import com.siem.siemmedicos.utils.RetrofitClient;
 import com.siem.siemmedicos.utils.Utils;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallback {
 
@@ -53,7 +58,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
 
     private BroadcastReceiver mNewAuxilioBroadcastReceiver;
     private ContentObserver mObserver;
-    private PreferencesHelper mPreferences;
+    private PreferencesHelper mPreferencesHelper;
     private ActivityMapBinding mBinding;
     private Typeface mTypeface;
     private Map myMap;
@@ -80,7 +85,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                desvincularAuxilio();
                             }
                         },
                         getString(R.string.cancel),
@@ -184,7 +189,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(mPreferences.getValueEstado() != Constants.EnAuxilio.getValue()){
+        if(mPreferencesHelper.getValueEstado() != new Constants.EnAuxilio().getValue()){
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_map, menu);
         }
@@ -279,7 +284,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
 
     private void instanceVariables() {
         myMap = new Map(this);
-        mPreferences = PreferencesHelper.getInstance();
+        mPreferencesHelper = PreferencesHelper.getInstance();
         mObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
             public void onChange(boolean selfChange) {
                 newLocation();
@@ -306,7 +311,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        switch (mPreferences.getValueEstado()){
+        switch (mPreferencesHelper.getValueEstado()){
             case Constants.EnAuxilio.value:
                 Log.i("123456789", "PASO3");
                 AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
@@ -344,5 +349,35 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
             return false;
         }
         return true;
+    }
+
+    private void desvincularAuxilio() {
+        Call<Object> response = RetrofitClient.getServerClient().desvincularAuxilio(mPreferencesHelper.getAuthorization());
+        response.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                switch(response.code()){
+                    case Constants.CODE_SERVER_OK:
+                        Utils.updateEstado(MapActivity.this, new Constants.Disponible());
+                        setearEstado();
+                        invalidateOptionsMenu();
+                        myMap.cleanMapAuxilio();
+                        myLocationClicked();
+                        break;
+                    case Constants.CODE_UNAUTHORIZED:
+                        Utils.logout(MapActivity.this);
+                        finish();
+                        break;
+                    default:
+                        Toast.makeText(MapActivity.this, getString(R.string.errorUnlink), Toast.LENGTH_LONG).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Toast.makeText(MapActivity.this, getString(R.string.errorUnlink), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
