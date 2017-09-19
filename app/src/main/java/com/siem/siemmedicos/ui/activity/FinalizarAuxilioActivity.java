@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
+import com.google.gson.Gson;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityFinalizarAuxilioBinding;
 import com.siem.siemmedicos.interfaces.ChangeVisibilityButtonListener;
@@ -47,7 +48,9 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
                 if(mFragment != null){
                     mFinalizarAuxilio = mFragment.getFinalizarAuxilio();
                     mFinalizarAuxilio.setAsistenciaRealizada(mBinding.switchAsistioPaciente.isChecked());
-                    Log.i("123123", "ACA: "+mFinalizarAuxilio);
+                    Gson gson = new Gson();
+                    String finalizarAuxilioString = gson.toJson(mFinalizarAuxilio);
+                    Log.i("123123", "ACA: "+finalizarAuxilioString);
                 }
             }
         });

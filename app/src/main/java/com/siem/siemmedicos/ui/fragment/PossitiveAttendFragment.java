@@ -67,6 +67,7 @@ public class PossitiveAttendFragment extends AttendFragment implements
                 addDot();
                 mBinding.pager.setCurrentItem(mListDots.size() - 1);
                 controlateRemoverPaciente();
+                controlateSendButton();
             }
         });
 
@@ -81,6 +82,7 @@ public class PossitiveAttendFragment extends AttendFragment implements
                     if(position == 0)
                         onPageSelected(0);
                     controlateRemoverPaciente();
+                    controlateSendButton();
                 }
             }
         });
@@ -99,8 +101,8 @@ public class PossitiveAttendFragment extends AttendFragment implements
 
     private void setRadiogroupData() {
         List<ApiConstants.Item> listCategorizacion = new ArrayList<>();
-        listCategorizacion.add(new ApiConstants.UbicacionIncorrecta());
-        listCategorizacion.add(new ApiConstants.SinRespuesta());
+        listCategorizacion.add(new ApiConstants.Supercategorizado());
+        listCategorizacion.add(new ApiConstants.Subcategorizado());
 
         mBinding.radiogroup.addRadioButtons(listCategorizacion);
     }

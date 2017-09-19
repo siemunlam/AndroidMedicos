@@ -1,5 +1,7 @@
 package com.siem.siemmedicos.model.app;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -8,18 +10,25 @@ import java.util.List;
 
 public class FinalizarAuxilio {
 
+    @SerializedName("asistencia_realizada")
     private boolean mAsistenciaRealizada;
 
     /**
      * Asistencia realizada = FALSE
      */
-    private int mMotivoInasistencia;
+    @SerializedName("motivo_inasistencia")
+    private Integer mMotivoInasistencia;
+
+    @SerializedName("observaciones")
     private String mObservaciones;
 
     /**
      * Asistencia realizada = TRUE
      */
-    private int mCategorizacion;
+    @SerializedName("categorizacion")
+    private Integer mCategorizacion;
+
+    @SerializedName("pacientes")
     private List<Paciente> mListPaciente;
 
 
@@ -31,11 +40,11 @@ public class FinalizarAuxilio {
         mAsistenciaRealizada = asistenciaRealizada;
     }
 
-    public int getMotivoInasistencia() {
+    public Integer getMotivoInasistencia() {
         return mMotivoInasistencia;
     }
 
-    public void setMotivoInasistencia(int motivoInasistencia) {
+    public void setMotivoInasistencia(Integer motivoInasistencia) {
         mMotivoInasistencia = motivoInasistencia;
     }
 
@@ -47,11 +56,11 @@ public class FinalizarAuxilio {
         mObservaciones = observaciones;
     }
 
-    public int getCategorizacion() {
+    public Integer getCategorizacion() {
         return mCategorizacion;
     }
 
-    public void setCategorizacion(int categorizacion) {
+    public void setCategorizacion(Integer categorizacion) {
         mCategorizacion = categorizacion;
     }
 

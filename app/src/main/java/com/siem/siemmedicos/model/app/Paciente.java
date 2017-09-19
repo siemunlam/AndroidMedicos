@@ -1,15 +1,26 @@
 package com.siem.siemmedicos.model.app;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Lucas on 10/9/17.
  */
 
 public class Paciente {
 
+    @SerializedName("nombre")
     private String mNombre;
+
+    @SerializedName("apellido")
     private String mApellido;
+
+    @SerializedName("dni")
     private String mDni;
+
+    @SerializedName("edad")
     private String mEdad;
+
+    @SerializedName("diagnostico")
     private String mDiagnostico;
 
     public Paciente(){
