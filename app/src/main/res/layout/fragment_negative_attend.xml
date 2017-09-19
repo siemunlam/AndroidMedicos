@@ -8,43 +8,10 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RadioGroup
+        <com.siem.siemmedicos.ui.custom.CustomRadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/radiogroup">
-
-            <android.support.v7.widget.AppCompatRadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ubicacionIncorrecta"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/textsizeOptions"
-                android:foreground="?android:attr/selectableItemBackground"/>
-
-            <android.support.v7.widget.AppCompatRadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sinRespuesta"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/textsizeOptions"
-                android:foreground="?android:attr/selectableItemBackground"/>
-
-            <android.support.v7.widget.AppCompatRadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/yaTrasladado"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/textsizeOptions"
-                android:foreground="?android:attr/selectableItemBackground"/>
-
-            <android.support.v7.widget.AppCompatRadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/otroMotivo"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/textsizeOptions"
-                android:foreground="?android:attr/selectableItemBackground"/>
-        </RadioGroup>
+            android:id="@+id/radiogroup"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -58,6 +25,12 @@ xmlns:android="http://schemas.android.com/apk/res/android">
                 android:inputType="textMultiLine"
                 android:hint="@string/observaciones"/>
         </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="click"
+            android:id="@+id/borrar"/>
 
     </LinearLayout>
 </layout>

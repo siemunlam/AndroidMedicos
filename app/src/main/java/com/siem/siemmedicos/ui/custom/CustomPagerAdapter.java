@@ -157,6 +157,10 @@ public class CustomPagerAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
+    public List<Paciente> getListData(){
+        return mList;
+    }
+
     public boolean haveData(){
         for (Paciente paciente : mList) {
             if(!paciente.getDiagnostico().equals(""))

@@ -133,7 +133,7 @@ public class PreferencesHelper {
 
     //KEY_VALUE_ESTADO
     public int getValueEstado(){
-        return mPreferences.getInt(KEY_VALUE_ESTADO, new Constants.Disponible().getValue());
+        return mPreferences.getInt(KEY_VALUE_ESTADO, new ApiConstants.Disponible().getValue());
     }
 
     public void setValueEstado(int estado){
@@ -146,7 +146,7 @@ public class PreferencesHelper {
 
     //KEY_DESCRIPTION_ESTADO
     public String getDescriptionEstado(Context context){
-        return mPreferences.getString(KEY_DESCRIPTION_ESTADO, new Constants.Disponible().getDescription(context));
+        return mPreferences.getString(KEY_DESCRIPTION_ESTADO, new ApiConstants.Disponible().getDescription(context));
     }
 
     public void setDescriptionEstado(String estado){

@@ -19,6 +19,7 @@ import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.model.app.Motivo;
 import com.siem.siemmedicos.model.app.Motivos;
 import com.siem.siemmedicos.ui.activity.LoginActivity;
+import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.Utils;
@@ -42,10 +43,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.i("123456789", "Llego notificacion");
         PreferencesHelper preferences = PreferencesHelper.getInstance();
-        if (remoteMessage.getData().size() > 0 && preferences.getValueEstado() == new Constants.Disponible().getValue()) {
+        if (remoteMessage.getData().size() > 0 && preferences.getValueEstado() == new ApiConstants.Disponible().getValue()) {
             Auxilio auxilio = getAuxilio(remoteMessage.getData());
             DBWrapper.saveAuxilio(this, auxilio);
-            Utils.updateEstado(this, new Constants.EnAuxilio());
+            Utils.updateEstado(this, new ApiConstants.EnAuxilio());
             sendNotification("Auxilio " + auxilio.getColorDescripcion());
             sendBroadcast();
         }

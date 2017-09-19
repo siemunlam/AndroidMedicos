@@ -40,6 +40,7 @@ import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.model.app.Map;
 import com.siem.siemmedicos.ui.custom.CustomFragmentDialog;
+import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.RetrofitClient;
@@ -189,7 +190,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(mPreferencesHelper.getValueEstado() != new Constants.EnAuxilio().getValue()){
+        if(mPreferencesHelper.getValueEstado() != new ApiConstants.EnAuxilio().getValue()){
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_map, menu);
         }
@@ -312,7 +313,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         switch (mPreferencesHelper.getValueEstado()){
-            case Constants.EnAuxilio.value:
+            case ApiConstants.EnAuxilio.value:
                 Log.i("123456789", "PASO3");
                 AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
                 myMap.getDirections(lastLocation);
@@ -358,7 +359,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
             public void onResponse(Call<Object> call, Response<Object> response) {
                 switch(response.code()){
                     case Constants.CODE_SERVER_OK:
-                        Utils.updateEstado(MapActivity.this, new Constants.Disponible());
+                        Utils.updateEstado(MapActivity.this, new ApiConstants.Disponible());
                         setearEstado();
                         invalidateOptionsMenu();
                         myMap.cleanMapAuxilio();

@@ -24,56 +24,6 @@ public class Constants {
     public static final String LOGO_FONT = "fonts/logo_font.ttf";
 
     /**
-     * Estados
-     */
-    public interface Estado{
-        int getValue();
-        String getDescription(Context context);
-    }
-
-    public static class Disponible implements Estado{
-        private static int value = 1;
-
-        @Override
-        public int getValue() {
-            return value;
-        }
-
-        @Override
-        public String getDescription(Context context) {
-            return context.getString(R.string.medicoEstadoDisponible);
-        }
-    }
-
-    public static class NoDisponible implements Estado{
-        private static int value = 2;
-
-        @Override
-        public int getValue() {
-            return value;
-        }
-
-        @Override
-        public String getDescription(Context context) {
-            return context.getString(R.string.medicoEstadoNoDisponible);
-        }
-    }
-
-    public static class EnAuxilio implements Estado{
-        public static final int value = 3;
-
-        @Override
-        public int getValue() {
-            return value;
-        }
-
-        @Override
-        public String getDescription(Context context) {
-            return context.getString(R.string.medicoEstadoEnAuxilio);
-        }
-    }
-
-    /**
      * SyncAdapter
      */
     public static final int ONE_MINUTE = 60 * 1000;

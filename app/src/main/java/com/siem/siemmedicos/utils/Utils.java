@@ -241,10 +241,10 @@ public class Utils {
 
     public static boolean isInAuxilio(){
         PreferencesHelper preferences = PreferencesHelper.getInstance();
-        return preferences.getValueEstado() == new Constants.EnAuxilio().getValue();
+        return preferences.getValueEstado() == new ApiConstants.EnAuxilio().getValue();
     }
 
-    public static void updateEstado(Context context, Constants.Estado estado){
+    public static void updateEstado(Context context, ApiConstants.Estado estado){
         PreferencesHelper preferences = PreferencesHelper.getInstance();
         preferences.setValueEstado(estado.getValue());
         preferences.setDescriptionEstado(estado.getDescription(context));
@@ -258,15 +258,15 @@ public class Utils {
     }
 
     public static String getDescriptionEstado(Context context, int estado) {
-        Constants.Estado disponible = new Constants.Disponible();
+        ApiConstants.Estado disponible = new ApiConstants.Disponible();
         if(disponible.getValue() == estado)
             return disponible.getDescription(context);
 
-        Constants.Estado noDisponible = new Constants.NoDisponible();
+        ApiConstants.Estado noDisponible = new ApiConstants.NoDisponible();
         if(noDisponible.getValue() == estado)
             return noDisponible.getDescription(context);
 
-        Constants.Estado enAuxilio = new Constants.EnAuxilio();
+        ApiConstants.Estado enAuxilio = new ApiConstants.EnAuxilio();
         if(enAuxilio.getValue() == estado)
             return enAuxilio.getDescription(context);
         return null;

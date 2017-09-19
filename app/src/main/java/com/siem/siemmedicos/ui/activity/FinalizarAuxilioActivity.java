@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityFinalizarAuxilioBinding;
 import com.siem.siemmedicos.interfaces.ChangeVisibilityButtonListener;
+import com.siem.siemmedicos.model.app.FinalizarAuxilio;
 import com.siem.siemmedicos.ui.fragment.AttendFragment;
 import com.siem.siemmedicos.ui.fragment.NegativeAttendFragment;
 import com.siem.siemmedicos.ui.fragment.PossitiveAttendFragment;
@@ -20,6 +21,7 @@ import com.siem.siemmedicos.ui.fragment.PossitiveAttendFragment;
 public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeVisibilityButtonListener {
 
     private ActivityFinalizarAuxilioBinding mBinding;
+    private FinalizarAuxilio mFinalizarAuxilio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +30,21 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
 
         setToolbar(true);
         setFragment();
+        mFinalizarAuxilio = new FinalizarAuxilio();
 
         mBinding.switchAsistioPaciente.setOnClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setFragment();
                 hideButton();
+            }
+        });
+
+        mBinding.sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFinalizarAuxilio.setAsistenciaRealizada(mBinding.switchAsistioPaciente.isChecked());
+                //TODO
             }
         });
     }
