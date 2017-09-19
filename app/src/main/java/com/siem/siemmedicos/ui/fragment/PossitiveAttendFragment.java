@@ -2,6 +2,7 @@ package com.siem.siemmedicos.ui.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -9,15 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.FragmentPossitiveAttendBinding;
 import com.siem.siemmedicos.interfaces.PossitiveChangeVisibilityButtonListener;
+import com.siem.siemmedicos.model.app.FinalizarAuxilio;
 import com.siem.siemmedicos.model.app.Paciente;
 import com.siem.siemmedicos.ui.custom.CustomPagerAdapter;
+import com.siem.siemmedicos.utils.ApiConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,7 @@ public class PossitiveAttendFragment extends AttendFragment implements
         PossitiveChangeVisibilityButtonListener {
 
     private static final int FIRST_ITEM_SELECTED = 0;
+    private static final int RADIOGROUP_NO_SELECTED = -1;
 
     private FragmentPossitiveAttendBinding mBinding;
     private CustomPagerAdapter mAdapter;
@@ -81,21 +85,24 @@ public class PossitiveAttendFragment extends AttendFragment implements
             }
         });
 
-        mBinding.radioSubcategorizado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                controlateSendButton();
-            }
-        });
+        setRadiogroupData();
 
-        mBinding.radioSupercategorizado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mBinding.radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 controlateSendButton();
             }
         });
 
         return view;
+    }
+
+    private void setRadiogroupData() {
+        List<ApiConstants.Item> listCategorizacion = new ArrayList<>();
+        listCategorizacion.add(new ApiConstants.UbicacionIncorrecta());
+        listCategorizacion.add(new ApiConstants.SinRespuesta());
+
+        mBinding.radiogroup.addRadioButtons(listCategorizacion);
     }
 
     private void setRadiogroupVisibility() {
@@ -175,8 +182,7 @@ public class PossitiveAttendFragment extends AttendFragment implements
     @Override
     public void controlateSendButton(){
         if(!mBinding.switchBienCategorizado.isChecked() &&
-                !mBinding.radioSubcategorizado.isChecked() &&
-                !mBinding.radioSupercategorizado.isChecked()){
+                mBinding.radiogroup.getCheckedRadioButtonId() == RADIOGROUP_NO_SELECTED){
             mListener.hideButton();
             return;
         }else if(!mAdapter.haveData()){
@@ -206,5 +212,13 @@ public class PossitiveAttendFragment extends AttendFragment implements
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public FinalizarAuxilio getFinalizarAuxilio(){
+        FinalizarAuxilio finalizarAuxilio = new FinalizarAuxilio();
+        finalizarAuxilio.setCategorizacion(mBinding.switchBienCategorizado.isChecked() ? new ApiConstants.BienCategorizado().getValue() : mBinding.radiogroup.getCheckedRadioButtonId());
+        finalizarAuxilio.setListPaciente(mAdapter.getListData());
+        return finalizarAuxilio;
     }
 }

@@ -3,6 +3,7 @@ package com.siem.siemmedicos.ui.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
@@ -22,6 +23,7 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
 
     private ActivityFinalizarAuxilioBinding mBinding;
     private FinalizarAuxilio mFinalizarAuxilio;
+    private AttendFragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,6 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
 
         setToolbar(true);
         setFragment();
-        mFinalizarAuxilio = new FinalizarAuxilio();
 
         mBinding.switchAsistioPaciente.setOnClick(new View.OnClickListener() {
             @Override
@@ -43,22 +44,24 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
         mBinding.sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mFinalizarAuxilio.setAsistenciaRealizada(mBinding.switchAsistioPaciente.isChecked());
-                //TODO
+                if(mFragment != null){
+                    mFinalizarAuxilio = mFragment.getFinalizarAuxilio();
+                    mFinalizarAuxilio.setAsistenciaRealizada(mBinding.switchAsistioPaciente.isChecked());
+                    Log.i("123123", "ACA: "+mFinalizarAuxilio);
+                }
             }
         });
     }
 
     private void setFragment() {
         FragmentManager fm = getSupportFragmentManager();
-        AttendFragment fragment;
         if(mBinding.switchAsistioPaciente.isChecked())
-            fragment = new PossitiveAttendFragment();
+            mFragment = new PossitiveAttendFragment();
         else
-            fragment = new NegativeAttendFragment();
+            mFragment = new NegativeAttendFragment();
 
-        fragment.setChangeVisibilityButtonListener(this);
-        fm.beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
+        mFragment.setChangeVisibilityButtonListener(this);
+        fm.beginTransaction().replace(R.id.fragmentContainer, mFragment).commit();
     }
 
     @Override

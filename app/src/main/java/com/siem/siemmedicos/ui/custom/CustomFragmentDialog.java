@@ -56,14 +56,14 @@ public class CustomFragmentDialog extends Fragment {
         final RadioGroup mRadioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
 
         final AppCompatRadioButton radioButtonDisponible = new AppCompatRadioButton(activity);
-        ApiConstants.Estado disponible = new ApiConstants.Disponible();
+        ApiConstants.Item disponible = new ApiConstants.Disponible();
         radioButtonDisponible.setText(disponible.getDescription(activity));
         radioButtonDisponible.setTypeface(mTypeface);
         radioButtonDisponible.setId(disponible.getValue());
         radioButtonDisponible.setChecked(mPreferencesHelper.getValueEstado() == disponible.getValue());
 
         final AppCompatRadioButton radioButtonNoDisponible = new AppCompatRadioButton(activity);
-        ApiConstants.Estado noDisponible = new ApiConstants.NoDisponible();
+        ApiConstants.Item noDisponible = new ApiConstants.NoDisponible();
         radioButtonNoDisponible.setText(noDisponible.getDescription(activity));
         radioButtonNoDisponible.setTypeface(mTypeface);
         radioButtonNoDisponible.setId(noDisponible.getValue());

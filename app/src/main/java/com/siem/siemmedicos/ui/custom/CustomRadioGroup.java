@@ -30,12 +30,12 @@ public class CustomRadioGroup extends RadioGroup {
         mContext = context;
     }
 
-    public void addRadioButtons(List<ApiConstants.MotivoInasistencia> listMotivos) {
-        for (ApiConstants.MotivoInasistencia motivo : listMotivos) {
+    public void addRadioButtons(List<ApiConstants.Item> listData) {
+        for (ApiConstants.Item item : listData) {
             AppCompatRadioButton radioButton = new AppCompatRadioButton(getContext());
             radioButton.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-            radioButton.setText(motivo.getDescription(getContext()));
-            radioButton.setId(motivo.getValue());
+            radioButton.setText(item.getDescription(getContext()));
+            radioButton.setId(item.getValue());
             radioButton.setTextColor(ContextCompat.getColor(mContext, android.R.color.black));
             radioButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.textsizeOptions));
             TypedValue typedValue = new TypedValue();

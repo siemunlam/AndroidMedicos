@@ -10,15 +10,15 @@ import com.siem.siemmedicos.R;
 
 public class ApiConstants {
 
-    /**
-     * Estados
-     */
-    public interface Estado{
+    public interface Item{
         int getValue();
         String getDescription(Context context);
     }
 
-    public static class Disponible implements Estado{
+    /**
+     * Estados
+     */
+    public static class Disponible implements Item{
         private static int value = 1;
 
         @Override
@@ -32,7 +32,7 @@ public class ApiConstants {
         }
     }
 
-    public static class NoDisponible implements Estado{
+    public static class NoDisponible implements Item{
         private static int value = 2;
 
         @Override
@@ -46,7 +46,7 @@ public class ApiConstants {
         }
     }
 
-    public static class EnAuxilio implements Estado{
+    public static class EnAuxilio implements Item{
         public static final int value = 3;
 
         @Override
@@ -64,12 +64,7 @@ public class ApiConstants {
     /**
      * Motivo inasistencia
      */
-    public interface MotivoInasistencia{
-        int getValue();
-        String getDescription(Context context);
-    }
-
-    public static class Otro implements MotivoInasistencia{
+    public static class Otro implements Item{
         private static int value = 0;
 
         @Override
@@ -83,7 +78,7 @@ public class ApiConstants {
         }
     }
 
-    public static class UbicacionIncorrecta implements MotivoInasistencia{
+    public static class UbicacionIncorrecta implements Item{
         private static int value = 1;
 
         @Override
@@ -97,7 +92,7 @@ public class ApiConstants {
         }
     }
 
-    public static class SinRespuesta implements MotivoInasistencia{
+    public static class SinRespuesta implements Item{
         private static int value = 2;
 
         @Override
@@ -111,7 +106,7 @@ public class ApiConstants {
         }
     }
 
-    public static class YaTrasladado implements MotivoInasistencia{
+    public static class YaTrasladado implements Item{
         private static int value = 3;
 
         @Override
@@ -122,6 +117,52 @@ public class ApiConstants {
         @Override
         public String getDescription(Context context) {
             return context.getString(R.string.yaTrasladado);
+        }
+    }
+
+
+    /**
+     * Categorizacion
+     */
+    public static class BienCategorizado implements Item{
+        private static int value = 0;
+
+        @Override
+        public int getValue() {
+            return value;
+        }
+
+        @Override
+        public String getDescription(Context context) {
+            return "";
+        }
+    }
+
+    public static class Subcategorizado implements Item{
+        private static int value = 1;
+
+        @Override
+        public int getValue() {
+            return value;
+        }
+
+        @Override
+        public String getDescription(Context context) {
+            return context.getString(R.string.subcategorizado);
+        }
+    }
+
+    public static class Supercategorizado implements Item{
+        private static int value = 2;
+
+        @Override
+        public int getValue() {
+            return value;
+        }
+
+        @Override
+        public String getDescription(Context context) {
+            return context.getString(R.string.supercategorizado);
         }
     }
 

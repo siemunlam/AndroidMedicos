@@ -163,10 +163,10 @@ public class CustomPagerAdapter extends PagerAdapter {
 
     public boolean haveData(){
         for (Paciente paciente : mList) {
-            if(!paciente.getDiagnostico().equals(""))
-                return true;
+            if(paciente.getDiagnostico().isEmpty())
+                return false;
         }
-        return false;
+        return true;
     }
 
 }

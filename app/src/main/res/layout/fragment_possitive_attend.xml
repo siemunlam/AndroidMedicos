@@ -15,30 +15,11 @@
             android:text="@string/bienCategorizadoQuestion"
             android:checked="false"/>
 
-        <RadioGroup
+        <com.siem.siemmedicos.ui.custom.CustomRadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/radiogroup"
-            android:layout_below="@+id/switchBienCategorizado">
-
-            <android.support.v7.widget.AppCompatRadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/subcategorizado"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/textsizeOptions"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:id="@+id/radioSubcategorizado"/>
-
-            <android.support.v7.widget.AppCompatRadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/supercategorizado"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/textsizeOptions"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:id="@+id/radioSupercategorizado"/>
-        </RadioGroup>
+            android:layout_below="@+id/switchBienCategorizado"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
