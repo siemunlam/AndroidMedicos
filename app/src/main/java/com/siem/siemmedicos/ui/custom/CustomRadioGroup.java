@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.RadioGroup;
 
 import com.siem.siemmedicos.R;
@@ -31,13 +32,16 @@ public class CustomRadioGroup extends RadioGroup {
 
     public void addRadioButtons(List<ApiConstants.MotivoInasistencia> listMotivos) {
         for (ApiConstants.MotivoInasistencia motivo : listMotivos) {
-            AppCompatRadioButton crb = new AppCompatRadioButton(getContext());
-            crb.setText(motivo.getDescription(getContext()));
-            crb.setId(motivo.getValue());
-            crb.setTextColor(ContextCompat.getColor(mContext, android.R.color.black));
-            crb.setTextSize(getResources().getDimensionPixelSize(R.dimen.textsizeOptions));
-            //TODOOOOOOO
-            addView(crb);
+            AppCompatRadioButton radioButton = new AppCompatRadioButton(getContext());
+            radioButton.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+            radioButton.setText(motivo.getDescription(getContext()));
+            radioButton.setId(motivo.getValue());
+            radioButton.setTextColor(ContextCompat.getColor(mContext, android.R.color.black));
+            radioButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.textsizeOptions));
+            TypedValue typedValue = new TypedValue();
+            mContext.getTheme().resolveAttribute(R.attr.selectableItemBackground, typedValue, true);
+            radioButton.setBackgroundResource(typedValue.resourceId);
+            addView(radioButton);
         }
     }
 }

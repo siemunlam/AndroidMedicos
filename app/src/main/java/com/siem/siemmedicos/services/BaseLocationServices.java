@@ -108,6 +108,7 @@ public class BaseLocationServices extends Service {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setSmallIcon(R.drawable.ic_notif_ambulance);
         mBuilder.setWhen(0);
+        mBuilder.setContentTitle(getString(R.string.name));
         mBuilder.setContentText(getString(R.string.statusNotification, mPreferences.getDescriptionEstado(this)));
         return mBuilder;
     }

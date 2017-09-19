@@ -27,7 +27,7 @@ public class ToolbarActivity extends AppCompatActivity {
             }
         }else
             mToolbar.setVisibility(View.GONE);
-        mToolbar.setText(getString(R.string.name));
+        mToolbar.setText(getString(R.string.nameToolbar));
     }
 
     @Override

@@ -47,7 +47,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Auxilio auxilio = getAuxilio(remoteMessage.getData());
             DBWrapper.saveAuxilio(this, auxilio);
             Utils.updateEstado(this, new ApiConstants.EnAuxilio());
-            sendNotification("Auxilio " + auxilio.getColorDescripcion());
+            sendNotification( getString(R.string.descripcionAuxilio, auxilio.getColorDescripcion()));
             sendBroadcast();
         }
     }

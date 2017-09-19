@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Siem Médicos</string>
-    <string name="name">S I E M</string>
+    <string name="name">SIEM</string>
+    <string name="nameToolbar">S I E M</string>
 
     <string name="keyDirectionsGoogleMaps" translatable="false">AIzaSyDJS3m2mBPrE3mS2cbo0zQtewPHdgIIBHs</string>
 
