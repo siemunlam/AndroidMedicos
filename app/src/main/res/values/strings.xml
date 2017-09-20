@@ -66,6 +66,7 @@
     <string name="edad">Edad</string>
     <string name="pacientes">Pacientes</string>
     <string name="diagnostico">Diagnóstico</string>
+    <string name="diagnosticoRequired">Diagnóstico (Requerido)</string>
 
     <!-- Custom Switch -->
     <string name="si">Si</string>

@@ -14,39 +14,45 @@
             android:layout_height="wrap_content"
             android:id="@+id/appBarLayout"/>
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/halfDefaultMargin">
-
-            <com.siem.siemmedicos.ui.custom.CustomSwitchCompat
+            android:scrollbars="none"
+            android:fillViewport="true">
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/switchAsistioPaciente"
-                android:text="@string/pudoAsistirPaciente"
-                android:checked="false"/>
+                android:padding="@dimen/halfDefaultMargin">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/switchAsistioPaciente"
-                android:id="@+id/fragmentContainer"/>
+                <com.siem.siemmedicos.ui.custom.CustomSwitchCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/switchAsistioPaciente"
+                    android:text="@string/pudoAsistirPaciente"
+                    android:checked="false"/>
 
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_margin="@dimen/halfDefaultMargin"
-                android:src="@drawable/ic_send"
-                android:tint="@android:color/white"
-                android:id="@+id/sendButton"
-                android:visibility="gone"
-                android:background="?android:attr/selectableItemBackground"
-                app:backgroundTint="@color/colorPrimary"
-                app:fabSize="normal"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/switchAsistioPaciente"
+                    android:id="@+id/fragmentContainer"/>
 
-        </RelativeLayout>
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/halfDefaultMargin"
+                    android:src="@drawable/ic_send"
+                    android:tint="@android:color/white"
+                    android:id="@+id/sendButton"
+                    android:visibility="gone"
+                    android:background="?android:attr/selectableItemBackground"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:fabSize="normal"/>
+
+            </RelativeLayout>
+        </ScrollView>
     </LinearLayout>
 </layout>
