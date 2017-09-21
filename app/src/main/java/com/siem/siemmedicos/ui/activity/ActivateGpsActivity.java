@@ -39,7 +39,6 @@ public class ActivateGpsActivity extends ToolbarActivity implements
 
     protected void getLocation(){
         if(!Utils.isGPSOn(this)){
-            //TODO: EN background???
             mGoogleApiClient = new GoogleApiClient
                     .Builder(this)
                     .addApi(LocationServices.API)

@@ -48,6 +48,7 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
                     mFinalizarAuxilio = mFragment.getFinalizarAuxilio();
                     mFinalizarAuxilio.setAsistenciaRealizada(mBinding.switchAsistioPaciente.isChecked());
                     Gson gson = new Gson();
+                    //TODO
                     String finalizarAuxilioString = gson.toJson(mFinalizarAuxilio);
                 }
             }

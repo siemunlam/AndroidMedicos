@@ -183,6 +183,8 @@ public class PossitiveAttendFragment extends AttendFragment implements
      */
     @Override
     public void controlateSendButton(){
+        if(mListener == null)
+            return;
         if(!mBinding.switchBienCategorizado.isChecked() &&
                 mBinding.radiogroup.getCheckedRadioButtonId() == RADIOGROUP_NO_SELECTED){
             mListener.hideButton();

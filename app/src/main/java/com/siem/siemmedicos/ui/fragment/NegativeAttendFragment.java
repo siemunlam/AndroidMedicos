@@ -32,7 +32,8 @@ public class NegativeAttendFragment extends AttendFragment {
         mBinding.radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                mListener.showButton();
+                if(mListener != null)
+                    mListener.showButton();
             }
         });
 

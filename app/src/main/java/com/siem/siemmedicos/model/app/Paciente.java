@@ -15,20 +15,19 @@ public class Paciente {
     private String mApellido;
 
     @SerializedName("dni")
-    private String mDni;
+    private Integer mDni;
 
     @SerializedName("edad")
-    private String mEdad;
+    private Integer mEdad;
 
     @SerializedName("diagnostico")
     private String mDiagnostico;
 
+    @SerializedName("trasladado")
+    private boolean mTrasladado;
+
     public Paciente(){
-        mNombre = "";
-        mApellido = "";
-        mDni = "";
-        mEdad = "";
-        mDiagnostico = "";
+        mTrasladado = false;
     }
 
     public String getNombre() {
@@ -47,20 +46,28 @@ public class Paciente {
         mApellido = apellido;
     }
 
-    public String getDni() {
+    public Integer getDni() {
         return mDni;
     }
 
-    public void setDni(String dni) {
+    public void setDni(Integer dni) {
         mDni = dni;
     }
 
-    public String getEdad() {
+    public Integer getEdad() {
         return mEdad;
     }
 
-    public void setEdad(String edad) {
+    public void setEdad(Integer edad) {
         mEdad = edad;
+    }
+
+    public boolean isTrasladado() {
+        return mTrasladado;
+    }
+
+    public void setTrasladado(boolean trasladado) {
+        mTrasladado = trasladado;
     }
 
     public String getDiagnostico() {

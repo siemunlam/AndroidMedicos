@@ -81,7 +81,7 @@ public class CustomPagerAdapter extends PagerAdapter {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                paciente.setDni(editable.toString());
+                paciente.setDni(Integer.parseInt(editable.toString()));
             }
         });
 
@@ -94,7 +94,7 @@ public class CustomPagerAdapter extends PagerAdapter {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                paciente.setEdad(editable.toString());
+                paciente.setEdad(Integer.parseInt(editable.toString()));
             }
         });
 
@@ -116,11 +116,15 @@ public class CustomPagerAdapter extends PagerAdapter {
     }
 
     private void bindData(Paciente paciente) {
+        mBinding.edittextDiagnostico.setText(paciente.getDiagnostico());
         mBinding.edittextNombre.setText(paciente.getNombre());
         mBinding.edittextApellido.setText(paciente.getApellido());
-        mBinding.edittextDni.setText(paciente.getDni());
-        mBinding.edittextEdad.setText(paciente.getEdad());
-        mBinding.edittextDiagnostico.setText(paciente.getDiagnostico());
+
+        if(paciente.getDni() != null)
+            mBinding.edittextDni.setText(paciente.getDni());
+
+        if(paciente.getEdad() != null)
+            mBinding.edittextEdad.setText(paciente.getEdad());
     }
 
     @Override
