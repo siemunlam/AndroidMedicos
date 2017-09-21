@@ -13,9 +13,11 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityLoginBinding;
 import com.siem.siemmedicos.model.serverapi.LoginResponse;
+import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.RetrofitClient;
+import com.siem.siemmedicos.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +63,10 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
         switch(response.code()){
             case Constants.CODE_SERVER_OK:
                 LoginResponse loginResponse = response.body();
+                ApiConstants.Item estadoNoDisponible = new ApiConstants.NoDisponible();
                 mPreferences.setMedicoToken(loginResponse.getToken());
+                mPreferences.setValueEstado(estadoNoDisponible.getValue());
+                mPreferences.setDescriptionEstado(estadoNoDisponible.getDescription(LoginActivity.this));
                 goToMap();
                 break;
             case Constants.CODE_BAD_REQUEST:
