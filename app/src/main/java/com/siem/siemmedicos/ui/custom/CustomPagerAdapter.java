@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.CustomPagePacienteBinding;
@@ -45,6 +46,13 @@ public class CustomPagerAdapter extends PagerAdapter {
         ViewGroup layout = (ViewGroup) mBinding.getRoot();
         collection.addView(layout);
         bindData(paciente);
+
+        mBinding.checkboxTrasladado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                paciente.setTrasladado(isChecked);
+            }
+        });
 
         mBinding.edittextNombre.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,6 +124,7 @@ public class CustomPagerAdapter extends PagerAdapter {
     }
 
     private void bindData(Paciente paciente) {
+        mBinding.checkboxTrasladado.setChecked(paciente.isTrasladado());
         mBinding.edittextDiagnostico.setText(paciente.getDiagnostico());
         mBinding.edittextNombre.setText(paciente.getNombre());
         mBinding.edittextApellido.setText(paciente.getApellido());

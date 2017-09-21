@@ -21,6 +21,8 @@ import com.siem.siemmedicos.ui.fragment.PossitiveAttendFragment;
 
 public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeVisibilityButtonListener {
 
+    private static final String KEY_STATE_SAVED = "stateSaved";
+
     private ActivityFinalizarAuxilioBinding mBinding;
     private FinalizarAuxilio mFinalizarAuxilio;
     private AttendFragment mFragment;
@@ -53,17 +55,16 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
                 }
             }
         });
+
+        if(savedInstanceState != null && savedInstanceState.containsKey(KEY_STATE_SAVED)){
+            finish();
+        }
     }
 
-    private void setFragment() {
-        FragmentManager fm = getSupportFragmentManager();
-        if(mBinding.switchAsistioPaciente.isChecked())
-            mFragment = new PossitiveAttendFragment();
-        else
-            mFragment = new NegativeAttendFragment();
-
-        mFragment.setChangeVisibilityButtonListener(this);
-        fm.beginTransaction().replace(R.id.fragmentContainer, mFragment).commit();
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBoolean(KEY_STATE_SAVED, true);
     }
 
     @Override
@@ -80,6 +81,17 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
             mBinding.sendButton.startAnimation(AnimationUtils.loadAnimation(FinalizarAuxilioActivity.this, R.anim.hide_center));
             mBinding.sendButton.setVisibility(View.GONE);
         }
+    }
+
+    private void setFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        if(mBinding.switchAsistioPaciente.isChecked())
+            mFragment = new PossitiveAttendFragment();
+        else
+            mFragment = new NegativeAttendFragment();
+
+        mFragment.setChangeVisibilityButtonListener(this);
+        fm.beginTransaction().replace(R.id.fragmentContainer, mFragment).commit();
     }
 
 }

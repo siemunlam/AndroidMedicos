@@ -42,6 +42,15 @@ public class NegativeAttendFragment extends AttendFragment {
         return view;
     }
 
+    @Override
+    public FinalizarAuxilio getFinalizarAuxilio(){
+        FinalizarAuxilio finalizarAuxilio = new FinalizarAuxilio();
+        finalizarAuxilio.setMotivoInasistencia(mBinding.radiogroup.getCheckedRadioButtonId());
+        if(!mBinding.edittextObservaciones.getText().toString().isEmpty())
+            finalizarAuxilio.setObservaciones(mBinding.edittextObservaciones.getText().toString());
+        return finalizarAuxilio;
+    }
+
     private void setRadiogroupData() {
         List<ApiConstants.Item> listMotivos = new ArrayList<>();
         listMotivos.add(new ApiConstants.UbicacionIncorrecta());
@@ -50,14 +59,5 @@ public class NegativeAttendFragment extends AttendFragment {
         listMotivos.add(new ApiConstants.Otro());
 
         mBinding.radiogroup.addRadioButtons(listMotivos);
-    }
-
-    @Override
-    public FinalizarAuxilio getFinalizarAuxilio(){
-        FinalizarAuxilio finalizarAuxilio = new FinalizarAuxilio();
-        finalizarAuxilio.setMotivoInasistencia(mBinding.radiogroup.getCheckedRadioButtonId());
-        if(!mBinding.edittextObservaciones.getText().toString().isEmpty())
-            finalizarAuxilio.setObservaciones(mBinding.edittextObservaciones.getText().toString());
-        return finalizarAuxilio;
     }
 }
