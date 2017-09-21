@@ -169,9 +169,7 @@ public class Map implements Callback<ResponseDirections> {
     }
 
     public void getDirections(AppLocation lastLocation) {
-        Log.i("123456789", "Get Directions1");
         if(!lastLocation.isNullLocation()) {
-            Log.i("123456789", "Get Directions2");
             lastLocation.getDirections(mContext, this);
         }
     }
@@ -179,7 +177,6 @@ public class Map implements Callback<ResponseDirections> {
     @Override
     public void onResponse(@NonNull Call<ResponseDirections> call, @NonNull Response<ResponseDirections> response) {
         try{
-            Log.i("123456789", "onResponse");
             ResponseDirections responseDirections = response.body();
             List<LatLng> listLatLng = PolyUtils.decode(responseDirections.getEncodedPoints());
             addPolyline(listLatLng);
@@ -191,8 +188,7 @@ public class Map implements Callback<ResponseDirections> {
 
     @Override
     public void onFailure(Call<ResponseDirections> call, Throwable t) {
-        Log.i("123456789", "Failure");
-        //Toast.makeText(mContext, mContext.getString(R.string.error), Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, mContext.getString(R.string.error), Toast.LENGTH_LONG).show();
     }
 
     public void controlateInRoute(Location location) {
@@ -204,8 +200,6 @@ public class Map implements Callback<ResponseDirections> {
                     Toast.makeText(mContext, text, Toast.LENGTH_LONG).show();
                     speak(text);
                     getDirections(new AppLocation(lastLatLng));
-                }else{
-                    Toast.makeText(mContext, "Todo bien....", Toast.LENGTH_LONG).show();
                 }
             }else{
                 getDirections(new AppLocation(lastLatLng));

@@ -41,7 +41,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.i("123456789", "Llego notificacion");
         PreferencesHelper preferences = PreferencesHelper.getInstance();
         if (remoteMessage.getData().size() > 0 && preferences.getValueEstado() == new ApiConstants.Disponible().getValue()) {
             Auxilio auxilio = getAuxilio(remoteMessage.getData());

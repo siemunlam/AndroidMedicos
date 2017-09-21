@@ -294,27 +294,23 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     }
 
     private void newLocation() {
-        Log.i("123456789", "New position location");
         Location location = Utils.getLastLocationSaved(this);
         addMarker(location);
     }
 
     private void addMarker(Location location) {
         if(location != null){
-            Log.i("123456789", "New marker location");
             myMap.addPositionMarker(location);
             myMap.controlateInRoute(location);
         }
     }
 
     private void setearEstado() {
-        Log.i("123456789", "PASO2");
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         switch (mPreferencesHelper.getValueEstado()){
             case ApiConstants.EnAuxilio.value:
-                Log.i("123456789", "PASO3");
                 AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
                 myMap.getDirections(lastLocation);
                 myMap.addPositionMarker(lastLocation);
@@ -326,7 +322,6 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;
             default:
-                Log.i("123456789", "PASO4");
                 mBinding.containerButtons.setVisibility(View.GONE);
                 mBinding.containerDetallesAuxilio.setVisibility(View.GONE);
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) getResources().getDimension(R.dimen.defaultMargin));

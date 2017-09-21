@@ -131,12 +131,10 @@ public class AppLocation {
     }
 
     public void save(Context context){
-        Log.i("123456789", "New valid location");
         DBWrapper.saveLocation(context, this);
     }
 
     public void getDirections(Context context, Callback<ResponseDirections> callback) {
-        Log.i("123456789", "Get Directions3");
         Auxilio auxilio = DBWrapper.getAuxilio(context);
         Call<ResponseDirections> callResponseDirections = RetrofitClient.getMapsGoogleClient().getDirections(mLatitude + "," + mLongitude, auxilio.getLatitude() + "," + auxilio.getLongitude(), context.getString(R.string.keyDirectionsGoogleMaps));
         callResponseDirections.enqueue(callback);

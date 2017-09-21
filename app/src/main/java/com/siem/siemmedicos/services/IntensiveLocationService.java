@@ -16,7 +16,6 @@ public class IntensiveLocationService extends BaseLocationServices {
     @Override
     protected void newLocation(Location location) {
         // Ignore the first n measurements, until the precision stabilizes
-        Log.i("123456789", "New location");
         mMeasurementNumber++;
         if (mMeasurementNumber <= MEASUREMENT_TO_IGNORE)
             return;
@@ -44,11 +43,6 @@ public class IntensiveLocationService extends BaseLocationServices {
         if (timeDiff < TIME_THRESHOLD &&
                 (bearingDiff < BEARING_THRESHOLD || mMylocation.getSpeed() < BEARING_MIN_SPEED) &&
                 distanceDiff < DISTANCE_THRESHOLD){
-            //TODO: Eliminar todos los Log.i
-            Log.i("123456789", "timeDiff: " + timeDiff + " - TIME_THRESHOLD: " + TIME_THRESHOLD);
-            Log.i("123456789", "bearingDiff: " + bearingDiff + " - BEARING_THRESHOLD: " + BEARING_THRESHOLD);
-            Log.i("123456789", "mMylocation.getSpeed(): " + mMylocation.getSpeed() + " - BEARING_MIN_SPEED: " + BEARING_MIN_SPEED);
-            Log.i("123456789", "distanceDiff: " + distanceDiff + " - DISTANCE_THRESHOLD: " + DISTANCE_THRESHOLD);
             return;
         }
 
