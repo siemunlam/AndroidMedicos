@@ -1,7 +1,6 @@
 package com.siem.siemmedicos.services;
 
 import android.location.Location;
-import android.util.Log;
 
 import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.utils.Utils;

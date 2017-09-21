@@ -6,7 +6,6 @@ import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.AppLocation;

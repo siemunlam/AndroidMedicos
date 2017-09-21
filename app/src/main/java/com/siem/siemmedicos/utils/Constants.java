@@ -1,9 +1,6 @@
 package com.siem.siemmedicos.utils;
 
 import android.Manifest;
-import android.content.Context;
-
-import com.siem.siemmedicos.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;

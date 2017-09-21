@@ -2,7 +2,6 @@ package com.siem.siemmedicos.model.app;
 
 import android.content.Context;
 import android.location.Location;
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.R;
