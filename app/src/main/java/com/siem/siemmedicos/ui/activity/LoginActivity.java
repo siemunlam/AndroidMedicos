@@ -17,7 +17,6 @@ import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.RetrofitClient;
-import com.siem.siemmedicos.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -141,6 +141,8 @@ public class DBWrapper {
     }
 
     private static void saveMotivos(Context context, Auxilio auxilio, long informacionAuxilioId) {
+        if(auxilio.getMotivos() == null || auxilio.getMotivos().getListMotivos() == null)
+            return;
         for (Motivo motivo : auxilio.getMotivos().getListMotivos()) {
             ContentValues cvMotivos = new ContentValues();
             cvMotivos.put(DBContract.MotivoAuxilio.COLUMN_NAME_ID_AUXILIO, informacionAuxilioId);

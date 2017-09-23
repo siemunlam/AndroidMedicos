@@ -3,6 +3,7 @@ package com.siem.siemmedicos.ui.activity;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
 import com.google.android.gms.maps.StreetViewPanorama;
@@ -49,9 +50,13 @@ public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetV
 
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
-        streetViewPanorama.setPosition(new LatLng(Double.parseDouble(mAuxilio.getLatitude()), Double.parseDouble(mAuxilio.getLongitude())));
+        try{
+            streetViewPanorama.setPosition(new LatLng(Double.parseDouble(mAuxilio.getLatitude()), Double.parseDouble(mAuxilio.getLongitude())));
 
-        streetViewPanorama.setUserNavigationEnabled(false);
-        streetViewPanorama.setZoomGesturesEnabled(false);
+            streetViewPanorama.setUserNavigationEnabled(false);
+            streetViewPanorama.setZoomGesturesEnabled(false);
+        }catch(Exception e){
+            mBinding.contentStreetviewPanorama.setVisibility(View.GONE);
+        }
     }
 }

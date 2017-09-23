@@ -176,7 +176,8 @@ public class CustomPagerAdapter extends PagerAdapter {
 
     public boolean haveData(){
         for (Paciente paciente : mList) {
-            if(paciente.getDiagnostico().isEmpty())
+            if(paciente.getDiagnostico() == null ||
+                    paciente.getDiagnostico().isEmpty())
                 return false;
         }
         return true;

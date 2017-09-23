@@ -24,18 +24,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <fragment
-                    android:name="com.google.android.gms.maps.StreetViewPanoramaFragment"
-                    android:id="@+id/streetViewPanorama"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/heightStreetView"
-                    android:layout_marginBottom="@dimen/halfDefaultMargin"/>
+                    android:id="@+id/contentStreetviewPanorama">
+                    <fragment
+                        android:name="com.google.android.gms.maps.StreetViewPanoramaFragment"
+                        android:id="@+id/streetViewPanorama"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </RelativeLayout>
 
                 <com.siem.siemmedicos.ui.custom.CustomDetallesAuxilio
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/heightContainerExtraData"
-                    android:id="@+id/containerDetallesAuxilio" />
+                    android:id="@+id/containerDetallesAuxilio"
+                    android:layout_marginTop="@dimen/halfDefaultMargin"/>
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
