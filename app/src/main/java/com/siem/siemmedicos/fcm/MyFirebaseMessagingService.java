@@ -8,6 +8,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -41,12 +42,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         PreferencesHelper preferences = PreferencesHelper.getInstance();
+        Log.i("123456789", "ACA: " + remoteMessage.getData());
         if (remoteMessage.getData().size() > 0 && preferences.getValueEstado() == new ApiConstants.Disponible().getValue()) {
             Auxilio auxilio = getAuxilio(remoteMessage.getData());
-            DBWrapper.saveAuxilio(this, auxilio);
-            Utils.updateEstado(this, new ApiConstants.EnAuxilio());
-            sendNotification( getString(R.string.descripcionAuxilio, auxilio.getColorDescripcion()));
-            sendBroadcast();
+            if(auxilio != null){
+                DBWrapper.saveAuxilio(this, auxilio);
+                Utils.updateEstado(this, new ApiConstants.EnAuxilio());
+                sendNotification( getString(R.string.descripcionAuxilio, auxilio.getColorDescripcion()));
+                sendBroadcast();
+            }
         }
     }
 

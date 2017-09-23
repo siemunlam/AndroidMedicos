@@ -4,6 +4,7 @@ import com.siem.siemmedicos.model.serverapi.LoginResponse;
 import com.siem.siemmedicos.utils.Constants;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -45,5 +46,10 @@ public interface ServerApi {
     @GET(Constants.API_DESVINCULAR_AUXILIO)
     Call<Object> desvincularAuxilio(
             @Header(Constants.AUTHORIZATION) String authorization);
+
+    @POST(Constants.API_FINALIZAR_AUXILIO)
+    Call<Object> finalizarAuxilio(
+            @Header(Constants.AUTHORIZATION) String authorization,
+            @Body String data);
 
 }

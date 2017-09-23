@@ -288,4 +288,9 @@ public class Utils {
         activity.startActivity(intent);
         addStartTransitionAnimation(activity);
     }
+
+    public static void startActivityWithTransitionForResult(Activity activity, Intent intent, int requestCode) {
+        activity.startActivityForResult(intent, requestCode);
+        addStartTransitionAnimation(activity);
+    }
 }

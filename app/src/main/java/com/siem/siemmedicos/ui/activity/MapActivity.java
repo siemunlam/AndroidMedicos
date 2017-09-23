@@ -55,6 +55,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
 
     private static final int PERMISSIONS_REQUEST = 100;
     private static final int LOGOUT_ACTIVITY = 105;
+    private static final int FINALIZAR_AUXILIO = 110;
 
     private BroadcastReceiver mNewAuxilioBroadcastReceiver;
     private ContentObserver mObserver;
@@ -98,7 +99,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         mBinding.buttonFinalize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.startActivityWithTransition(MapActivity.this, new Intent(MapActivity.this, FinalizarAuxilioActivity.class));
+                Utils.startActivityWithTransitionForResult(MapActivity.this, new Intent(MapActivity.this, FinalizarAuxilioActivity.class), FINALIZAR_AUXILIO);
             }
         });
 
@@ -204,7 +205,6 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText(FirebaseInstanceId.getInstance().getToken(), FirebaseInstanceId.getInstance().getToken());
                 clipboard.setPrimaryClip(clip);
-                Toast.makeText(this, FirebaseInstanceId.getInstance().getToken(), Toast.LENGTH_LONG).show();
 
                 new CustomFragmentDialog().getRadioButtonsEstadoDialog(this, getString(R.string.accept), true).show();
                 return true;
@@ -227,6 +227,23 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                     intentLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intentLogin);
                     finish();
+                }
+                break;
+
+            case FINALIZAR_AUXILIO:
+                if(resultCode == Activity.RESULT_OK){
+                    int code = intent.getIntExtra(FinalizarAuxilioActivity.KEY_RESPONSE_CODE, 0);
+                    switch(code){
+                        case Constants.CODE_SERVER_OK:
+                        case Constants.CODE_BAD_REQUEST:
+                            changeEstadoAuxilio();
+                            break;
+
+                        case Constants.CODE_UNAUTHORIZED:
+                            Utils.logout(MapActivity.this);
+                            finish();
+                            break;
+                    }
                 }
                 break;
         }
@@ -353,11 +370,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
             public void onResponse(Call<Object> call, Response<Object> response) {
                 switch(response.code()){
                     case Constants.CODE_SERVER_OK:
-                        Utils.updateEstado(MapActivity.this, new ApiConstants.Disponible());
-                        setearEstado();
-                        invalidateOptionsMenu();
-                        myMap.cleanMapAuxilio();
-                        myLocationClicked();
+                    case Constants.CODE_BAD_REQUEST:
+                        changeEstadoAuxilio();
                         break;
                     case Constants.CODE_UNAUTHORIZED:
                         Utils.logout(MapActivity.this);
@@ -374,5 +388,14 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 Toast.makeText(MapActivity.this, getString(R.string.errorUnlink), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void changeEstadoAuxilio() {
+        //Cuando te desvinculas del auxilio o cuando finalizas el auxilio
+        Utils.updateEstado(MapActivity.this, new ApiConstants.Disponible());
+        setearEstado();
+        invalidateOptionsMenu();
+        myMap.cleanMapAuxilio();
+        myLocationClicked();
     }
 }
