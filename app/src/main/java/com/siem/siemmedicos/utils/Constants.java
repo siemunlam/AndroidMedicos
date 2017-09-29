@@ -93,6 +93,7 @@ public class Constants {
     public static final String FCM_CODE = "fcm_code";
     public static final String LATITUD = "latitud_gps";
     public static final String LONGITUD = "longitud_gps";
+    public static final String TIMESTAMP = "timestamp_gps";
     public static final String ESTADO = "estado";
 
     /**

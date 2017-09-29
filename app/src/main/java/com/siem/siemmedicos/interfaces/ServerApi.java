@@ -35,7 +35,8 @@ public interface ServerApi {
     Call<Object> updateUbicacion(
             @Header(Constants.AUTHORIZATION) String authorization,
             @Field(Constants.LATITUD) String latitud,
-            @Field(Constants.LONGITUD) String longitud);
+            @Field(Constants.LONGITUD) String longitud,
+            @Field(Constants.TIMESTAMP) String timestamp);
 
     @FormUrlEncoded
     @PUT(Constants.API_UPDATE_ESTADO_MEDICO)

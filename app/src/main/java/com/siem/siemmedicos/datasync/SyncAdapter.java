@@ -69,7 +69,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     private void sendLocation() {
         final AppLocation lastLocation = DBWrapper.getLastLocation(mContext);
         if(lastLocation != null){
-            Call<Object> response = RetrofitClient.getServerClient().updateUbicacion(mPreferences.getAuthorization(), String.valueOf(lastLocation.getLatitude()), String.valueOf(lastLocation.getLongitude()));
+            Call<Object> response = RetrofitClient.getServerClient().updateUbicacion(mPreferences.getAuthorization(),
+                    String.valueOf(lastLocation.getLatitude()),
+                    String.valueOf(lastLocation.getLongitude()),
+                    String.valueOf(lastLocation.getTime()));
             response.enqueue(new Callback<Object>() {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
