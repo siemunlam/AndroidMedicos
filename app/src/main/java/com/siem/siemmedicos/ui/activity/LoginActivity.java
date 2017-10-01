@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
@@ -129,6 +130,7 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
         mBinding.buttonLogin.setEnabled(false);
         mBinding.edittextPass.setEnabled(false);
         mBinding.edittextUser.setEnabled(false);
+        setTouchable(false);
         mBinding.progressContent.setVisibility(View.VISIBLE);
     }
 
@@ -136,6 +138,7 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
         mBinding.buttonLogin.setEnabled(true);
         mBinding.edittextPass.setEnabled(true);
         mBinding.edittextUser.setEnabled(true);
+        setTouchable(true);
         mBinding.progressContent.setVisibility(View.GONE);
     }
 
@@ -150,5 +153,13 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
     private void goToMap() {
         startActivity(new Intent(LoginActivity.this, MapActivity.class));
         finish();
+    }
+
+    private void setTouchable(boolean touchable) {
+        if(touchable){
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }else{
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
     }
 }
