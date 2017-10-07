@@ -24,9 +24,9 @@ import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.Utils;
 
-import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
 
 import static com.siem.siemmedicos.utils.Constants.KEY_COLOR_DESCRIPCION;
@@ -65,10 +65,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         auxilio.setColorHexadecimal(data.get(KEY_COLOR_HEXA));
 
         try{
-            JSONArray jsonArray = new JSONArray(data.get(KEY_MOTIVOS));
-            Motivo[] arrayMotivos = gson.fromJson(jsonArray.toString(), Motivo[].class);
+            JSONObject jsonObject = new JSONObject(data.get(KEY_MOTIVOS));
             Motivos motivos = new Motivos();
-            motivos.setListMotivos(Arrays.asList(arrayMotivos));
+            Iterator<?> permisos = jsonObject.keys();
+            while(permisos.hasNext() ){
+                String key = (String)permisos.next();
+                String value = jsonObject.getString(key);
+                motivos.addMotivo(new Motivo(key, value));
+            }
             auxilio.setMotivos(motivos);
         }catch(Exception e){
             //TODO: Exception

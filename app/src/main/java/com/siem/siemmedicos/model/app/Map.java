@@ -124,7 +124,7 @@ public class Map implements Callback<ResponseDirections> {
     }
 
     public void addPositionMarker(Location location){
-        if(location.getLatitude() != 0 && location.getLongitude() != 0){
+        if(location.getLatitude() != 0 && location.getLongitude() != 0 && mMap != null){
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             float bearing = Utils.getBearing(mPreviousLocation, location);
             if(mPositionMarker == null) {
@@ -191,7 +191,7 @@ public class Map implements Callback<ResponseDirections> {
     }
 
     public void controlateInRoute(Location location) {
-        if(Utils.isInAuxilio()){
+        if(Utils.isInAuxilio() && mMap != null){
             LatLng lastLatLng = new LatLng(location.getLatitude(), location.getLongitude());
             if(mPolyline != null){
                 if (!PolyUtil.isLocationOnPath(lastLatLng, mPolyline.getPoints(), true, 50)) {
@@ -215,8 +215,8 @@ public class Map implements Callback<ResponseDirections> {
     }
 
     public void cleanMapAuxilio(){
-        mMap.clear();
-        if(mPreviousLocation != null){
+        if(mMap != null && mPreviousLocation != null){
+            mMap.clear();
             addPositionMarker(mPreviousLocation);
             mPositionMarker = null;
         }

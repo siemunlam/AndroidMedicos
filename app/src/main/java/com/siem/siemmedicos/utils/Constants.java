@@ -40,14 +40,13 @@ public class Constants {
     /**
      * Push Notifications Keys
      */
-    public static final String KEY_LATITUDE = "Lat";
-    public static final String KEY_LONGITUDE = "Lng";
-    public static final String KEY_DIRECCION = "Direccion";
-    public static final String KEY_PACIENTE = "Paciente";
-    public static final String KEY_COLOR_DESCRIPCION = "ColorDescripcion";
-    public static final String KEY_COLOR_HEXA = "ColorHexa";
-    public static final String KEY_MOTIVOS = "Motivos";
-    public static final String KEY_MOTIVO = "Motivo";
+    public static final String KEY_LATITUDE = "lat";
+    public static final String KEY_LONGITUDE = "long";
+    public static final String KEY_DIRECCION = "direccion";
+    public static final String KEY_PACIENTE = "paciente";
+    public static final String KEY_COLOR_DESCRIPCION = "colorDescripcion";
+    public static final String KEY_COLOR_HEXA = "colorHexa";
+    public static final String KEY_MOTIVOS = "motivos";
 
     /**
      * Permissions

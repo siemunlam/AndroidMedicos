@@ -392,7 +392,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
 
     private void changeEstadoAuxilio() {
         //Cuando te desvinculas del auxilio o cuando finalizas el auxilio
-        Utils.updateEstado(MapActivity.this, new ApiConstants.Disponible());
+        Utils.updateEstado(MapActivity.this, new ApiConstants.NoDisponible());
         setearEstado();
         invalidateOptionsMenu();
         myMap.cleanMapAuxilio();

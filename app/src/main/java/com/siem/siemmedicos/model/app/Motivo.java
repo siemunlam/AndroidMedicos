@@ -1,8 +1,5 @@
 package com.siem.siemmedicos.model.app;
 
-import com.google.gson.annotations.SerializedName;
-
-import static com.siem.siemmedicos.utils.Constants.KEY_MOTIVO;
 
 /**
  * Created by lucas on 8/25/17.
@@ -10,8 +7,17 @@ import static com.siem.siemmedicos.utils.Constants.KEY_MOTIVO;
 
 public class Motivo {
 
-    @SerializedName(KEY_MOTIVO)
+    private static final String FORMAT_MOTIVO = "- %1$s %2$s";
+
     private String mMotivo;
+
+    public Motivo(){
+
+    }
+
+    public Motivo(String key, String value){
+        mMotivo = String.format(FORMAT_MOTIVO, key, value);
+    }
 
     public void setMotivo(String motivo) {
         this.mMotivo = motivo;
