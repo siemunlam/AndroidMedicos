@@ -239,6 +239,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                     int code = intent.getIntExtra(FinalizarAuxilioActivity.KEY_RESPONSE_CODE, 0);
                     switch(code){
                         case Constants.CODE_SERVER_OK:
+                        case Constants.CODE_201:
                         case Constants.CODE_BAD_REQUEST:
                             changeEstadoAuxilio();
                             break;

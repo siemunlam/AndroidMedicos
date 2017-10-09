@@ -10,6 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityFinalizarAuxilioBinding;
 import com.siem.siemmedicos.interfaces.ChangeVisibilityButtonListener;
@@ -96,12 +98,15 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
     }
 
     private void finalizarAuxilio(String finalizarAuxilioString) {
-        Call<Object> response = RetrofitClient.getServerClient().finalizarAuxilio(mPreferencesHelper.getAuthorization(), finalizarAuxilioString);
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(finalizarAuxilioString).getAsJsonObject();
+        Call<Object> response = RetrofitClient.getServerClient().finalizarAuxilio(mPreferencesHelper.getAuthorization(), jsonObject);
         response.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 switch(response.code()){
                     case Constants.CODE_SERVER_OK:
+                    case Constants.CODE_201:
                     case Constants.CODE_BAD_REQUEST:
                     case Constants.CODE_UNAUTHORIZED:
                         Intent intent = new Intent();
