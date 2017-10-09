@@ -1,5 +1,7 @@
 package com.siem.siemmedicos.fcm;
 
+import android.util.Log;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.siem.siemmedicos.utils.PreferencesHelper;
@@ -11,6 +13,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         sendRegistrationToServer(refreshedToken);
+        Log.i("123456789", "Aca: " + refreshedToken);
     }
 
     private void sendRegistrationToServer(String token) {

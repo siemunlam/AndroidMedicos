@@ -43,19 +43,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         PreferencesHelper preferences = PreferencesHelper.getInstance();
         Log.i("123456789", "ACA: " + remoteMessage.getData());
+        //TODO: Code: 25 cancelar asignacion
+        //TODO: Estado asignaciones: en_lugar: 2
+        //TODO: en_traslado: 4
+        //TODO: Enviar estado disponible cuando llega cancelacion de auxilio
+        //TODO: No dejar cambiar estado hasta q no envie ubicacion y fcm
+        //TODO: Si no esta en lugar no deja finalizar
         if (remoteMessage.getData().size() > 0 && preferences.getValueEstado() == new ApiConstants.Disponible().getValue()) {
             Auxilio auxilio = getAuxilio(remoteMessage.getData());
             if(auxilio != null){
                 DBWrapper.saveAuxilio(this, auxilio);
                 Utils.updateEstado(this, new ApiConstants.EnAuxilio());
-                sendNotification( getString(R.string.descripcionAuxilio, auxilio.getColorDescripcion()));
+                sendNotification(getString(R.string.descripcionAuxilio, auxilio.getColorDescripcion()));
                 sendBroadcast();
             }
         }
     }
 
     private Auxilio getAuxilio(Map<String, String> data) {
-        Gson gson = new Gson();
         Auxilio auxilio = new Auxilio();
         auxilio.setLatitude(data.get(KEY_LATITUDE));
         auxilio.setLongitude(data.get(KEY_LONGITUDE));
