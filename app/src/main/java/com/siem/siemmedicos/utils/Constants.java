@@ -48,6 +48,9 @@ public class Constants {
     public static final String KEY_COLOR_HEXA = "colorHexa";
     public static final String KEY_MOTIVOS = "motivos";
 
+    public static final int CODE_CANCEL_AUXILIO = 25;
+    public static final String KEY_CODE = "code";
+
     /**
      * Permissions
      */
@@ -99,5 +102,6 @@ public class Constants {
      * Receivers
      */
     public static final String BROADCAST_NEW_AUXILIO = "com.siem.siemmedicos.new_auxilio";
+    public static final String BROADCAST_CANCEL_AUXILIO = "com.siem.siemmedicos.cancel_auxilio";
 
 }

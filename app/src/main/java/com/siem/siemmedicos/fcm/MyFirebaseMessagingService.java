@@ -12,7 +12,6 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.Gson;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.Auxilio;
@@ -29,6 +28,7 @@ import org.json.JSONObject;
 import java.util.Iterator;
 import java.util.Map;
 
+import static com.siem.siemmedicos.utils.Constants.KEY_CODE;
 import static com.siem.siemmedicos.utils.Constants.KEY_COLOR_DESCRIPCION;
 import static com.siem.siemmedicos.utils.Constants.KEY_COLOR_HEXA;
 import static com.siem.siemmedicos.utils.Constants.KEY_DIRECCION;
@@ -43,7 +43,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         PreferencesHelper preferences = PreferencesHelper.getInstance();
         Log.i("123456789", "ACA: " + remoteMessage.getData());
-        //TODO: Code: 25 cancelar asignacion
         //TODO: Estado asignaciones: en_lugar: 2
         //TODO: en_traslado: 4
         //TODO: Enviar estado disponible cuando llega cancelacion de auxilio
@@ -55,8 +54,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 DBWrapper.saveAuxilio(this, auxilio);
                 Utils.updateEstado(this, new ApiConstants.EnAuxilio());
                 sendNotification(getString(R.string.descripcionAuxilio, auxilio.getColorDescripcion()));
-                sendBroadcast();
+                sendBroadcast(Constants.BROADCAST_NEW_AUXILIO);
             }
+        }else if(remoteMessage.getData().size() > 0 && preferences.getValueEstado() == new ApiConstants.EnAuxilio().getValue()){
+            try{
+                Map<String, String> data = remoteMessage.getData();
+                int code = Integer.parseInt(data.get(KEY_CODE));
+                if(code == Constants.CODE_CANCEL_AUXILIO){
+                    sendBroadcast(Constants.BROADCAST_CANCEL_AUXILIO);
+                }
+            }catch(Exception e){}
         }
     }
 
@@ -86,8 +93,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         return auxilio;
     }
 
-    private void sendBroadcast(){
-        Intent intent = new Intent(Constants.BROADCAST_NEW_AUXILIO);
+    private void sendBroadcast(String broadcast){
+        Intent intent = new Intent(broadcast);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 

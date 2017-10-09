@@ -47,7 +47,6 @@ public interface ServerApi {
     Call<Object> desvincularAuxilio(
             @Header(Constants.AUTHORIZATION) String authorization);
 
-    @FormUrlEncoded
     @POST(Constants.API_FINALIZAR_AUXILIO)
     Call<Object> finalizarAuxilio(
             @Header(Constants.AUTHORIZATION) String authorization,

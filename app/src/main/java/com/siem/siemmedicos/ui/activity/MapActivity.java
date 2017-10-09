@@ -57,7 +57,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private static final int LOGOUT_ACTIVITY = 105;
     private static final int FINALIZAR_AUXILIO = 110;
 
-    private BroadcastReceiver mNewAuxilioBroadcastReceiver;
+    private BroadcastReceiver mBroadcastReceiver;
     private ContentObserver mObserver;
     private PreferencesHelper mPreferencesHelper;
     private ActivityMapBinding mBinding;
@@ -157,21 +157,25 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     }
 
     private void registerBroadcastReceiver() {
-        mNewAuxilioBroadcastReceiver = new BroadcastReceiver() {
+        mBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals(Constants.BROADCAST_NEW_AUXILIO)) {
                     Toast.makeText(MapActivity.this, getString(R.string.asignNuevoAuxilio), Toast.LENGTH_LONG).show();
                     setearEstado();
                     invalidateOptionsMenu();
+                }else if(intent.getAction().equals(Constants.BROADCAST_CANCEL_AUXILIO)){
+                    Toast.makeText(MapActivity.this, getString(R.string.cancelAuxilio), Toast.LENGTH_LONG).show();
+                    changeEstadoAuxilio();
                 }
             }
         };
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Constants.BROADCAST_NEW_AUXILIO);
+        filter.addAction(Constants.BROADCAST_CANCEL_AUXILIO);
         LocalBroadcastManager bm = LocalBroadcastManager.getInstance(this);
-        bm.registerReceiver(mNewAuxilioBroadcastReceiver, filter);
+        bm.registerReceiver(mBroadcastReceiver, filter);
     }
 
     private void registerContentObserver() {
@@ -180,7 +184,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
 
     private void unregisterBroadcastReceiver(){
         LocalBroadcastManager bm = LocalBroadcastManager.getInstance(this);
-        bm.unregisterReceiver(mNewAuxilioBroadcastReceiver);
+        bm.unregisterReceiver(mBroadcastReceiver);
     }
 
     private void unregisterContentObserver() {
