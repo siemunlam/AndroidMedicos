@@ -125,6 +125,7 @@ public class DBWrapper {
     }
 
     public static void saveAuxilio(Context context, Auxilio auxilio){
+        cleanAuxilio(context);
         ContentValues cvInfo = new ContentValues();
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_LATITUDE, auxilio.getLatitude());
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_LONGITUDE, auxilio.getLongitude());

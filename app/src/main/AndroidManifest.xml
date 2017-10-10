@@ -103,6 +103,10 @@
             android:name=".services.IntensiveLocationService"
             android:enabled="true">
         </service>
+        <service
+            android:name=".services.UpdateEstadoService"
+            android:enabled="true">
+        </service>
 
         <receiver android:name=".receivers.SyncBroadcastReceiver">
             <intent-filter>

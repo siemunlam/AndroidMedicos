@@ -23,7 +23,7 @@ import com.siem.siemmedicos.utils.Utils;
 
 import java.util.ArrayList;
 
-public class BaseLocationServices extends Service {
+public class BaseLocationService extends Service {
 
     protected static final long TIME_BREAK = 30000;
     protected static final int MEASUREMENT_TO_IGNORE = 3;         // Mediciones a ignorar
@@ -72,8 +72,8 @@ public class BaseLocationServices extends Service {
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(BaseLocationServices.this, SelectLocationService.class);
-                PendingIntent pendingIntent = PendingIntent.getService(BaseLocationServices.this, 0, intent, 0);
+                Intent intent = new Intent(BaseLocationService.this, SelectLocationService.class);
+                PendingIntent pendingIntent = PendingIntent.getService(BaseLocationService.this, 0, intent, 0);
                 mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + TIME_BREAK, pendingIntent);
                 stop();
                 stopSelf();
@@ -92,13 +92,13 @@ public class BaseLocationServices extends Service {
     }
 
     protected void init() {
-        if (Utils.isLocationPermissionGranted(BaseLocationServices.this)) {
+        if (Utils.isLocationPermissionGranted(BaseLocationService.this)) {
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_UPDATES, MIN_DISTANCE_UPDATES, mLocationListener);
         }
     }
 
     protected void stop() {
-        if (Utils.isLocationPermissionGranted(BaseLocationServices.this)) {
+        if (Utils.isLocationPermissionGranted(BaseLocationService.this)) {
             mLocationManager.removeUpdates(mLocationListener);
         }
     }

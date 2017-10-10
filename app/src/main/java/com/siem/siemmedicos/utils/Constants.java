@@ -79,6 +79,7 @@ public class Constants {
      */
     public static final int CODE_SERVER_OK = 200;
     public static final int CODE_201 = 201;
+    public static final int CODE_MEDICO_NOT_ASIGNED = 208;
     public static final int CODE_BAD_REQUEST = 400;
     public static final int CODE_UNAUTHORIZED = 401;
     public static final int CODE_SERVER_ERROR = 500;

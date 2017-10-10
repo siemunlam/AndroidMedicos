@@ -2,8 +2,6 @@ package com.siem.siemmedicos.ui.activity;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,7 +28,6 @@ import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityMapBinding;
 import com.siem.siemmedicos.db.DBContract;
@@ -205,11 +202,6 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuUpdateStatus:
-                //TODO: Borrar
-                ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText(FirebaseInstanceId.getInstance().getToken(), FirebaseInstanceId.getInstance().getToken());
-                clipboard.setPrimaryClip(clip);
-
                 new CustomFragmentDialog().getRadioButtonsEstadoDialog(this, getString(R.string.accept), true).show();
                 return true;
             case R.id.menuLogout:
@@ -241,6 +233,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                         case Constants.CODE_SERVER_OK:
                         case Constants.CODE_201:
                         case Constants.CODE_BAD_REQUEST:
+                        case Constants.CODE_MEDICO_NOT_ASIGNED:
                             changeEstadoAuxilio();
                             break;
 
@@ -376,6 +369,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 switch(response.code()){
                     case Constants.CODE_SERVER_OK:
                     case Constants.CODE_BAD_REQUEST:
+                    case Constants.CODE_MEDICO_NOT_ASIGNED:
                         changeEstadoAuxilio();
                         break;
                     case Constants.CODE_UNAUTHORIZED:

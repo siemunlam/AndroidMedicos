@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -111,6 +112,7 @@ public class CustomFragmentDialog extends Fragment {
                     case Constants.CODE_SERVER_OK:
                         mPreferencesHelper.setValueEstado(checkedRadioButtonId);
                         mPreferencesHelper.setDescriptionEstado(Utils.getDescriptionEstado(activity, checkedRadioButtonId));
+                        Log.i("123456789", "Actualizado a " + Utils.getDescriptionEstado(activity, checkedRadioButtonId) + " - " + checkedRadioButtonId);
                         Utils.restarLocationsServices(activity);
                         break;
                     case Constants.CODE_UNAUTHORIZED:

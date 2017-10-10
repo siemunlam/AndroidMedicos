@@ -1,11 +1,14 @@
 package com.siem.siemmedicos.fcm;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -17,6 +20,7 @@ import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.model.app.Motivo;
 import com.siem.siemmedicos.model.app.Motivos;
+import com.siem.siemmedicos.services.UpdateEstadoService;
 import com.siem.siemmedicos.ui.activity.LoginActivity;
 import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.Constants;
@@ -39,16 +43,18 @@ import static com.siem.siemmedicos.utils.Constants.KEY_PACIENTE;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+    private static final long TIME_UPDATE_ESTADO = 3000;
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        PreferencesHelper preferences = PreferencesHelper.getInstance();
-        Log.i("123456789", "ACA: " + remoteMessage.getData());
+        PreferencesHelper preferencesHelper = PreferencesHelper.getInstance();
+        Log.i("123456789", "ACA 1: " + remoteMessage.getData());
+        Log.i("123456789", "ACA 2: " + remoteMessage.getData().size() + " - " + preferencesHelper.getValueEstado() + " - " + preferencesHelper.getDescriptionEstado(this));
         //TODO: Estado asignaciones: en_lugar: 2
         //TODO: en_traslado: 4
-        //TODO: Enviar estado disponible cuando llega cancelacion de auxilio
         //TODO: No dejar cambiar estado hasta q no envie ubicacion y fcm
         //TODO: Si no esta en lugar no deja finalizar
-        if (remoteMessage.getData().size() > 0 && preferences.getValueEstado() == new ApiConstants.Disponible().getValue()) {
+        if (remoteMessage.getData().size() > 0 && preferencesHelper.getValueEstado() == new ApiConstants.Disponible().getValue()) {
             Auxilio auxilio = getAuxilio(remoteMessage.getData());
             if(auxilio != null){
                 DBWrapper.saveAuxilio(this, auxilio);
@@ -56,15 +62,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 sendNotification(getString(R.string.descripcionAuxilio, auxilio.getColorDescripcion()));
                 sendBroadcast(Constants.BROADCAST_NEW_AUXILIO);
             }
-        }else if(remoteMessage.getData().size() > 0 && preferences.getValueEstado() == new ApiConstants.EnAuxilio().getValue()){
+        }else if(remoteMessage.getData().size() > 0 && preferencesHelper.getValueEstado() == new ApiConstants.EnAuxilio().getValue()){
             try{
                 Map<String, String> data = remoteMessage.getData();
                 int code = Integer.parseInt(data.get(KEY_CODE));
                 if(code == Constants.CODE_CANCEL_AUXILIO){
                     sendBroadcast(Constants.BROADCAST_CANCEL_AUXILIO);
+                    prepareAlarmUpdateEstado();
                 }
             }catch(Exception e){}
         }
+    }
+
+    private void prepareAlarmUpdateEstado() {
+        Intent intent = new Intent(MyFirebaseMessagingService.this, UpdateEstadoService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(MyFirebaseMessagingService.this, 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Service.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + TIME_UPDATE_ESTADO, pendingIntent);
     }
 
     private Auxilio getAuxilio(Map<String, String> data) {

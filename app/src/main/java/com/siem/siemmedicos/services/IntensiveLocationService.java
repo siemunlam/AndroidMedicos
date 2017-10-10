@@ -7,7 +7,7 @@ import com.siem.siemmedicos.utils.Utils;
 
 import java.util.ArrayList;
 
-public class IntensiveLocationService extends BaseLocationServices {
+public class IntensiveLocationService extends BaseLocationService {
 
     private static final String ZERO = "0";
     protected static final long LOCATION_TIMEOUT = 60000;     // 2 min

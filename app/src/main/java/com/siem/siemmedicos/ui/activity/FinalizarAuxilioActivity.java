@@ -109,6 +109,7 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
                     case Constants.CODE_201:
                     case Constants.CODE_BAD_REQUEST:
                     case Constants.CODE_UNAUTHORIZED:
+                    case Constants.CODE_MEDICO_NOT_ASIGNED:
                         Intent intent = new Intent();
                         intent.putExtra(KEY_RESPONSE_CODE, response.code());
                         setResult(Activity.RESULT_OK, intent);

@@ -6,7 +6,7 @@ import android.os.Handler;
 import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.utils.Utils;
 
-public class LocationService extends BaseLocationServices {
+public class LocationService extends BaseLocationService {
 
     private static final float MULTIPLICATOR_LOCATION_TIMEOUT = 2F;
 
