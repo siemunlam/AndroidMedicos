@@ -104,15 +104,17 @@ public class CustomFragmentDialog extends Fragment {
     }
 
     private void updateEstado(final Activity activity, final int checkedRadioButtonId) {
+        final int oldValueEstado = mPreferencesHelper.getValueEstado();
+        final String oldDescripcionEstado = mPreferencesHelper.getDescriptionEstado(activity);
+        mPreferencesHelper.setValueEstado(checkedRadioButtonId);
+        mPreferencesHelper.setDescriptionEstado(Utils.getDescriptionEstado(activity, checkedRadioButtonId));
+        Log.i("123456789", "Actualizado a " + Utils.getDescriptionEstado(activity, checkedRadioButtonId) + " - " + checkedRadioButtonId);
         Call<Object> response = RetrofitClient.getServerClient().updateEstadoMedico(mPreferencesHelper.getAuthorization(), checkedRadioButtonId);
         response.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 switch(response.code()){
                     case Constants.CODE_SERVER_OK:
-                        mPreferencesHelper.setValueEstado(checkedRadioButtonId);
-                        mPreferencesHelper.setDescriptionEstado(Utils.getDescriptionEstado(activity, checkedRadioButtonId));
-                        Log.i("123456789", "Actualizado a " + Utils.getDescriptionEstado(activity, checkedRadioButtonId) + " - " + checkedRadioButtonId);
                         Utils.restarLocationsServices(activity);
                         break;
                     case Constants.CODE_UNAUTHORIZED:
@@ -120,16 +122,22 @@ public class CustomFragmentDialog extends Fragment {
                         activity.finish();
                         break;
                     default:
-                        Toast.makeText(activity, activity.getString(R.string.errorUpdateEstado), Toast.LENGTH_LONG).show();
+                        error(activity, oldValueEstado, oldDescripcionEstado);
                         break;
                 }
             }
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(activity, activity.getString(R.string.errorUpdateEstado), Toast.LENGTH_LONG).show();
+                error(activity, oldValueEstado, oldDescripcionEstado);
             }
         });
+    }
+
+    private void error(Activity activity, int oldValueEstado, String oldDescripcionEstado) {
+        mPreferencesHelper.setValueEstado(oldValueEstado);
+        mPreferencesHelper.setDescriptionEstado(oldDescripcionEstado);
+        Toast.makeText(activity, activity.getString(R.string.errorUpdateEstado), Toast.LENGTH_LONG).show();
     }
 
 }

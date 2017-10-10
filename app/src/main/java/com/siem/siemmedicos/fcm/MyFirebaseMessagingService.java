@@ -68,7 +68,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 int code = Integer.parseInt(data.get(KEY_CODE));
                 if(code == Constants.CODE_CANCEL_AUXILIO){
                     sendBroadcast(Constants.BROADCAST_CANCEL_AUXILIO);
-                    prepareAlarmUpdateEstado();
+                    //prepareAlarmUpdateEstado();
                 }
             }catch(Exception e){}
         }
