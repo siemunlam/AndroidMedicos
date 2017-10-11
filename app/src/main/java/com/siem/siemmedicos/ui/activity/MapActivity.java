@@ -22,6 +22,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -359,7 +361,23 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private void determinateFinalizeButtonVisibility(Auxilio auxilio) {
         if(auxilio.getIdEstado() == new ApiConstants.EnLugar().getValue() ||
                 auxilio.getIdEstado() == new ApiConstants.EnTraslado().getValue()){
-            mBinding.buttonFinalize.setVisibility(View.VISIBLE);
+            if(mBinding.buttonFinalize.getVisibility() != View.VISIBLE){
+                Animation animation = AnimationUtils.loadAnimation(MapActivity.this, R.anim.slide_in_right_without_transparency);
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {}
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mBinding.buttonFinalize.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {}
+                });
+                mBinding.buttonFinalize.setAnimation(animation);
+                mBinding.buttonFinalize.startAnimation(animation);
+            }
         }else{
             mBinding.buttonFinalize.setVisibility(View.GONE);
         }
