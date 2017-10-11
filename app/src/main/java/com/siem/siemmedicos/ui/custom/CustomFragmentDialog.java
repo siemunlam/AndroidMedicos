@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -108,7 +107,7 @@ public class CustomFragmentDialog extends Fragment {
         final String oldDescripcionEstado = mPreferencesHelper.getDescriptionEstado(activity);
         mPreferencesHelper.setValueEstado(checkedRadioButtonId);
         mPreferencesHelper.setDescriptionEstado(Utils.getDescriptionEstadoMedico(activity, checkedRadioButtonId));
-        Log.i("123456789", "Actualizado a " + Utils.getDescriptionEstadoMedico(activity, checkedRadioButtonId) + " - " + checkedRadioButtonId);
+        //Log.i("123456789", "Actualizado a " + Utils.getDescriptionEstadoMedico(activity, checkedRadioButtonId) + " - " + checkedRadioButtonId);
         Call<Object> response = RetrofitClient.getServerClient().updateEstadoMedico(mPreferencesHelper.getAuthorization(), checkedRadioButtonId);
         response.enqueue(new Callback<Object>() {
             @Override

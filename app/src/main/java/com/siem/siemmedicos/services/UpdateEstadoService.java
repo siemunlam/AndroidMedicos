@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.Constants;
@@ -49,7 +48,6 @@ public class UpdateEstadoService extends Service {
                     case Constants.CODE_SERVER_OK:
                         Utils.updateEstado(UpdateEstadoService.this, new ApiConstants.Disponible());
                         Utils.restarLocationsServices(UpdateEstadoService.this);
-                        Log.i("123456789", "*** Actualizado estado a Disponible");
                         break;
                     case Constants.CODE_UNAUTHORIZED:
                         Utils.logout(UpdateEstadoService.this);

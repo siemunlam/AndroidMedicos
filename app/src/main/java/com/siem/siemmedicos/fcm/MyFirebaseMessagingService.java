@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -48,9 +47,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         PreferencesHelper preferencesHelper = PreferencesHelper.getInstance();
-        Log.i("123456789", "ACA 1: " + remoteMessage.getData());
-        Log.i("123456789", "ACA 2: " + remoteMessage.getData().size() + " - " + preferencesHelper.getValueEstado() + " - " + preferencesHelper.getDescriptionEstado(this));
-        //TODO: Borrar Log.i
+        //Log.i("123456789", "ACA 1: " + remoteMessage.getData());
+        //Log.i("123456789", "ACA 2: " + remoteMessage.getData().size() + " - " + preferencesHelper.getValueEstado() + " - " + preferencesHelper.getDescriptionEstado(this));
         if (remoteMessage.getData().size() > 0 && preferencesHelper.getValueEstado() == new ApiConstants.Disponible().getValue()) {
             Auxilio auxilio = getAuxilio(remoteMessage.getData());
             if(auxilio != null){
