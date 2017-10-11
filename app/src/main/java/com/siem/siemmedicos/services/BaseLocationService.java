@@ -15,7 +15,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
 import com.siem.siemmedicos.R;
+import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.AppLocation;
+import com.siem.siemmedicos.model.app.Auxilio;
+import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.ConfigPreferencesHelper;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
@@ -109,8 +112,18 @@ public class BaseLocationService extends Service {
         mBuilder.setSmallIcon(R.drawable.ic_notif_ambulance);
         mBuilder.setWhen(0);
         mBuilder.setContentTitle(getString(R.string.name));
-        mBuilder.setContentText(getString(R.string.statusNotification, mPreferences.getDescriptionEstado(this)));
+        String contentText = getContentText();
+        mBuilder.setContentText(contentText);
         return mBuilder;
+    }
+
+    private String getContentText() {
+        String contentText = getString(R.string.statusNotification, mPreferences.getDescriptionEstado(this));
+        if(mPreferences.getValueEstado() == new ApiConstants.EnAuxilio().getValue()){
+            Auxilio auxilio = DBWrapper.getAuxilio(this);
+            contentText += ": " + Utils.getEstadoAuxilio(this, auxilio.getIdEstado());
+        }
+        return contentText;
     }
 
     protected void restartRunnable(){

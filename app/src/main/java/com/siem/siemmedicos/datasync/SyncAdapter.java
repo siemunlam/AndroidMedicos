@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.AppLocation;
+import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.RetrofitClient;
@@ -46,7 +47,27 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     private void sendEstadoAsignacion() {
         boolean isSend = mPreferences.isSendEstadoAsignacion();
         if(isSend){
-            //TODO: Implementar
+            Auxilio auxilio = DBWrapper.getAuxilio(mContext);
+            final int idEstado = auxilio.getIdEstado();
+            Call<Object> response = RetrofitClient.getServerClient().updateEstadoAsignacion(mPreferences.getAuthorization(), idEstado);
+            response.enqueue(new Callback<Object>() {
+                @Override
+                public void onResponse(Call<Object> call, Response<Object> response) {
+                    switch(response.code()){
+                        case Constants.CODE_SERVER_OK:
+                            Auxilio auxilio = DBWrapper.getAuxilio(mContext);
+                            if(idEstado == auxilio.getIdEstado())
+                                mPreferences.cleanSendEstadoAsignacion();
+                            break;
+                        case Constants.CODE_UNAUTHORIZED:
+                            Utils.logout(mContext);
+                            break;
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Object> call, Throwable t) {}
+            });
         }
     }
 

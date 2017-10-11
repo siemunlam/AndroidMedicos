@@ -37,7 +37,7 @@ public class DeterminarEstadoAsignacionTask extends AsyncTask<AppLocation, Void,
                                         location.getLongitude(),
                                         Double.parseDouble(auxilio.getLatitude()),
                                         Double.parseDouble(auxilio.getLongitude()));
-            Log.i("123456789", "Distancia: " + distancia + " - Estado: " + auxilio.getIdEstado());
+            Log.i("123456789AA", "Distancia: " + distancia + " - Estado: " + auxilio.getIdEstado());
             if(auxilio.getIdEstado() == new ApiConstants.EnCamino().getValue() && distancia < MIN_DISTANCE_CHANGE_TO_ENLUGAR){
                 //Change to en lugar
                 DBWrapper.updateEstadoAuxilio(mContext, new ApiConstants.EnLugar());
@@ -64,6 +64,7 @@ public class DeterminarEstadoAsignacionTask extends AsyncTask<AppLocation, Void,
 
     private void setSendEstadoAsignacion() {
         mPreferencesHelper.setSendEstadoAsignacion(true);
+        Utils.restarLocationsServices(mContext);
         Utils.syncNow(mContext);
     }
 }

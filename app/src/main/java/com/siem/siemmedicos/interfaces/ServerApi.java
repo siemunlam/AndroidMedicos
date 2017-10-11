@@ -55,4 +55,10 @@ public interface ServerApi {
             @Header(Constants.AUTHORIZATION) String authorization,
             @Body JsonObject body);
 
+    @FormUrlEncoded
+    @PUT(Constants.API_UPDATE_ESTADO_ASIGNACION)
+    Call<Object> updateEstadoAsignacion(
+            @Header(Constants.AUTHORIZATION) String authorization,
+            @Field(Constants.ESTADO) int estado);
+
 }

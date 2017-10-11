@@ -260,7 +260,7 @@ public class Utils {
         context.startService(new Intent(context, SelectLocationService.class));
     }
 
-    public static String getDescriptionEstado(Context context, int estado) {
+    public static String getDescriptionEstadoMedico(Context context, int estado) {
         ApiConstants.Item disponible = new ApiConstants.Disponible();
         if(disponible.getValue() == estado)
             return disponible.getDescription(context);
@@ -275,17 +275,20 @@ public class Utils {
         return null;
     }
 
-    public static ApiConstants.Item getEstadoAuxilio(int idEstado){
-        ApiConstants.Item estado = null;
-        if(idEstado == new ApiConstants.EnCamino().getValue()){
-            estado = new ApiConstants.EnCamino();
-        }else if(idEstado == new ApiConstants.EnLugar().getValue()){
-            estado = new ApiConstants.EnLugar();
-        }else if(idEstado == new ApiConstants.EnTraslado().getValue()){
-            estado = new ApiConstants.EnTraslado();
-        }
+    public static String getEstadoAuxilio(Context context, int idEstado){
+        ApiConstants.Item enCamino = new ApiConstants.EnCamino();
+        if(idEstado == enCamino.getValue())
+            return enCamino.getDescription(context);
 
-        return estado;
+        ApiConstants.Item enLugar = new ApiConstants.EnLugar();
+        if(idEstado == enLugar.getValue())
+            return enLugar.getDescription(context);
+
+        ApiConstants.Item enTraslado = new ApiConstants.EnTraslado();
+        if(idEstado == enTraslado.getValue())
+            return enTraslado.getDescription(context);
+
+        return null;
     }
 
     public static void addStartTransitionAnimation(Activity activity){

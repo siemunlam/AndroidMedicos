@@ -90,6 +90,7 @@ public class Constants {
     public static final String API_UPDATE_ESTADO_MEDICO = "medicos/estadoUpdate/";
     public static final String API_DESVINCULAR_AUXILIO = "medicos/desvincularAsignacion/";
     public static final String API_FINALIZAR_AUXILIO = "medicos/finalizarAsignacion/";
+    public static final String API_UPDATE_ESTADO_ASIGNACION = "medicos/estadoAsignacionUpdate/";
 
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";

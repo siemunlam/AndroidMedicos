@@ -107,8 +107,8 @@ public class CustomFragmentDialog extends Fragment {
         final int oldValueEstado = mPreferencesHelper.getValueEstado();
         final String oldDescripcionEstado = mPreferencesHelper.getDescriptionEstado(activity);
         mPreferencesHelper.setValueEstado(checkedRadioButtonId);
-        mPreferencesHelper.setDescriptionEstado(Utils.getDescriptionEstado(activity, checkedRadioButtonId));
-        Log.i("123456789", "Actualizado a " + Utils.getDescriptionEstado(activity, checkedRadioButtonId) + " - " + checkedRadioButtonId);
+        mPreferencesHelper.setDescriptionEstado(Utils.getDescriptionEstadoMedico(activity, checkedRadioButtonId));
+        Log.i("123456789", "Actualizado a " + Utils.getDescriptionEstadoMedico(activity, checkedRadioButtonId) + " - " + checkedRadioButtonId);
         Call<Object> response = RetrofitClient.getServerClient().updateEstadoMedico(mPreferencesHelper.getAuthorization(), checkedRadioButtonId);
         response.enqueue(new Callback<Object>() {
             @Override
