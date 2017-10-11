@@ -55,7 +55,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private static final int FINALIZAR_AUXILIO = 110;
 
     private BroadcastReceiver mBroadcastReceiver;
-    private ContentObserver mObserver;
+    private ContentObserver mLocationObserver;
+    private ContentObserver mAuxilioObserver;
     private PreferencesHelper mPreferencesHelper;
     private ActivityMapBinding mBinding;
     private Typeface mTypeface;
@@ -176,7 +177,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     }
 
     private void registerContentObserver() {
-        getContentResolver().registerContentObserver(DBContract.Locations.CONTENT_URI, true, mObserver);
+        getContentResolver().registerContentObserver(DBContract.Locations.CONTENT_URI, true, mLocationObserver);
+        getContentResolver().registerContentObserver(DBContract.InformacionAuxilio.CONTENT_URI, true, mAuxilioObserver);
     }
 
     private void unregisterBroadcastReceiver(){
@@ -185,8 +187,11 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     }
 
     private void unregisterContentObserver() {
-        if (mObserver != null)
-            getContentResolver().unregisterContentObserver(mObserver);
+        if (mLocationObserver != null)
+            getContentResolver().unregisterContentObserver(mLocationObserver);
+
+        if(mAuxilioObserver != null)
+            getContentResolver().unregisterContentObserver(mAuxilioObserver);
     }
 
     @Override
@@ -300,9 +305,15 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private void instanceVariables() {
         myMap = new Map(this);
         mPreferencesHelper = PreferencesHelper.getInstance();
-        mObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
+        mLocationObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
             public void onChange(boolean selfChange) {
                 newLocation();
+            }
+        };
+
+        mAuxilioObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
+            public void onChange(boolean selfChange) {
+                determinateFinalizeButtonVisibility(DBWrapper.getAuxilio(MapActivity.this));
             }
         };
     }
@@ -334,6 +345,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 mBinding.containerDetallesAuxilio.setVisibility(View.VISIBLE);
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) (getResources().getDimension(R.dimen.defaultMargin) + getResources().getDimension(R.dimen.heightContainerButtons)));
                 mBinding.myLocationButton.setLayoutParams(lp);
+                determinateFinalizeButtonVisibility(auxilio);
                 break;
             default:
                 mBinding.containerButtons.setVisibility(View.GONE);
@@ -341,6 +353,15 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) getResources().getDimension(R.dimen.defaultMargin));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;
+        }
+    }
+
+    private void determinateFinalizeButtonVisibility(Auxilio auxilio) {
+        if(auxilio.getIdEstado() == new ApiConstants.EnLugar().getValue() ||
+                auxilio.getIdEstado() == new ApiConstants.EnTraslado().getValue()){
+            mBinding.buttonFinalize.setVisibility(View.VISIBLE);
+        }else{
+            mBinding.buttonFinalize.setVisibility(View.GONE);
         }
     }
 
