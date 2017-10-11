@@ -49,7 +49,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                     + DBContract.InformacionAuxilio.COLUMN_NAME_DIRECCION + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
                     + DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_DESCRIPCION + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
                     + DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_HEXA + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
-                    + DBContract.InformacionAuxilio.COLUMN_NAME_NOMBRE_PACIENTE + DBContract.TEXT_TYPE + ") ";
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_NOMBRE_PACIENTE + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_ID_ESTADO + DBContract.INTEGER_TYPE + ") ";
 
     private static final String SQL_CREATE_MOTIVO_AUXILIO =
             "CREATE TABLE " + DBContract.MotivoAuxilio.TABLE_NAME + "("

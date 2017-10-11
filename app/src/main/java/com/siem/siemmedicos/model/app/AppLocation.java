@@ -8,6 +8,7 @@ import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
 import com.siem.siemmedicos.utils.RetrofitClient;
+import com.siem.siemmedicos.utils.Utils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -131,6 +132,7 @@ public class AppLocation {
 
     public void save(Context context){
         DBWrapper.saveLocation(context, this);
+        Utils.determinateEstadoAsignacion(context, this);
     }
 
     public void getDirections(Context context, Callback<ResponseDirections> callback) {

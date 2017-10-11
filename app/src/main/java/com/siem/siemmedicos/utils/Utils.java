@@ -23,9 +23,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.db.DBContract;
 import com.siem.siemmedicos.db.DBWrapper;
+import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.services.IntensiveLocationService;
 import com.siem.siemmedicos.services.LocationService;
 import com.siem.siemmedicos.services.SelectLocationService;
+import com.siem.siemmedicos.task.DeterminarEstadoAsignacionTask;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -44,6 +46,7 @@ public class Utils {
         preferences.cleanLastProvider();
         preferences.cleanMedicoToken();
         preferences.cleanFirebaseToken();
+        preferences.cleanSendEstadoAsignacion();
         DBWrapper.cleanAllDB(context);
     }
 
@@ -272,6 +275,19 @@ public class Utils {
         return null;
     }
 
+    public static ApiConstants.Item getEstadoAuxilio(int idEstado){
+        ApiConstants.Item estado = null;
+        if(idEstado == new ApiConstants.EnCamino().getValue()){
+            estado = new ApiConstants.EnCamino();
+        }else if(idEstado == new ApiConstants.EnLugar().getValue()){
+            estado = new ApiConstants.EnLugar();
+        }else if(idEstado == new ApiConstants.EnTraslado().getValue()){
+            estado = new ApiConstants.EnTraslado();
+        }
+
+        return estado;
+    }
+
     public static void addStartTransitionAnimation(Activity activity){
         activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -292,5 +308,24 @@ public class Utils {
     public static void startActivityWithTransitionForResult(Activity activity, Intent intent, int requestCode) {
         activity.startActivityForResult(intent, requestCode);
         addStartTransitionAnimation(activity);
+    }
+
+    public static void determinateEstadoAsignacion(Context context, AppLocation location) {
+        PreferencesHelper preferencesHelper = PreferencesHelper.getInstance();
+        if(preferencesHelper.getValueEstado() == new ApiConstants.EnAuxilio().getValue())
+            new DeterminarEstadoAsignacionTask(context).execute(location);
+    }
+
+    public static double distanceCoordinatesInMeters(double lat1, double lng1, double lat2, double lng2) {
+        double radioTierra = 6371;//en kilómetros
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLng = Math.toRadians(lng2 - lng1);
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+        double va1 = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+        double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));
+
+        return radioTierra * va2 * 1000;
     }
 }

@@ -15,6 +15,7 @@ public class Auxilio {
     private String mColorHexadecimal;
     private String mNombrePaciente;
     private Motivos mMotivos;
+    private int mIdEstado;
 
     public String getLatitude() {
         return mLatitude;
@@ -70,6 +71,14 @@ public class Auxilio {
 
     public void setMotivos(Motivos motivos) {
         mMotivos = motivos;
+    }
+
+    public int getIdEstado() {
+        return mIdEstado;
+    }
+
+    public void setIdEstado(int idEstado) {
+        mIdEstado =idEstado;
     }
 
     public String getParsedMotivos(){

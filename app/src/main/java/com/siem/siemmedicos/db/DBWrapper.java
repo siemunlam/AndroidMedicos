@@ -11,6 +11,7 @@ import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.model.app.Motivo;
 import com.siem.siemmedicos.model.app.Motivos;
+import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.Utils;
 
@@ -133,12 +134,24 @@ public class DBWrapper {
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_DESCRIPCION, auxilio.getColorDescripcion());
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_HEXA, auxilio.getColorHexadecimal());
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_NOMBRE_PACIENTE, auxilio.getNombrePaciente());
+        cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_ID_ESTADO, new ApiConstants.EnCamino().getValue());
         Uri uri = context.getContentResolver().insert(
                 DBContract.InformacionAuxilio.CONTENT_URI,
                 cvInfo
         );
 
         saveMotivos(context, auxilio, ContentUris.parseId(uri));
+    }
+
+    public static void updateEstadoAuxilio(Context context, ApiConstants.Item estado){
+        ContentValues cvInfo = new ContentValues();
+        cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_ID_ESTADO, estado.getValue());
+        context.getContentResolver().update(
+                DBContract.InformacionAuxilio.CONTENT_URI,
+                cvInfo,
+                null,
+                null
+        );
     }
 
     private static void saveMotivos(Context context, Auxilio auxilio, long informacionAuxilioId) {
@@ -174,6 +187,7 @@ public class DBWrapper {
                 String colorDescripcion = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_DESCRIPCION));
                 String colorHexadecimal = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_HEXA));
                 String nombrePaciente = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_NOMBRE_PACIENTE));
+                int idEstado = cursor.getInt(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_ID_ESTADO));
                 Motivos motivos = getMotivos(context, id);
 
                 auxilio.setLatitude(latitude);
@@ -183,6 +197,7 @@ public class DBWrapper {
                 auxilio.setColorHexadecimal(colorHexadecimal);
                 auxilio.setNombrePaciente(nombrePaciente);
                 auxilio.setMotivos(motivos);
+                auxilio.setIdEstado(idEstado);
             }
             cursor.close();
         }

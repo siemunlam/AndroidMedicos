@@ -79,4 +79,9 @@
     <string name="medicoEstadoDisponible">Disponible</string>
     <string name="medicoEstadoNoDisponible">No Disponible</string>
     <string name="medicoEstadoEnAuxilio">Asignado a Auxilio</string>
+
+    <!-- Estados asignacion -->
+    <string name="enCamino">En camino</string>
+    <string name="enLugar">En lugar</string>
+    <string name="enTraslado">En traslado</string>
 </resources>

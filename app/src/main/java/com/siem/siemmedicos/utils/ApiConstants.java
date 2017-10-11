@@ -16,7 +16,7 @@ public class ApiConstants {
     }
 
     /**
-     * Estados
+     * Estados medico
      */
     public static class Disponible implements Item{
         private static int value = 1;
@@ -60,6 +60,50 @@ public class ApiConstants {
         }
     }
 
+    /**
+     * Estados asignacion
+     */
+    public static class EnCamino implements Item{
+        private static int value = 1;
+
+        @Override
+        public int getValue() {
+            return value;
+        }
+
+        @Override
+        public String getDescription(Context context) {
+            return context.getString(R.string.enCamino);
+        }
+    }
+
+    public static class EnLugar implements Item{
+        private static int value = 2;
+
+        @Override
+        public int getValue() {
+            return value;
+        }
+
+        @Override
+        public String getDescription(Context context) {
+            return context.getString(R.string.enLugar);
+        }
+    }
+
+    public static class EnTraslado implements Item{
+        private static int value = 4;
+
+        @Override
+        public int getValue() {
+            return value;
+        }
+
+        @Override
+        public String getDescription(Context context) {
+            return context.getString(R.string.enTraslado);
+        }
+    }
 
     /**
      * Motivo inasistencia

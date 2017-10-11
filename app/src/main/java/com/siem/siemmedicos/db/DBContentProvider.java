@@ -191,28 +191,32 @@ public class DBContentProvider extends ContentProvider {
 
         switch (match) {
             case LOCATIONS:
-                return db.update(
+                int id = db.update(
                         DBContract.Locations.TABLE_NAME,
                         values,
                         selection,
                         selectionArgs
                 );
+                return id;
 
             case INFORMACION_AUXILIO:
-                return db.update(
+                id = db.update(
                         DBContract.InformacionAuxilio.TABLE_NAME,
                         values,
                         selection,
                         selectionArgs
                 );
+                notifyChange(DBContract.InformacionAuxilio.CONTENT_URI, null);
+                return id;
 
             case MOTIVO_AUXILIO:
-                return db.update(
+                id = db.update(
                         DBContract.MotivoAuxilio.TABLE_NAME,
                         values,
                         selection,
                         selectionArgs
                 );
+                return id;
 
             default:
                 return 0;

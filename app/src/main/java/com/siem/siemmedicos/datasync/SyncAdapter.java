@@ -37,8 +37,16 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
         if(Utils.isLogued()){
             mPreferences = PreferencesHelper.getInstance();
+            sendEstadoAsignacion();
             sendFirebaseToken();
             sendLocation();
+        }
+    }
+
+    private void sendEstadoAsignacion() {
+        boolean isSend = mPreferences.isSendEstadoAsignacion();
+        if(isSend){
+            //TODO: Implementar
         }
     }
 

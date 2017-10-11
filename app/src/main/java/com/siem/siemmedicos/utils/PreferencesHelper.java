@@ -16,6 +16,7 @@ public class PreferencesHelper {
     private static final String KEY_VALUE_ESTADO = "KEY_VALUE_ESTADO";
     private static final String KEY_DESCRIPTION_ESTADO = "KEY_DESCRIPTION_ESTADO";
     private static final String KEY_FIREBASE_TOKEN = "KEY_FIREBASE_TOKEN";
+    private static final String KEY_NEW_SEND_ESTADO_ASIGNACION = "KEY_NEW_SEND_ESTADO_ASIGNACION";
 
     private static PreferencesHelper mInstance = null;
     private SharedPreferences mPreferences;
@@ -168,6 +169,19 @@ public class PreferencesHelper {
 
     public void cleanFirebaseToken(){
         mPreferences.edit().remove(KEY_FIREBASE_TOKEN).apply();
+    }
+
+    //KEY_NEW_SEND_ESTADO_ASIGNACION
+    public boolean isSendEstadoAsignacion(){
+        return mPreferences.getBoolean(KEY_NEW_SEND_ESTADO_ASIGNACION, false);
+    }
+
+    public void setSendEstadoAsignacion(boolean isSend){
+        mPreferences.edit().putBoolean(KEY_NEW_SEND_ESTADO_ASIGNACION, isSend).apply();
+    }
+
+    public void cleanSendEstadoAsignacion(){
+        mPreferences.edit().remove(KEY_NEW_SEND_ESTADO_ASIGNACION).apply();
     }
 
 }

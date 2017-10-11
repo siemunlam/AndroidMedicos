@@ -75,6 +75,7 @@ public class DBContract {
         public static final String COLUMN_NAME_COLOR_DESCRIPCION = "color_descripcion";
         public static final String COLUMN_NAME_COLOR_HEXA = "color_hexa";
         public static final String COLUMN_NAME_NOMBRE_PACIENTE = "nombre_paciente";
+        public static final String COLUMN_NAME_ID_ESTADO = "id_estado";
     }
 
     public static abstract class MotivoAuxilio implements BaseColumns {

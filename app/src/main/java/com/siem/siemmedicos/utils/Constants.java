@@ -24,7 +24,7 @@ public class Constants {
      * SyncAdapter
      */
     public static final int ONE_MINUTE = 60 * 1000;
-    public static final long SYNC_INTERVAL = ONE_MINUTE;
+    public static final long SYNC_INTERVAL = ONE_MINUTE / 2;
     public static final String DEMO_ACCOUNT_NAME = "demo@siemmedicos.com";
 
     /**
@@ -105,5 +105,11 @@ public class Constants {
      */
     public static final String BROADCAST_NEW_AUXILIO = "com.siem.siemmedicos.new_auxilio";
     public static final String BROADCAST_CANCEL_AUXILIO = "com.siem.siemmedicos.cancel_auxilio";
+
+    /**
+     * Cambio de estado de la asignacion
+     */
+    public static final int MIN_DISTANCE_CHANGE_TO_ENLUGAR = 200;
+    public static final int MIN_DISTANCE_CHANGE_TO_ENTRASLADO = 400;
 
 }
