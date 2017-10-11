@@ -51,8 +51,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.i("123456789", "ACA 1: " + remoteMessage.getData());
         Log.i("123456789", "ACA 2: " + remoteMessage.getData().size() + " - " + preferencesHelper.getValueEstado() + " - " + preferencesHelper.getDescriptionEstado(this));
         //TODO: Borrar Log.i
-        //TODO: No dejar cambiar estado hasta q no envie ubicacion y fcm
-        //TODO: Si no esta en lugar no deja finalizar
         if (remoteMessage.getData().size() > 0 && preferencesHelper.getValueEstado() == new ApiConstants.Disponible().getValue()) {
             Auxilio auxilio = getAuxilio(remoteMessage.getData());
             if(auxilio != null){

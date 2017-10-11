@@ -107,6 +107,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     switch(response.code()){
                         case Constants.CODE_SERVER_OK:
+                            mPreferences.setSendLocation(true);
                             DBWrapper.deleteLocation(mContext, lastLocation.getId());
                             break;
                         case Constants.CODE_UNAUTHORIZED:

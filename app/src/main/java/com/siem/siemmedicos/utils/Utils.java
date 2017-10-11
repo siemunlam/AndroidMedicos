@@ -47,6 +47,7 @@ public class Utils {
         preferences.cleanMedicoToken();
         preferences.cleanFirebaseToken();
         preferences.cleanSendEstadoAsignacion();
+        preferences.cleanSendLocation();
         DBWrapper.cleanAllDB(context);
     }
 

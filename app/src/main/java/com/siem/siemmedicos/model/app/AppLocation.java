@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
+import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.RetrofitClient;
 import com.siem.siemmedicos.utils.Utils;
 
@@ -133,6 +134,9 @@ public class AppLocation {
     public void save(Context context){
         DBWrapper.saveLocation(context, this);
         Utils.determinateEstadoAsignacion(context, this);
+        PreferencesHelper preferencesHelper = PreferencesHelper.getInstance();
+        if(!preferencesHelper.isSendLocation())
+            Utils.syncNow(context);
     }
 
     public void getDirections(Context context, Callback<ResponseDirections> callback) {

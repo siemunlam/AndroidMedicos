@@ -207,9 +207,14 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Utils.syncNow(MapActivity.this);
         switch (item.getItemId()) {
             case R.id.menuUpdateStatus:
-                new CustomFragmentDialog().getRadioButtonsEstadoDialog(this, getString(R.string.accept), true).show();
+                if(mPreferencesHelper.isSendLocation()){
+                    new CustomFragmentDialog().getRadioButtonsEstadoDialog(this, getString(R.string.accept), true).show();
+                }else{
+                    Toast.makeText(MapActivity.this, getString(R.string.errorNoLocation), Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.menuLogout:
                 startActivityForResult(new Intent(MapActivity.this, LogoutActivity.class), LOGOUT_ACTIVITY);
