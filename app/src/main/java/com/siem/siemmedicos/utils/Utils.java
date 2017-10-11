@@ -35,7 +35,6 @@ import java.util.TimeZone;
 public class Utils {
 
     public static void logout(Context context){
-        //TODO: Corroborar que este todo borrado
         PreferencesHelper preferences = PreferencesHelper.getInstance();
         preferences.cleanDescriptionEstado();
         preferences.cleanValueEstado();

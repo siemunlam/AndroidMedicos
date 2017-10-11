@@ -96,7 +96,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
             auxilio.setMotivos(motivos);
         }catch(Exception e){
-            //TODO: Exception
+
         }
 
         return auxilio;
