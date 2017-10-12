@@ -64,8 +64,6 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private Typeface mTypeface;
     private Map myMap;
 
-    //TODO: SavedInstanceState
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

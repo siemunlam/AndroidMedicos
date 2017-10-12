@@ -29,7 +29,6 @@ import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.model.googlemapsapi.ResponseDirections;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.Utils;
-import com.siem.siemmedicos.utils.maputils.PolyUtils;
 
 import java.util.List;
 import java.util.Locale;
@@ -177,7 +176,7 @@ public class Map implements Callback<ResponseDirections> {
     public void onResponse(@NonNull Call<ResponseDirections> call, @NonNull Response<ResponseDirections> response) {
         try{
             ResponseDirections responseDirections = response.body();
-            List<LatLng> listLatLng = PolyUtils.decode(responseDirections.getEncodedPoints());
+            List<LatLng> listLatLng = PolyUtil.decode(responseDirections.getEncodedPoints());
             addPolyline(listLatLng);
             addFinishMarker(responseDirections.getLastLocation());
         }catch(Exception e){
