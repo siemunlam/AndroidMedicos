@@ -50,6 +50,7 @@
     <!-- Detalles Auxilio -->
     <string name="paciente">Paciente</string>
     <string name="motivos">Motivos</string>
+    <string name="noEspecificado">No especificado</string>
 
     <!-- Confirmacion Auxilio -->
     <string name="pudoAsistirPaciente">Pudo asistir al paciente?</string>

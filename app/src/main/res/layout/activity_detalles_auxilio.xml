@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/halfDefaultMargin"
-            android:id="@+id/scrollview">
+            android:id="@+id/scrollview"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,8 +38,7 @@
 
                 <com.siem.siemmedicos.ui.custom.CustomDetallesAuxilio
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/heightContainerExtraData"
+                    android:layout_height="@dimen/heightContainerExtraData"
                     android:id="@+id/containerDetallesAuxilio"
                     android:layout_marginTop="@dimen/halfDefaultMargin"/>
 

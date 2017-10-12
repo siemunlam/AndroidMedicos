@@ -44,7 +44,10 @@ public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetV
     private void setDatos() {
         mAuxilio = DBWrapper.getAuxilio(this);
         mBinding.containerDetallesAuxilio.setDatos(mAuxilio);
-        mBinding.textviewPaciente.setText(mAuxilio.getNombrePaciente());
+        if(!mAuxilio.getNombrePaciente().isEmpty())
+            mBinding.textviewPaciente.setText(mAuxilio.getNombrePaciente());
+        else
+            mBinding.textviewPaciente.setText(getString(R.string.noEspecificado));
         mBinding.textviewMotivos.setText(mAuxilio.getParsedMotivos());
     }
 

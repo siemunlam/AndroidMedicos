@@ -262,7 +262,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         myMap.setMap(googleMap);
         myMap.setZoomControlsEnabled(false);
 
-        mBinding.containerDetallesAuxilio.bringToFront();
+        mBinding.cardDetallesAuxilio.bringToFront();
         mBinding.containerButtons.bringToFront();
         setearEstado();
 
@@ -304,6 +304,10 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         AppLocation lastLocation = new AppLocation(Utils.getPassiveLocation(MapActivity.this));
         if(!lastLocation.isNullLocation()){
             addMarker(lastLocation.getLocation());
+        }
+
+        if(!mPreferencesHelper.isSendLocation()){
+            lastLocation.save(this);
         }
     }
 
@@ -347,14 +351,14 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 Auxilio auxilio = DBWrapper.getAuxilio(this);
                 mBinding.containerDetallesAuxilio.setDatos(auxilio);
                 mBinding.containerButtons.setVisibility(View.VISIBLE);
-                mBinding.containerDetallesAuxilio.setVisibility(View.VISIBLE);
+                mBinding.cardDetallesAuxilio.setVisibility(View.VISIBLE);
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) (getResources().getDimension(R.dimen.defaultMargin) + getResources().getDimension(R.dimen.heightContainerButtons)));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 determinateFinalizeButtonVisibility(auxilio);
                 break;
             default:
                 mBinding.containerButtons.setVisibility(View.GONE);
-                mBinding.containerDetallesAuxilio.setVisibility(View.GONE);
+                mBinding.cardDetallesAuxilio.setVisibility(View.GONE);
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) getResources().getDimension(R.dimen.defaultMargin));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 break;
