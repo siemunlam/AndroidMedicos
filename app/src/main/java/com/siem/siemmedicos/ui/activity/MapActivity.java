@@ -55,6 +55,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private static final int PERMISSIONS_REQUEST = 100;
     private static final int LOGOUT_ACTIVITY = 105;
     private static final int FINALIZAR_AUXILIO = 110;
+    private static final int DETALLE_AUXILIO = 115;
 
     private BroadcastReceiver mBroadcastReceiver;
     private ContentObserver mLocationObserver;
@@ -111,7 +112,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         mBinding.containerDetallesAuxilio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.startActivityWithTransition(MapActivity.this, new Intent(MapActivity.this, DetalleAuxilioActivity.class));
+                Utils.startActivityWithTransitionForResult(MapActivity.this, new Intent(MapActivity.this, DetalleAuxilioActivity.class), DETALLE_AUXILIO);
             }
         });
         setTypeface();
@@ -254,6 +255,17 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                     }
                 }
                 break;
+
+            case DETALLE_AUXILIO:
+                if(resultCode == Activity.RESULT_OK){
+                    int code = intent.getIntExtra(DetalleAuxilioActivity.KEY_CANCEL_AUXILIO, 0);
+                    switch(code){
+                        case DetalleAuxilioActivity.CODE_CANCEL_AUXILIO:
+                            changeEstadoAuxilio();
+                            break;
+                    }
+                }
+                break;
         }
     }
 
@@ -361,6 +373,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 mBinding.cardDetallesAuxilio.setVisibility(View.GONE);
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) getResources().getDimension(R.dimen.defaultMargin));
                 mBinding.myLocationButton.setLayoutParams(lp);
+                invalidateOptionsMenu();
                 break;
         }
     }
@@ -438,9 +451,8 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
     private void changeEstadoAuxilio() {
         //Cuando te desvinculas del auxilio o cuando finalizas el auxilio
         Utils.updateEstado(MapActivity.this, new ApiConstants.NoDisponible());
-        setearEstado();
-        invalidateOptionsMenu();
         myMap.cleanMapAuxilio();
+        setearEstado();
         myLocationClicked();
     }
 }

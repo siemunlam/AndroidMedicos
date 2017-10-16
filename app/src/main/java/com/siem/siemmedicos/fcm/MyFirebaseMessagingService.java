@@ -21,6 +21,7 @@ import com.siem.siemmedicos.model.app.Motivo;
 import com.siem.siemmedicos.model.app.Motivos;
 import com.siem.siemmedicos.services.UpdateEstadoService;
 import com.siem.siemmedicos.ui.activity.LoginActivity;
+import com.siem.siemmedicos.ui.activity.MapActivity;
 import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
@@ -62,6 +63,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 Map<String, String> data = remoteMessage.getData();
                 int code = Integer.parseInt(data.get(KEY_CODE));
                 if(code == Constants.CODE_CANCEL_AUXILIO){
+                    Utils.updateEstado(this, new ApiConstants.NoDisponible());
                     sendBroadcast(Constants.BROADCAST_CANCEL_AUXILIO);
                     //prepareAlarmUpdateEstado();
                 }
