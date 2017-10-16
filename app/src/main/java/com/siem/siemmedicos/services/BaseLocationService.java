@@ -101,7 +101,8 @@ public class BaseLocationService extends Service {
     }
 
     protected void stop() {
-        if (Utils.isLocationPermissionGranted(BaseLocationService.this)) {
+        if (Utils.isLocationPermissionGranted(BaseLocationService.this) &&
+                mLocationManager != null && mLocationListener != null) {
             mLocationManager.removeUpdates(mLocationListener);
         }
     }
