@@ -30,6 +30,10 @@ public class SelectLocationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         stopLocationsServices();
 
+        if(!Utils.isLogued()) {
+            return START_NOT_STICKY;
+        }
+
         if(Utils.locationIntensiveMode(SelectLocationService.this) || Utils.isInAuxilio())
             startService(mIntensiveLocationServiceIntent);
         else

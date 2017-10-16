@@ -24,9 +24,11 @@ import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.db.DBContract;
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.AppLocation;
+import com.siem.siemmedicos.services.BaseLocationService;
 import com.siem.siemmedicos.services.IntensiveLocationService;
 import com.siem.siemmedicos.services.LocationService;
 import com.siem.siemmedicos.services.SelectLocationService;
+import com.siem.siemmedicos.services.UpdateEstadoService;
 import com.siem.siemmedicos.task.DeterminarEstadoAsignacionTask;
 
 import java.util.Calendar;
@@ -48,6 +50,19 @@ public class Utils {
         preferences.cleanSendEstadoAsignacion();
         preferences.cleanSendLocation();
         DBWrapper.cleanAllDB(context);
+        stopAllServices(context);
+    }
+
+    /**
+     * Finaliza todos los servicios en ejecucion
+     * @param context
+     */
+    private static void stopAllServices(Context context) {
+        context.stopService(new Intent(context, BaseLocationService.class));
+        context.stopService(new Intent(context, IntensiveLocationService.class));
+        context.stopService(new Intent(context, LocationService.class));
+        context.stopService(new Intent(context, SelectLocationService.class));
+        context.stopService(new Intent(context, UpdateEstadoService.class));
     }
 
     /**
