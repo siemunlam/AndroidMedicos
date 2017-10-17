@@ -374,6 +374,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) getResources().getDimension(R.dimen.defaultMargin));
                 mBinding.myLocationButton.setLayoutParams(lp);
                 invalidateOptionsMenu();
+                myMap.cleanPolyline();
                 break;
         }
     }

@@ -21,7 +21,6 @@ import com.siem.siemmedicos.model.app.Motivo;
 import com.siem.siemmedicos.model.app.Motivos;
 import com.siem.siemmedicos.services.UpdateEstadoService;
 import com.siem.siemmedicos.ui.activity.LoginActivity;
-import com.siem.siemmedicos.ui.activity.MapActivity;
 import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
@@ -55,7 +54,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if(auxilio != null){
                 DBWrapper.saveAuxilio(this, auxilio);
                 Utils.updateEstado(this, new ApiConstants.EnAuxilio());
-                sendNotification(getString(R.string.descripcionAuxilio, auxilio.getColorDescripcion()));
+                sendNotification(getString(R.string.nuevoAuxilio), getString(R.string.descripcionAuxilio, auxilio.getColorDescripcion()));
                 sendBroadcast(Constants.BROADCAST_NEW_AUXILIO);
             }
         }else if(remoteMessage.getData().size() > 0 && preferencesHelper.getValueEstado() == new ApiConstants.EnAuxilio().getValue()){
@@ -64,6 +63,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 int code = Integer.parseInt(data.get(KEY_CODE));
                 if(code == Constants.CODE_CANCEL_AUXILIO){
                     Utils.updateEstado(this, new ApiConstants.NoDisponible());
+                    sendNotification(getString(R.string.cancelAuxilioNotification), null);
                     sendBroadcast(Constants.BROADCAST_CANCEL_AUXILIO);
                     //prepareAlarmUpdateEstado();
                 }
@@ -109,21 +109,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String contentTitle, String messageBody) {
         Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         long[] vibrate = {1000, 1000, 1000, 1000};
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setSmallIcon(R.drawable.ic_notification);
-        mBuilder.setContentTitle(getString(R.string.nuevoAuxilio));
-        mBuilder.setContentText(messageBody);
         mBuilder.setAutoCancel(true);
         mBuilder.setSound(defaultSoundUri);
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setVibrate(vibrate);
+        mBuilder.setContentTitle(contentTitle);
+        if(messageBody != null)
+            mBuilder.setContentText(messageBody);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

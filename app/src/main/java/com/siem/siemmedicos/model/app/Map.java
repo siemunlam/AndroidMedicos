@@ -220,4 +220,10 @@ public class Map implements Callback<ResponseDirections> {
             mPositionMarker = null;
         }
     }
+
+    public void cleanPolyline(){
+        if(mMap != null && mPolyline != null){
+            mPolyline.remove();
+        }
+    }
 }

@@ -45,6 +45,7 @@
     <string name="activateGPS">Debe activar el GPS para continuar.</string>
     <string name="asignNuevoAuxilio">Se te ha asignado a un nuevo auxilio.</string>
     <string name="cancelAuxilio">Se ha cancelado el auxilio actual.\nRecuerda cambiar el estado a Disponible cuando estes listo para recibir otro auxilio.</string>
+    <string name="cancelAuxilioNotification">Se ha cancelado el auxilio actual</string>
     <string name="recalculate">Recalculando…</string>
 
     <!-- Detalles Auxilio -->
