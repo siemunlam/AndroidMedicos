@@ -361,7 +361,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                 myMap.getDirections(lastLocation);
                 myMap.addPositionMarker(lastLocation);
                 Auxilio auxilio = DBWrapper.getAuxilio(this);
-                mBinding.containerDetallesAuxilio.setDatos(auxilio);
+                mBinding.containerDetallesAuxilio.setDatos(auxilio, false);
                 mBinding.containerButtons.setVisibility(View.VISIBLE);
                 mBinding.cardDetallesAuxilio.setVisibility(View.VISIBLE);
                 lp.setMargins(0, 0, (int) getResources().getDimension(R.dimen.defaultMargin), (int) (getResources().getDimension(R.dimen.defaultMargin) + getResources().getDimension(R.dimen.heightContainerButtons)));

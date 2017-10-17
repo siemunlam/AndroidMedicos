@@ -21,13 +21,14 @@ import com.siem.siemmedicos.databinding.ActivityDetallesAuxilioBinding;
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.utils.Constants;
-import com.siem.siemmedicos.utils.Utils;
 
 /**
  * Created by Lucas on 22/8/17.
  */
 public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetViewPanoramaReadyCallback {
 
+    private static final String MASCULINO = "M";
+    private static final String FEMENINO = "F";
     public static final String KEY_CANCEL_AUXILIO = "CANCEL_AUXILIO";
     public static final int CODE_CANCEL_AUXILIO = 200;
 
@@ -49,6 +50,10 @@ public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetV
         mBinding.textviewPaciente.setTypeface(mTypeface);
         mBinding.textviewMotivosTitle.setTypeface(mTypeface);
         mBinding.textviewMotivos.setTypeface(mTypeface);
+        mBinding.textviewSexo.setTypeface(mTypeface);
+        mBinding.textviewSexoTitle.setTypeface(mTypeface);
+        mBinding.textviewObservacionesTitle.setTypeface(mTypeface);
+        mBinding.textviewObservaciones.setTypeface(mTypeface);
 
         setDatos();
     }
@@ -79,12 +84,55 @@ public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetV
 
     private void setDatos() {
         mAuxilio = DBWrapper.getAuxilio(this);
-        mBinding.containerDetallesAuxilio.setDatos(mAuxilio);
-        if(!mAuxilio.getNombrePaciente().isEmpty())
-            mBinding.textviewPaciente.setText(mAuxilio.getNombrePaciente());
-        else
-            mBinding.textviewPaciente.setText(getString(R.string.noEspecificado));
+
+        //Datos
+        mBinding.containerDetallesAuxilio.setDatos(mAuxilio, true);
+
+        //Sexo
+        mBinding.textviewSexo.setText(getSexo());
+
+        //Nombre paciente
+        mBinding.textviewPaciente.setText(getNombrePaciente());
+
+        //Motivos
         mBinding.textviewMotivos.setText(mAuxilio.getParsedMotivos());
+
+        //Observaciones
+        if(mAuxilio.getObservaciones().isEmpty()){
+            mBinding.textviewObservaciones.setVisibility(View.GONE);
+            mBinding.textviewObservacionesTitle.setVisibility(View.GONE);
+        }else{
+            mBinding.textviewObservaciones.setVisibility(View.VISIBLE);
+            mBinding.textviewObservacionesTitle.setVisibility(View.VISIBLE);
+            mBinding.textviewObservaciones.setText(getObservaciones());
+        }
+    }
+
+    private String getSexo() {
+        if(!mAuxilio.getSexo().isEmpty()){
+            switch(mAuxilio.getSexo()){
+                case MASCULINO:
+                    return getString(R.string.masculino);
+
+                case FEMENINO:
+                    return getString(R.string.femenino);
+
+                default:
+                    return getString(R.string.noEspecificado);
+            }
+        } else
+            return getString(R.string.noEspecificado);
+    }
+
+    private String getNombrePaciente() {
+        if(!mAuxilio.getNombrePaciente().isEmpty())
+            return mAuxilio.getNombrePaciente();
+        else
+            return getString(R.string.noEspecificado);
+    }
+
+    private String getObservaciones() {
+        return mAuxilio.getObservaciones();
     }
 
     private void registerBroadcastReceiver() {

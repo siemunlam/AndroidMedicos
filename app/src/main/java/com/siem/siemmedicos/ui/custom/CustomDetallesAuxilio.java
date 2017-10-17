@@ -26,6 +26,7 @@ public class CustomDetallesAuxilio extends RelativeLayout {
     private AppCompatImageView mIconAuxilio;
     private AppCompatTextView mTextviewDescriptionAuxilio;
     private AppCompatTextView mTextviewDireccion;
+    private AppCompatTextView mTextviewReferencia;
 
     public CustomDetallesAuxilio(Context context) {
         super(context);
@@ -44,9 +45,11 @@ public class CustomDetallesAuxilio extends RelativeLayout {
         mIconAuxilio = (AppCompatImageView)findViewById(R.id.iconAuxilio);
         mTextviewDescriptionAuxilio = (AppCompatTextView)findViewById(R.id.textviewDescriptionAuxilio);
         mTextviewDireccion = (AppCompatTextView)findViewById(R.id.textviewDireccion);
+        mTextviewReferencia = (AppCompatTextView)findViewById(R.id.textviewReferencia);
         mTypeface = Typeface.createFromAsset(context.getAssets(), Constants.PRIMARY_FONT);
         mTextviewDescriptionAuxilio.setTypeface(mTypeface);
         mTextviewDireccion.setTypeface(mTypeface);
+        mTextviewReferencia.setTypeface(mTypeface);
 
         setAttrs(attrs);
     }
@@ -72,14 +75,23 @@ public class CustomDetallesAuxilio extends RelativeLayout {
         mTextviewDescriptionAuxilio.setText(mContext.getString(R.string.descripcionAuxilio, color));
     }
 
-    public void setDatos(Auxilio auxilio) {
+    public void setReferencia(String referencia){
+        mTextviewReferencia.setText(referencia);
+    }
+
+    public void setDatos(Auxilio auxilio, boolean isReferenciaVisible) {
         setDireccion(auxilio.getDireccion());
         setDescriptionColor(auxilio.getColorDescripcion());
+        if(isReferenciaVisible && !auxilio.getReferencia().isEmpty()){
+            setReferencia(auxilio.getReferencia());
+            mTextviewReferencia.setVisibility(VISIBLE);
+        }else{
+            mTextviewReferencia.setVisibility(GONE);
+        }
+
         try{
             setColorFilter(Color.parseColor(auxilio.getColorHexadecimal()));
-        }catch(Exception e){
-
-        }
+        }catch(Exception e){}
     }
 
     public void setOnClickListener(View.OnClickListener listener){

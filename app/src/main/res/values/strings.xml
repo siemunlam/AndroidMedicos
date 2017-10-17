@@ -51,7 +51,10 @@
     <!-- Detalles Auxilio -->
     <string name="paciente">Paciente</string>
     <string name="motivos">Motivos</string>
+    <string name="sexo">Sexo</string>
     <string name="noEspecificado">No especificado</string>
+    <string name="masculino">Masculino</string>
+    <string name="femenino">Femenino</string>
 
     <!-- Confirmacion Auxilio -->
     <string name="pudoAsistirPaciente">Pudo asistir al paciente?</string>

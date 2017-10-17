@@ -23,8 +23,8 @@
 
     <!-- Detalles Auxilio -->
     <dimen name="heightStreetView">200dp</dimen>
-    <dimen name="textsizeTitle">18sp</dimen>
-    <dimen name="textsizeData">23sp</dimen>
+    <dimen name="textsizeTitle">16sp</dimen>
+    <dimen name="textsizeData">18sp</dimen>
 
     <!-- Confirmacion Auxilio -->
     <dimen name="textsizeQuestions">20sp</dimen>

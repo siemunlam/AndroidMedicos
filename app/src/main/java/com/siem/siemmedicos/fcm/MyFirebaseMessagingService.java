@@ -38,7 +38,10 @@ import static com.siem.siemmedicos.utils.Constants.KEY_DIRECCION;
 import static com.siem.siemmedicos.utils.Constants.KEY_LATITUDE;
 import static com.siem.siemmedicos.utils.Constants.KEY_LONGITUDE;
 import static com.siem.siemmedicos.utils.Constants.KEY_MOTIVOS;
+import static com.siem.siemmedicos.utils.Constants.KEY_OBSERVACIONES;
 import static com.siem.siemmedicos.utils.Constants.KEY_PACIENTE;
+import static com.siem.siemmedicos.utils.Constants.KEY_REFERENCIA;
+import static com.siem.siemmedicos.utils.Constants.KEY_SEXO;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -84,6 +87,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         auxilio.setLongitude(data.get(KEY_LONGITUDE));
         auxilio.setDireccion(data.get(KEY_DIRECCION));
         auxilio.setNombrePaciente(data.get(KEY_PACIENTE));
+        auxilio.setSexo(data.get(KEY_SEXO));
+        auxilio.setObservaciones(data.get(KEY_OBSERVACIONES));
+        auxilio.setReferencia(data.get(KEY_REFERENCIA));
         auxilio.setColorDescripcion(data.get(KEY_COLOR_DESCRIPCION));
         auxilio.setColorHexadecimal(data.get(KEY_COLOR_HEXA));
 

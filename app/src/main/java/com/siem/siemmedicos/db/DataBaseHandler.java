@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 
 public class DataBaseHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DBNAME = "siemmedicosdb";
     private static DataBaseHandler mInstance = null;
 
@@ -50,6 +50,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                     + DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_DESCRIPCION + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
                     + DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_HEXA + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
                     + DBContract.InformacionAuxilio.COLUMN_NAME_NOMBRE_PACIENTE + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_SEXO_PACIENTE + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_OBSERVACIONES + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
+                    + DBContract.InformacionAuxilio.COLUMN_NAME_REFERENCIA + DBContract.TEXT_TYPE + DBContract.COMMA_SEP
                     + DBContract.InformacionAuxilio.COLUMN_NAME_ID_ESTADO + DBContract.INTEGER_TYPE + ") ";
 
     private static final String SQL_CREATE_MOTIVO_AUXILIO =

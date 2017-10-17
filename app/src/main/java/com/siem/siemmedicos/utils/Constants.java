@@ -47,6 +47,9 @@ public class Constants {
     public static final String KEY_COLOR_DESCRIPCION = "colorDescripcion";
     public static final String KEY_COLOR_HEXA = "colorHexa";
     public static final String KEY_MOTIVOS = "motivos";
+    public static final String KEY_SEXO = "sexo";
+    public static final String KEY_OBSERVACIONES = "observaciones";
+    public static final String KEY_REFERENCIA = "referencia";
 
     public static final int CODE_CANCEL_AUXILIO = 25;
     public static final String KEY_CODE = "code";

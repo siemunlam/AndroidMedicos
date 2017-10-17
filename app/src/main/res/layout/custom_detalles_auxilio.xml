@@ -45,7 +45,16 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:id="@+id/textviewDireccion"
-            test:text="Florencio Varela 1310 1 B. En frente del kiosko"
+            test:text="Florencio Varela 1310 1 B. Ramos Mejia, Buenos Aires, Argentina"
             android:textSize="@dimen/textsizeDetallesAuxilio"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:id="@+id/textviewReferencia"
+            test:text="En frente del kiosko"
+            android:textSize="@dimen/textsizeDetallesAuxilio"
+            android:visibility="gone"/>
     </LinearLayout>
 </RelativeLayout>

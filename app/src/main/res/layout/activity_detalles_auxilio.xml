@@ -42,6 +42,7 @@
                     android:id="@+id/containerDetallesAuxilio"
                     android:layout_marginTop="@dimen/halfDefaultMargin"/>
 
+                <!-- Paciente -->
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -62,6 +63,31 @@
                     android:layout_marginStart="@dimen/halfDefaultMargin"
                     android:paddingLeft="@dimen/halfDefaultMargin"
                     android:paddingRight="@dimen/halfDefaultMargin"/>
+
+                <!-- Sexo -->
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/textviewSexoTitle"
+                    android:text="@string/sexo"
+                    android:textSize="@dimen/textsizeTitle"
+                    android:layout_marginTop="@dimen/halfDefaultMargin"
+                    android:paddingLeft="@dimen/halfDefaultMargin"
+                    android:paddingRight="@dimen/halfDefaultMargin"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/textviewSexo"
+                    test:text="Masculino"
+                    android:textSize="@dimen/textsizeData"
+                    android:layout_marginLeft="@dimen/halfDefaultMargin"
+                    android:layout_marginStart="@dimen/halfDefaultMargin"
+                    android:paddingLeft="@dimen/halfDefaultMargin"
+                    android:paddingRight="@dimen/halfDefaultMargin"/>
+
+                <!-- Motivos -->
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,6 +104,29 @@
                     android:textColor="@android:color/black"
                     android:id="@+id/textviewMotivos"
                     test:text="- Hemorragia leve\n- Hospital privado\n- Edad mayor a 65 años"
+                    android:textSize="@dimen/textsizeData"
+                    android:layout_marginLeft="@dimen/halfDefaultMargin"
+                    android:layout_marginStart="@dimen/halfDefaultMargin"
+                    android:paddingLeft="@dimen/halfDefaultMargin"
+                    android:paddingRight="@dimen/halfDefaultMargin"/>
+
+                <!-- Observaciones -->
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/textviewObservacionesTitle"
+                    android:text="@string/observaciones"
+                    android:textSize="@dimen/textsizeTitle"
+                    android:layout_marginTop="@dimen/halfDefaultMargin"
+                    android:paddingLeft="@dimen/halfDefaultMargin"
+                    android:paddingRight="@dimen/halfDefaultMargin"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/textviewObservaciones"
+                    test:text="Observaciones"
                     android:textSize="@dimen/textsizeData"
                     android:layout_marginLeft="@dimen/halfDefaultMargin"
                     android:layout_marginStart="@dimen/halfDefaultMargin"

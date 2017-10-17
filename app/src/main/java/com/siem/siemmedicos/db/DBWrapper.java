@@ -134,6 +134,9 @@ public class DBWrapper {
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_DESCRIPCION, auxilio.getColorDescripcion());
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_HEXA, auxilio.getColorHexadecimal());
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_NOMBRE_PACIENTE, auxilio.getNombrePaciente());
+        cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_SEXO_PACIENTE, auxilio.getSexo());
+        cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_OBSERVACIONES, auxilio.getObservaciones());
+        cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_REFERENCIA, auxilio.getReferencia());
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_ID_ESTADO, new ApiConstants.EnCamino().getValue());
         Uri uri = context.getContentResolver().insert(
                 DBContract.InformacionAuxilio.CONTENT_URI,
@@ -187,6 +190,9 @@ public class DBWrapper {
                 String colorDescripcion = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_DESCRIPCION));
                 String colorHexadecimal = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_COLOR_HEXA));
                 String nombrePaciente = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_NOMBRE_PACIENTE));
+                String sexoPaciente = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_SEXO_PACIENTE));
+                String observaciones = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_OBSERVACIONES));
+                String referencia = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_REFERENCIA));
                 int idEstado = cursor.getInt(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_ID_ESTADO));
                 Motivos motivos = getMotivos(context, id);
 
@@ -196,6 +202,9 @@ public class DBWrapper {
                 auxilio.setColorDescripcion(colorDescripcion);
                 auxilio.setColorHexadecimal(colorHexadecimal);
                 auxilio.setNombrePaciente(nombrePaciente);
+                auxilio.setSexo(sexoPaciente);
+                auxilio.setObservaciones(observaciones);
+                auxilio.setReferencia(referencia);
                 auxilio.setMotivos(motivos);
                 auxilio.setIdEstado(idEstado);
             }

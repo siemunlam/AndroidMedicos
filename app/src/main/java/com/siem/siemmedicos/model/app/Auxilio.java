@@ -14,6 +14,9 @@ public class Auxilio {
     private String mColorDescripcion;
     private String mColorHexadecimal;
     private String mNombrePaciente;
+    private String mSexo;
+    private String mObservaciones;
+    private String mReferencia;
     private Motivos mMotivos;
     private int mIdEstado;
 
@@ -63,6 +66,30 @@ public class Auxilio {
 
     public void setNombrePaciente(String nombrePaciente) {
         mNombrePaciente = nombrePaciente;
+    }
+
+    public String getSexo() {
+        return mSexo;
+    }
+
+    public void setSexo(String sexo) {
+        mSexo = sexo;
+    }
+
+    public String getObservaciones() {
+        return mObservaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        mObservaciones = observaciones;
+    }
+
+    public String getReferencia() {
+        return mReferencia;
+    }
+
+    public void setReferencia(String referencia) {
+        mReferencia = referencia;
     }
 
     public Motivos getMotivos() {
