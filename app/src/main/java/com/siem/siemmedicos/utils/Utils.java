@@ -5,6 +5,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -267,6 +268,11 @@ public class Utils {
         preferences.setValueEstado(estado.getValue());
         preferences.setDescriptionEstado(estado.getDescription(context));
         Utils.restarLocationsServices(context);
+    }
+
+    public static void cancelNotification(Context context, int notifyId) {
+       NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(notifyId);
     }
 
     public static void restarLocationsServices(Context context){

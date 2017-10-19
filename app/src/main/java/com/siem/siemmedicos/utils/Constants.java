@@ -8,6 +8,11 @@ import java.util.Locale;
 public class Constants {
 
     /**
+     * Notification ID
+     */
+    public static final int NOTIFICATION_ID = 1010;
+
+    /**
      * Maps
      */
     public static final float INITIAL_ZOOM = 1.0F;

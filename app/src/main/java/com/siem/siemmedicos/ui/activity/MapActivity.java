@@ -431,6 +431,7 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
                     case Constants.CODE_BAD_REQUEST:
                     case Constants.CODE_MEDICO_NOT_ASIGNED:
                         changeEstadoAuxilio();
+                        Utils.cancelNotification(MapActivity.this, Constants.NOTIFICATION_ID);
                         break;
                     case Constants.CODE_UNAUTHORIZED:
                         Utils.logout(MapActivity.this);

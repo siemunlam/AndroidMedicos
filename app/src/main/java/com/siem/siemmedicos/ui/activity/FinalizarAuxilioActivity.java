@@ -22,6 +22,7 @@ import com.siem.siemmedicos.ui.fragment.PossitiveAttendFragment;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.RetrofitClient;
+import com.siem.siemmedicos.utils.Utils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -110,6 +111,7 @@ public class FinalizarAuxilioActivity extends ToolbarActivity implements ChangeV
                     case Constants.CODE_BAD_REQUEST:
                     case Constants.CODE_UNAUTHORIZED:
                     case Constants.CODE_MEDICO_NOT_ASIGNED:
+                        Utils.cancelNotification(FinalizarAuxilioActivity.this, Constants.NOTIFICATION_ID);
                         Intent intent = new Intent();
                         intent.putExtra(KEY_RESPONSE_CODE, response.code());
                         setResult(Activity.RESULT_OK, intent);
