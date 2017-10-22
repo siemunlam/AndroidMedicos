@@ -2,74 +2,74 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
     </data>
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/background_login"
-            android:scaleType="center"
-            android:alpha="0.8"/>
-
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="@dimen/widthLogo"
-            android:layout_height="@dimen/heightLogo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/marginTopLogo"
-            android:src="@drawable/logo"
-            android:id="@+id/imgLogo"
-            android:focusable="true"
-            android:focusableInTouchMode="true"/>
-
-        <com.siem.siemmedicos.ui.custom.CustomEdittextLogin
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/heightEdittext"
-            android:layout_below="@+id/imgLogo"
-            android:layout_marginTop="@dimen/doubleDefaultMargin"
-            android:layout_marginLeft="@dimen/doubleDefaultMargin"
-            android:layout_marginRight="@dimen/doubleDefaultMargin"
-            android:id="@+id/edittextUser"
-            android:src="@drawable/ic_account"
-            android:hint="@string/user"
-            android:inputType="text"/>
-
-        <com.siem.siemmedicos.ui.custom.CustomEdittextLogin
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/heightEdittext"
-            android:layout_below="@+id/edittextUser"
-            android:layout_marginTop="@dimen/defaultMargin"
-            android:layout_marginLeft="@dimen/doubleDefaultMargin"
-            android:layout_marginRight="@dimen/doubleDefaultMargin"
-            android:id="@+id/edittextPass"
-            android:src="@drawable/ic_password"
-            android:hint="@string/pass"
-            android:inputType="textPassword"/>
-
-        <android.support.v7.widget.AppCompatButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonLogin"
-            android:layout_below="@+id/edittextPass"
-            android:layout_marginTop="@dimen/doubleDefaultMargin"
-            android:layout_marginLeft="@dimen/doubleDefaultMargin"
-            android:layout_marginRight="@dimen/doubleDefaultMargin"
-            android:text="@string/login"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:textAllCaps="false"/>
-
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:background="@drawable/background_login"
+        android:alpha="0.8">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/progressContent"
-            android:background="#60000000"
-            android:visibility="gone">
-            <ProgressBar
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/widthLogo"
+                android:layout_height="@dimen/heightLogo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/marginTopLogo"
+                android:src="@drawable/logo"
+                android:id="@+id/imgLogo"
+                android:focusable="true"
+                android:focusableInTouchMode="true"/>
+
+            <com.siem.siemmedicos.ui.custom.CustomEdittextLogin
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/heightEdittext"
+                android:layout_below="@+id/imgLogo"
+                android:layout_marginTop="@dimen/doubleDefaultMargin"
+                android:layout_marginLeft="@dimen/doubleDefaultMargin"
+                android:layout_marginRight="@dimen/doubleDefaultMargin"
+                android:id="@+id/edittextUser"
+                android:src="@drawable/ic_account"
+                android:hint="@string/user"
+                android:inputType="text"/>
+
+            <com.siem.siemmedicos.ui.custom.CustomEdittextLogin
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/heightEdittext"
+                android:layout_below="@+id/edittextUser"
+                android:layout_marginTop="@dimen/defaultMargin"
+                android:layout_marginLeft="@dimen/doubleDefaultMargin"
+                android:layout_marginRight="@dimen/doubleDefaultMargin"
+                android:id="@+id/edittextPass"
+                android:src="@drawable/ic_password"
+                android:hint="@string/pass"
+                android:inputType="textPassword"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"/>
+                android:id="@+id/buttonLogin"
+                android:layout_below="@+id/edittextPass"
+                android:layout_marginTop="@dimen/doubleDefaultMargin"
+                android:layout_marginLeft="@dimen/doubleDefaultMargin"
+                android:layout_marginRight="@dimen/doubleDefaultMargin"
+                android:text="@string/login"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/progressContent"
+                android:background="#60000000"
+                android:visibility="gone">
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
+    </ScrollView>
 </layout>
