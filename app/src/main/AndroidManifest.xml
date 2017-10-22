@@ -40,7 +40,8 @@
         <activity
             android:name=".ui.activity.FinalizarAuxilioActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
         <activity
             android:name=".ui.activity.LogoutActivity"

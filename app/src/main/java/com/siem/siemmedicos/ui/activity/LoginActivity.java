@@ -131,7 +131,7 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
         mBinding.edittextPass.setEnabled(false);
         mBinding.edittextUser.setEnabled(false);
         setTouchable(false);
-        mBinding.progressContent.setVisibility(View.VISIBLE);
+        mBinding.progress.setVisibility(View.VISIBLE);
     }
 
     private void deshabilitarLoading() {
@@ -139,7 +139,7 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
         mBinding.edittextPass.setEnabled(true);
         mBinding.edittextUser.setEnabled(true);
         setTouchable(true);
-        mBinding.progressContent.setVisibility(View.GONE);
+        mBinding.progress.setVisibility(View.GONE);
     }
 
     private void controlarMedicoLogueado() {
