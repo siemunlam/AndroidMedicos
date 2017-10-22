@@ -15,7 +15,7 @@ public class Paciente {
     private String mApellido;
 
     @SerializedName("dni")
-    private Integer mDni;
+    private Double mDni;
 
     @SerializedName("edad")
     private Integer mEdad;
@@ -46,11 +46,11 @@ public class Paciente {
         mApellido = apellido;
     }
 
-    public Integer getDni() {
+    public Double getDni() {
         return mDni;
     }
 
-    public void setDni(Integer dni) {
+    public void setDni(Double dni) {
         mDni = dni;
     }
 

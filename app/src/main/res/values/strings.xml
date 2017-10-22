@@ -16,7 +16,7 @@
     <string name="errorUpdateEstado">Hubo un error al actualizar el estado</string>
     <string name="errorUnlink">Hubo un error al desvincularse del auxilio</string>
     <string name="errorFinalizarAuxilio">Hubo un error al finalizar el auxilio</string>
-    <string name="errorNoLocation">No hemos podido obtener su ubicación actual, necesaria para el cambio de Estado.\nIntente de nuevo mas tarde.</string>
+    <string name="errorNoLocation">No hemos podido enviar su ubicación actual, necesaria para el cambio de Estado.\nIntente de nuevo mas tarde.</string>
 
     <!-- Notificacion -->
     <string name="intensiveMode">Modo Intensivo</string>

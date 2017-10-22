@@ -40,7 +40,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="@string/nombre"/>
+                    android:hint="@string/nombre"
+                    android:maxLength="20"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -51,7 +52,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="@string/apellido"/>
+                    android:hint="@string/apellido"
+                    android:maxLength="20"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -63,7 +65,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/dni"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:maxLength="10"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -75,7 +78,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/edad"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:maxLength="2"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
     </ScrollView>
