@@ -3,84 +3,79 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
     </data>
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="@string/trasladado"
+            android:textColor="@android:color/black"
+            android:id="@+id/checkboxTrasladado"
+            android:textSize="@dimen/textsizeOptions"
+            android:foreground="?android:attr/selectableItemBackground"/>
 
-            <android.support.v7.widget.AppCompatCheckBox
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edittextDiagnostico"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/trasladado"
-                android:textColor="@android:color/black"
-                android:id="@+id/checkboxTrasladado"
-                android:textSize="@dimen/textsizeOptions"
-                android:foreground="?android:attr/selectableItemBackground"/>
+                android:ems="10"
+                android:hint="@string/diagnosticoRequired"/>
+        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edittextNombre"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/edittextDiagnostico"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/diagnosticoRequired"/>
-            </android.support.design.widget.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/nombre"
+                android:maxLength="20"/>
+        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edittextApellido"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/edittextNombre"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/nombre"
-                    android:maxLength="20"/>
-            </android.support.design.widget.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/apellido"
+                android:maxLength="20"/>
+        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edittextDni"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/edittextApellido"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/apellido"
-                    android:maxLength="20"/>
-            </android.support.design.widget.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/dni"
+                android:inputType="number"
+                android:maxLength="10"/>
+        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edittextEdad"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/edittextDni"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/dni"
-                    android:inputType="number"
-                    android:maxLength="10"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/edittextEdad"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/edad"
-                    android:inputType="number"
-                    android:maxLength="2"/>
-            </android.support.design.widget.TextInputLayout>
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/edad"
+                android:inputType="number"
+                android:maxLength="2"/>
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
 </layout>

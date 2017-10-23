@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
     </data>
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:paddingTop="@dimen/halfDefaultMargin">
 
         <com.siem.siemmedicos.ui.custom.CustomSwitchCompat
@@ -18,13 +19,11 @@
         <com.siem.siemmedicos.ui.custom.CustomRadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/radiogroup"
-            android:layout_below="@+id/switchBienCategorizado"/>
+            android:id="@+id/radiogroup"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/radiogroup"
             android:layout_marginLeft="@dimen/defaultMargin"
             android:layout_marginRight="@dimen/defaultMargin"
             android:layout_marginTop="@dimen/defaultMargin"
@@ -51,20 +50,19 @@
                 android:visibility="gone"/>
         </RelativeLayout>
 
-        <android.support.v4.view.ViewPager
+        <com.siem.siemmedicos.ui.custom.CustomWrapContentViewPager
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/pager"
-            android:layout_below="@+id/titlePacientes"
-            android:layout_above="@+id/viewPagerIndicator"
             android:layout_marginLeft="@dimen/defaultMargin"
-            android:layout_marginRight="@dimen/defaultMargin"/>
+            android:layout_marginRight="@dimen/defaultMargin">
+
+        </com.siem.siemmedicos.ui.custom.CustomWrapContentViewPager>
 
         <RelativeLayout
             android:id="@+id/viewPagerIndicator"
             android:layout_width="match_parent"
             android:layout_height="@dimen/heightPagerIndicator"
-            android:layout_alignParentBottom="true"
             android:gravity="center">
 
             <LinearLayout
@@ -76,6 +74,5 @@
                 android:orientation="horizontal" />
 
         </RelativeLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 </layout>
