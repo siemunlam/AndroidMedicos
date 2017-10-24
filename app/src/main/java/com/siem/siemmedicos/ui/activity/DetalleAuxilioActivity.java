@@ -50,10 +50,12 @@ public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetV
         mBinding.textviewPaciente.setTypeface(mTypeface);
         mBinding.textviewMotivosTitle.setTypeface(mTypeface);
         mBinding.textviewMotivos.setTypeface(mTypeface);
-        mBinding.textviewSexo.setTypeface(mTypeface);
         mBinding.textviewSexoTitle.setTypeface(mTypeface);
+        mBinding.textviewSexo.setTypeface(mTypeface);
         mBinding.textviewObservacionesTitle.setTypeface(mTypeface);
         mBinding.textviewObservaciones.setTypeface(mTypeface);
+        mBinding.textviewContactoTitle.setTypeface(mTypeface);
+        mBinding.textviewContacto.setTypeface(mTypeface);
 
         setDatos();
     }
@@ -89,10 +91,27 @@ public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetV
         mBinding.containerDetallesAuxilio.setDatos(mAuxilio, true);
 
         //Sexo
-        mBinding.textviewSexo.setText(getSexo());
+        if(mAuxilio.getSexo().isEmpty()){
+            mBinding.textviewSexo.setVisibility(View.GONE);
+            mBinding.textviewSexoTitle.setVisibility(View.GONE);
+        }else{
+            mBinding.textviewSexo.setVisibility(View.VISIBLE);
+            mBinding.textviewSexoTitle.setVisibility(View.VISIBLE);
+            mBinding.textviewSexo.setText(getSexo());
+        }
 
         //Nombre paciente
         mBinding.textviewPaciente.setText(getNombrePaciente());
+
+        //Contacto
+        if(mAuxilio.getContacto().isEmpty()){
+            mBinding.textviewContacto.setVisibility(View.GONE);
+            mBinding.textviewContactoTitle.setVisibility(View.GONE);
+        }else{
+            mBinding.textviewContacto.setVisibility(View.VISIBLE);
+            mBinding.textviewContactoTitle.setVisibility(View.VISIBLE);
+            mBinding.textviewContacto.setText(mAuxilio.getContacto());
+        }
 
         //Motivos
         mBinding.textviewMotivos.setText(mAuxilio.getParsedMotivos());

@@ -34,6 +34,7 @@ import java.util.Map;
 import static com.siem.siemmedicos.utils.Constants.KEY_CODE;
 import static com.siem.siemmedicos.utils.Constants.KEY_COLOR_DESCRIPCION;
 import static com.siem.siemmedicos.utils.Constants.KEY_COLOR_HEXA;
+import static com.siem.siemmedicos.utils.Constants.KEY_CONTACTO;
 import static com.siem.siemmedicos.utils.Constants.KEY_DIRECCION;
 import static com.siem.siemmedicos.utils.Constants.KEY_LATITUDE;
 import static com.siem.siemmedicos.utils.Constants.KEY_LONGITUDE;
@@ -94,6 +95,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         auxilio.setReferencia(data.get(KEY_REFERENCIA));
         auxilio.setColorDescripcion(data.get(KEY_COLOR_DESCRIPCION));
         auxilio.setColorHexadecimal(data.get(KEY_COLOR_HEXA));
+        auxilio.setContacto(data.get(KEY_CONTACTO));
 
         try{
             JSONObject jsonObject = new JSONObject(data.get(KEY_MOTIVOS));

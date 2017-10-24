@@ -186,7 +186,7 @@ public class Map implements Callback<ResponseDirections> {
 
     @Override
     public void onFailure(Call<ResponseDirections> call, Throwable t) {
-        Toast.makeText(mContext, mContext.getString(R.string.error), Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, mContext.getString(R.string.errorConnection), Toast.LENGTH_LONG).show();
     }
 
     public void controlateInRoute(Location location) {

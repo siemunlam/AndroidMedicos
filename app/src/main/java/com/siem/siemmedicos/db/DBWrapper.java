@@ -137,6 +137,7 @@ public class DBWrapper {
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_SEXO_PACIENTE, auxilio.getSexo());
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_OBSERVACIONES, auxilio.getObservaciones());
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_REFERENCIA, auxilio.getReferencia());
+        cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_CONTACTO, auxilio.getContacto());
         cvInfo.put(DBContract.InformacionAuxilio.COLUMN_NAME_ID_ESTADO, new ApiConstants.EnCamino().getValue());
         Uri uri = context.getContentResolver().insert(
                 DBContract.InformacionAuxilio.CONTENT_URI,
@@ -193,6 +194,7 @@ public class DBWrapper {
                 String sexoPaciente = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_SEXO_PACIENTE));
                 String observaciones = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_OBSERVACIONES));
                 String referencia = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_REFERENCIA));
+                String contacto = cursor.getString(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_CONTACTO));
                 int idEstado = cursor.getInt(cursor.getColumnIndex(DBContract.InformacionAuxilio.COLUMN_NAME_ID_ESTADO));
                 Motivos motivos = getMotivos(context, id);
 
@@ -205,6 +207,7 @@ public class DBWrapper {
                 auxilio.setSexo(sexoPaciente);
                 auxilio.setObservaciones(observaciones);
                 auxilio.setReferencia(referencia);
+                auxilio.setContacto(contacto);
                 auxilio.setMotivos(motivos);
                 auxilio.setIdEstado(idEstado);
             }

@@ -55,6 +55,7 @@ public class Constants {
     public static final String KEY_SEXO = "sexo";
     public static final String KEY_OBSERVACIONES = "observaciones";
     public static final String KEY_REFERENCIA = "referencia";
+    public static final String KEY_CONTACTO = "contacto";
 
     public static final int CODE_CANCEL_AUXILIO = 25;
     public static final String KEY_CODE = "code";

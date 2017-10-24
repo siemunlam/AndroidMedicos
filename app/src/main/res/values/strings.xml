@@ -9,7 +9,8 @@
     <string name="cancel">Cancelar</string>
 
     <!-- Error -->
-    <string name="error">Hubo un error. Intente de nuevo mas tarde.</string>
+    <string name="error">Hubo un error. Intente de nuevo más tarde.</string>
+    <string name="errorConnection">Hubo un error. Compruebe la conexión a internet e intente de nuevo más tarde.</string>
     <string name="errorNoRoute">No se encontró una ruta posible.</string>
     <string name="errorEmptyFields">Debe completar todos los campos</string>
     <string name="errorLogin">El correo electrónico o la contraseña no son válidos</string>
@@ -55,6 +56,7 @@
     <string name="noEspecificado">No especificado</string>
     <string name="masculino">Masculino</string>
     <string name="femenino">Femenino</string>
+    <string name="contacto">Contacto</string>
 
     <!-- Confirmacion Auxilio -->
     <string name="pudoAsistirPaciente">Pudo asistir al paciente?</string>

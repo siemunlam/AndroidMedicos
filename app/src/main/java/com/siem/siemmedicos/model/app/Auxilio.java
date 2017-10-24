@@ -17,6 +17,7 @@ public class Auxilio {
     private String mSexo;
     private String mObservaciones;
     private String mReferencia;
+    private String mContacto;
     private Motivos mMotivos;
     private int mIdEstado;
 
@@ -90,6 +91,14 @@ public class Auxilio {
 
     public void setReferencia(String referencia) {
         mReferencia = referencia;
+    }
+
+    public String getContacto() {
+        return mContacto;
+    }
+
+    public void setContacto(String contacto) {
+        mContacto = contacto;
     }
 
     public Motivos getMotivos() {

@@ -78,6 +78,7 @@ public class DBContract {
         public static final String COLUMN_NAME_SEXO_PACIENTE = "sexo_paciente";
         public static final String COLUMN_NAME_OBSERVACIONES = "observaciones";
         public static final String COLUMN_NAME_REFERENCIA = "referencia";
+        public static final String COLUMN_NAME_CONTACTO = "contacto";
         public static final String COLUMN_NAME_ID_ESTADO = "id_estado";
     }
 
