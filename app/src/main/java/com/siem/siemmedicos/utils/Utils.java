@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -351,5 +352,10 @@ public class Utils {
         double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));
 
         return radioTierra * va2 * 1000;
+    }
+
+    public static void dialNumber(Activity activity, String number) {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
+        activity.startActivity(intent);
     }
 }

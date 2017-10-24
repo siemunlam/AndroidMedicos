@@ -11,6 +11,10 @@
     <color name="finalizeButton">#5CFF5C</color>
     <color name="finalizeButtonPressed">#06A106</color>
     <color name="polyline">#479AFF</color>
+
+    <!-- Detalle auxilio -->
+    <color name="colorLink">#1B9BE0</color>
+    <color name="red">#ff0000</color>
     
     <!-- Switch -->
     <color name="colorSwitchOff">#ADADAD</color>

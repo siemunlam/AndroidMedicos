@@ -9,6 +9,8 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.siem.siemmedicos.databinding.ActivityDetallesAuxilioBinding;
 import com.siem.siemmedicos.db.DBWrapper;
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.utils.Constants;
+import com.siem.siemmedicos.utils.Utils;
 
 /**
  * Created by Lucas on 22/8/17.
@@ -111,6 +114,14 @@ public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetV
             mBinding.textviewContacto.setVisibility(View.VISIBLE);
             mBinding.textviewContactoTitle.setVisibility(View.VISIBLE);
             mBinding.textviewContacto.setText(mAuxilio.getContacto());
+            boolean isDouble;
+            try{
+                Double.parseDouble(mAuxilio.getContacto());
+                isDouble = true;
+            }catch(Exception e){
+                isDouble = false;
+            }
+            dialClickNumber(isDouble);
         }
 
         //Motivos
@@ -124,6 +135,21 @@ public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetV
             mBinding.textviewObservaciones.setVisibility(View.VISIBLE);
             mBinding.textviewObservacionesTitle.setVisibility(View.VISIBLE);
             mBinding.textviewObservaciones.setText(getObservaciones());
+        }
+    }
+
+    private void dialClickNumber(boolean isDouble) {
+        if(isDouble){
+            SpannableString content = new SpannableString(mAuxilio.getContacto());
+            content.setSpan(new UnderlineSpan(), 0, mAuxilio.getContacto().length(), 0);
+            mBinding.textviewContacto.setText(content);
+            mBinding.textviewContacto.setTextAppearance(this, R.style.linkTheme);
+            mBinding.textviewContacto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.dialNumber(DetalleAuxilioActivity.this, mAuxilio.getContacto());
+                }
+            });
         }
     }
 
