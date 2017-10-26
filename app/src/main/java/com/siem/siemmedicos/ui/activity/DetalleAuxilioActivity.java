@@ -18,6 +18,7 @@ import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
 import com.google.android.gms.maps.StreetViewPanorama;
 import com.google.android.gms.maps.StreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
 import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityDetallesAuxilioBinding;
 import com.siem.siemmedicos.db.DBWrapper;
@@ -59,6 +60,7 @@ public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetV
         mBinding.textviewObservaciones.setTypeface(mTypeface);
         mBinding.textviewContactoTitle.setTypeface(mTypeface);
         mBinding.textviewContacto.setTypeface(mTypeface);
+        mBinding.textErrorStreetView.setTypeface(mTypeface);
 
         setDatos();
     }
@@ -66,12 +68,19 @@ public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetV
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
         try{
-            streetViewPanorama.setPosition(new LatLng(Double.parseDouble(mAuxilio.getLatitude()), Double.parseDouble(mAuxilio.getLongitude())));
-
             streetViewPanorama.setUserNavigationEnabled(false);
             streetViewPanorama.setZoomGesturesEnabled(false);
+            streetViewPanorama.setPosition(new LatLng(Double.parseDouble(mAuxilio.getLatitude()), Double.parseDouble(mAuxilio.getLongitude())));
+
+            streetViewPanorama.setOnStreetViewPanoramaChangeListener(new StreetViewPanorama.OnStreetViewPanoramaChangeListener() {
+                @Override
+                public void onStreetViewPanoramaChange(StreetViewPanoramaLocation streetViewPanoramaLocation) {
+                    if(streetViewPanoramaLocation == null || streetViewPanoramaLocation.links == null)
+                        hideStreetView();
+                }
+            });
         }catch(Exception e){
-            mBinding.contentStreetviewPanorama.setVisibility(View.GONE);
+            hideStreetView();
         }
     }
 
@@ -85,6 +94,11 @@ public class DetalleAuxilioActivity extends ToolbarActivity implements OnStreetV
     public void onPause() {
         super.onPause();
         unregisterBroadcastReceiver();
+    }
+
+    private void hideStreetView() {
+        mBinding.contentStreetviewPanorama.setVisibility(View.GONE);
+        mBinding.contentErrorStreetView.setVisibility(View.VISIBLE);
     }
 
     private void setDatos() {

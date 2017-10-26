@@ -35,6 +35,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/heightStreetView"
+                    android:id="@+id/contentErrorStreetView"
+                    android:background="@android:color/black"
+                    android:visibility="gone">
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textColor="@android:color/white"
+                        android:text="@string/noStreetView"
+                        android:textSize="17sp"
+                        android:id="@+id/textErrorStreetView"/>
+
+                </RelativeLayout>
 
                 <com.siem.siemmedicos.ui.custom.CustomDetallesAuxilio
                     android:layout_width="match_parent"

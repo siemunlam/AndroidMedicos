@@ -57,6 +57,7 @@
     <string name="masculino">Masculino</string>
     <string name="femenino">Femenino</string>
     <string name="contacto">Contacto</string>
+    <string name="noStreetView">Vista de destino no disponible</string>
 
     <!-- Confirmacion Auxilio -->
     <string name="pudoAsistirPaciente">Pudo asistir al paciente?</string>
