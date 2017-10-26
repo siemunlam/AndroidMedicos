@@ -2,6 +2,7 @@ package com.siem.siemmedicos.ui.custom;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
@@ -10,18 +11,14 @@ import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.siem.siemmedicos.R;
+import com.siem.siemmedicos.interfaces.RadioButtonDialogListener;
 import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
-import com.siem.siemmedicos.utils.RetrofitClient;
-import com.siem.siemmedicos.utils.Utils;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.List;
 
 public class CustomFragmentDialog extends Fragment {
 
@@ -47,96 +44,39 @@ public class CustomFragmentDialog extends Fragment {
                 .create();
     }
 
-    public Dialog getRadioButtonsEstadoDialog(final Activity activity,
-                                              final String acceptText,
-                                              boolean cancelable){
+    public Dialog getRadioButtonsDialog(final Context context,
+                                        final String acceptText,
+                                        final List<ApiConstants.Item> listItem,
+                                        boolean cancelable,
+                                        final RadioButtonDialogListener listener){
         mPreferencesHelper = PreferencesHelper.getInstance();
-        Typeface mTypeface = Typeface.createFromAsset(activity.getAssets(), Constants.PRIMARY_FONT);
-        View view = View.inflate(activity, R.layout.custom_dialog_radiobuttons, null);
+        Typeface mTypeface = Typeface.createFromAsset(context.getAssets(), Constants.PRIMARY_FONT);
+        View view = View.inflate(context, R.layout.custom_dialog_radiobuttons, null);
         final RadioGroup mRadioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
 
-        final AppCompatRadioButton radioButtonDisponible = new AppCompatRadioButton(activity);
-        ApiConstants.Item disponible = new ApiConstants.Disponible();
-        radioButtonDisponible.setText(disponible.getDescription(activity));
-        radioButtonDisponible.setTypeface(mTypeface);
-        radioButtonDisponible.setId(disponible.getValue());
-        radioButtonDisponible.setChecked(mPreferencesHelper.getValueEstado() == disponible.getValue());
-
-        final AppCompatRadioButton radioButtonNoDisponible = new AppCompatRadioButton(activity);
-        ApiConstants.Item noDisponible = new ApiConstants.NoDisponible();
-        radioButtonNoDisponible.setText(noDisponible.getDescription(activity));
-        radioButtonNoDisponible.setTypeface(mTypeface);
-        radioButtonNoDisponible.setId(noDisponible.getValue());
-        radioButtonNoDisponible.setChecked(mPreferencesHelper.getValueEstado() == noDisponible.getValue());
-
-        radioButtonDisponible.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                radioButtonNoDisponible.setChecked(false);
-                radioButtonDisponible.setChecked(true);
-            }
-        });
-        radioButtonNoDisponible.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                radioButtonDisponible.setChecked(false);
-                radioButtonNoDisponible.setChecked(true);
-            }
-        });
+        for(int i = 0; i < listItem.size(); i++){
+            final AppCompatRadioButton radioButton = new AppCompatRadioButton(context);
+            radioButton.setText(listItem.get(i).getDescription(context));
+            radioButton.setTypeface(mTypeface);
+            radioButton.setId(listItem.get(i).getValue());
+            radioButton.setChecked(mPreferencesHelper.getValueEstado() == listItem.get(i).getValue());
+            mRadioGroup.addView(radioButton);
+        }
 
         DialogInterface.OnClickListener acceptListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(mPreferencesHelper.getValueEstado() != mRadioGroup.getCheckedRadioButtonId()){
-                    updateEstado(activity, mRadioGroup.getCheckedRadioButtonId());
+                if(mPreferencesHelper.getValueEstado() != mRadioGroup.getCheckedRadioButtonId() && mRadioGroup.getCheckedRadioButtonId() != -1){
+                    listener.radioButtonSelected(mRadioGroup.getCheckedRadioButtonId());
                 }
             }
         };
 
-        mRadioGroup.addView(radioButtonDisponible);
-        mRadioGroup.addView(radioButtonNoDisponible);
-        return new AlertDialog.Builder(activity)
+        return new AlertDialog.Builder(context)
                 .setView(view)
                 .setPositiveButton(acceptText, acceptListener)
                 .setCancelable(cancelable)
                 .create();
-    }
-
-    private void updateEstado(final Activity activity, final int checkedRadioButtonId) {
-        final int oldValueEstado = mPreferencesHelper.getValueEstado();
-        final String oldDescripcionEstado = mPreferencesHelper.getDescriptionEstado(activity);
-        mPreferencesHelper.setValueEstado(checkedRadioButtonId);
-        mPreferencesHelper.setDescriptionEstado(Utils.getDescriptionEstadoMedico(activity, checkedRadioButtonId));
-        //Log.i("123456789", "Actualizado a " + Utils.getDescriptionEstadoMedico(activity, checkedRadioButtonId) + " - " + checkedRadioButtonId);
-        Call<Object> response = RetrofitClient.getServerClient().updateEstadoMedico(mPreferencesHelper.getAuthorization(), checkedRadioButtonId);
-        response.enqueue(new Callback<Object>() {
-            @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
-                switch(response.code()){
-                    case Constants.CODE_SERVER_OK:
-                        Utils.restarLocationsServices(activity);
-                        break;
-                    case Constants.CODE_UNAUTHORIZED:
-                        Utils.logout(activity);
-                        activity.finish();
-                        break;
-                    default:
-                        error(activity, oldValueEstado, oldDescripcionEstado);
-                        break;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Object> call, Throwable t) {
-                error(activity, oldValueEstado, oldDescripcionEstado);
-            }
-        });
-    }
-
-    private void error(Activity activity, int oldValueEstado, String oldDescripcionEstado) {
-        mPreferencesHelper.setValueEstado(oldValueEstado);
-        mPreferencesHelper.setDescriptionEstado(oldDescripcionEstado);
-        Toast.makeText(activity, activity.getString(R.string.errorUpdateEstado), Toast.LENGTH_LONG).show();
     }
 
 }

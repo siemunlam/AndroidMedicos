@@ -34,6 +34,7 @@ import com.siem.siemmedicos.R;
 import com.siem.siemmedicos.databinding.ActivityMapBinding;
 import com.siem.siemmedicos.db.DBContract;
 import com.siem.siemmedicos.db.DBWrapper;
+import com.siem.siemmedicos.interfaces.RadioButtonDialogListener;
 import com.siem.siemmedicos.model.app.AppLocation;
 import com.siem.siemmedicos.model.app.Auxilio;
 import com.siem.siemmedicos.model.app.Map;
@@ -45,12 +46,15 @@ import com.siem.siemmedicos.utils.RetrofitClient;
 import com.siem.siemmedicos.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallback {
+public class MapActivity extends ActivateGpsActivity implements
+        OnMapReadyCallback,
+        RadioButtonDialogListener {
 
     private static final int PERMISSIONS_REQUEST = 100;
     private static final int LOGOUT_ACTIVITY = 105;
@@ -210,7 +214,10 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
         switch (item.getItemId()) {
             case R.id.menuUpdateStatus:
                 if(mPreferencesHelper.isSendLocation()){
-                    new CustomFragmentDialog().getRadioButtonsEstadoDialog(this, getString(R.string.accept), true).show();
+                    List<ApiConstants.Item> listItem = new ArrayList<>();
+                    listItem.add(new ApiConstants.Disponible());
+                    listItem.add(new ApiConstants.NoDisponible());
+                    new CustomFragmentDialog().getRadioButtonsDialog(this, getString(R.string.accept), listItem, true, this).show();
                 }else{
                     Toast.makeText(MapActivity.this, getString(R.string.errorNoLocation), Toast.LENGTH_LONG).show();
                 }
@@ -304,6 +311,46 @@ public class MapActivity extends ActivateGpsActivity implements OnMapReadyCallba
             init();
         else
             checkAllPermissions();
+    }
+
+    /**
+     * RadioButtonDialogListener
+     */
+    @Override
+    public void radioButtonSelected(int itemId) {
+        final int oldValueEstado = mPreferencesHelper.getValueEstado();
+        final String oldDescripcionEstado = mPreferencesHelper.getDescriptionEstado(this);
+        mPreferencesHelper.setValueEstado(itemId);
+        mPreferencesHelper.setDescriptionEstado(Utils.getDescriptionEstadoMedico(this, itemId));
+        Call<Object> response = RetrofitClient.getServerClient().updateEstadoMedico(mPreferencesHelper.getAuthorization(), itemId);
+        response.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                switch(response.code()){
+                    case Constants.CODE_SERVER_OK:
+                        Utils.restarLocationsServices(MapActivity.this);
+                        break;
+                    case Constants.CODE_UNAUTHORIZED:
+                        Utils.logout(MapActivity.this);
+                        finish();
+                        break;
+                    default:
+                        errorRadioButtonSelected(oldValueEstado, oldDescripcionEstado);
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                errorRadioButtonSelected(oldValueEstado, oldDescripcionEstado);
+            }
+        });
+    }
+
+    private void errorRadioButtonSelected(int oldValueEstado, String oldDescripcionEstado) {
+        mPreferencesHelper.setValueEstado(oldValueEstado);
+        mPreferencesHelper.setDescriptionEstado(oldDescripcionEstado);
+        Toast.makeText(this, getString(R.string.errorUpdateEstado), Toast.LENGTH_LONG).show();
     }
 
     private void init() {
