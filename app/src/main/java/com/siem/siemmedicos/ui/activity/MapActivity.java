@@ -222,9 +222,15 @@ public class MapActivity extends ActivateGpsActivity implements
                     Toast.makeText(MapActivity.this, getString(R.string.errorNoLocation), Toast.LENGTH_LONG).show();
                 }
                 return true;
+
+            case R.id.menuChangePass:
+
+                return true;
+
             case R.id.menuLogout:
                 startActivityForResult(new Intent(MapActivity.this, LogoutActivity.class), LOGOUT_ACTIVITY);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

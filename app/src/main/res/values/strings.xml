@@ -35,6 +35,7 @@
     <!-- Menu -->
     <string name="updateStatus">Actualizar estado</string>
     <string name="logout">Cerrar sesión</string>
+    <string name="changePass">Cambiar contraseña</string>
 
     <!-- Map -->
     <string name="descripcionAuxilio">Auxilio %1$s</string>

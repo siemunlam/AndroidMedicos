@@ -9,9 +9,15 @@
         android:orderInCategory="1"/>
 
     <item
+        android:title="@string/changePass"
+        android:id="@+id/menuChangePass"
+        app:showAsAction="never"
+        android:orderInCategory="2"/>
+
+    <item
         android:title="@string/logout"
         android:id="@+id/menuLogout"
         app:showAsAction="never"
-        android:orderInCategory="2"/>
+        android:orderInCategory="3"/>
 
 </menu>
