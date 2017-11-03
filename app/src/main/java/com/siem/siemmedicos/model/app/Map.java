@@ -41,7 +41,7 @@ import retrofit2.Response;
 public class Map implements Callback<ResponseDirections> {
 
     private static final int SIZE_FINISH_MARKER = 125;
-    private static final int SIZE_POSITION_MARKER = 230;
+    private static final int SIZE_POSITION_MARKER = 200;
 
     private Marker mPositionMarker;
     private Polyline mPolyline;

@@ -20,6 +20,10 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.siem.siemmedicos.R;
@@ -34,6 +38,7 @@ import com.siem.siemmedicos.services.UpdateEstadoService;
 import com.siem.siemmedicos.task.DeterminarEstadoAsignacionTask;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 public class Utils {
@@ -357,5 +362,26 @@ public class Utils {
     public static void dialNumber(Activity activity, String number) {
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
         activity.startActivity(intent);
+    }
+
+    public static void hideSoftKeyboard(Activity activity){
+        try{
+            InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }catch(Exception e){}
+    }
+
+    public static void vibrate(Context context, List<View> listErrorView) {
+        for (View view : listErrorView) {
+            view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.vibrate));
+        }
+    }
+
+    public static void setTouchable(Activity activity, boolean touchable) {
+        if(touchable){
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }else{
+            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
     }
 }

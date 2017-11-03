@@ -224,7 +224,7 @@ public class MapActivity extends ActivateGpsActivity implements
                 return true;
 
             case R.id.menuChangePass:
-
+                Utils.startActivityWithTransition(MapActivity.this, new Intent(MapActivity.this, ChangePasswordActivity.class));
                 return true;
 
             case R.id.menuLogout:

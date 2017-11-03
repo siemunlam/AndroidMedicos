@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#004e78</color>
     <color name="colorAccent">#00BD46</color>
     <color name="colorAccentLight">#AEE6C3</color>
+    <color name="colorBlur">#80000000</color>
 
     <!-- Map -->
     <color name="unlinkButton">#FF3636</color>

@@ -6,8 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -18,6 +16,7 @@ import com.siem.siemmedicos.utils.ApiConstants;
 import com.siem.siemmedicos.utils.Constants;
 import com.siem.siemmedicos.utils.PreferencesHelper;
 import com.siem.siemmedicos.utils.RetrofitClient;
+import com.siem.siemmedicos.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +37,7 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
         controlarMedicoLogueado();
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
+        mBinding.contentProgress.bringToFront();
         mBinding.buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,13 +100,7 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
         if(listErrorView.size() > 0){
             mToast = Toast.makeText(LoginActivity.this, getString(R.string.errorEmptyFields), Toast.LENGTH_LONG);
             mToast.show();
-            vibrate(listErrorView);
-        }
-    }
-
-    private void vibrate(List<View> listErrorView) {
-        for (View view : listErrorView) {
-            view.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, R.anim.vibrate));
+            Utils.vibrate(this, listErrorView);
         }
     }
 
@@ -123,23 +117,24 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
         List<View> listErrorView = new ArrayList<>();
         listErrorView.add(mBinding.edittextUser);
         listErrorView.add(mBinding.edittextPass);
-        vibrate(listErrorView);
+        Utils.vibrate(this, listErrorView);
     }
 
     private void habilitarLoading() {
         mBinding.buttonLogin.setEnabled(false);
         mBinding.edittextPass.setEnabled(false);
         mBinding.edittextUser.setEnabled(false);
-        setTouchable(false);
-        mBinding.progress.setVisibility(View.VISIBLE);
+        Utils.setTouchable(this, false);
+        mBinding.contentProgress.setVisibility(View.VISIBLE);
+        Utils.hideSoftKeyboard(this);
     }
 
     private void deshabilitarLoading() {
         mBinding.buttonLogin.setEnabled(true);
         mBinding.edittextPass.setEnabled(true);
         mBinding.edittextUser.setEnabled(true);
-        setTouchable(true);
-        mBinding.progress.setVisibility(View.GONE);
+        Utils.setTouchable(this, true);
+        mBinding.contentProgress.setVisibility(View.GONE);
     }
 
     private void controlarMedicoLogueado() {
@@ -153,13 +148,5 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
     private void goToMap() {
         startActivity(new Intent(LoginActivity.this, MapActivity.class));
         finish();
-    }
-
-    private void setTouchable(boolean touchable) {
-        if(touchable){
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        }else{
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        }
     }
 }

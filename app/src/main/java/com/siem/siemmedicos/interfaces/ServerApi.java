@@ -61,4 +61,12 @@ public interface ServerApi {
             @Header(Constants.AUTHORIZATION) String authorization,
             @Field(Constants.ESTADO) int estado);
 
+    @FormUrlEncoded
+    @PUT(Constants.API_CHANGE_PASSWORD)
+    Call<Object> changePassword(
+            @Header(Constants.AUTHORIZATION) String authorization,
+            @Field(Constants.PASSWORD) String pass,
+            @Field(Constants.NEW_PASSWORD) String newPass,
+            @Field(Constants.RE_NEW_PASSWORD) String reNewPass);
+
 }

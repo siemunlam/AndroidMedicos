@@ -42,4 +42,7 @@
     <dimen name="switchPaddingRight">8dp</dimen>
     <dimen name="switchWidth">65dp</dimen>
     <dimen name="switchHeight">25dp</dimen>
+
+    <!-- Cambiar contrasena -->
+    <dimen name="textsizeChangePassword">25sp</dimen>
 </resources>

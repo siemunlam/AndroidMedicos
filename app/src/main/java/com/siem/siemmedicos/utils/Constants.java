@@ -100,9 +100,12 @@ public class Constants {
     public static final String API_DESVINCULAR_AUXILIO = "medicos/desvincularAsignacion/";
     public static final String API_FINALIZAR_AUXILIO = "medicos/finalizarAsignacion/";
     public static final String API_UPDATE_ESTADO_ASIGNACION = "medicos/estadoAsignacionUpdate/";
+    public static final String API_CHANGE_PASSWORD = "users/pwd_update";
 
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public static final String NEW_PASSWORD = "new_pwd";
+    public static final String RE_NEW_PASSWORD = "re_new_pwd";
     public static final String AUTHORIZATION = "authorization";
     public static final String FCM_CODE = "fcm_code";
     public static final String LATITUD = "latitud_gps";
