@@ -6,9 +6,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:background="@drawable/background_login"
         android:fillViewport="true"
-        android:alpha="0.8">
+        android:alpha="0.8"
+        android:id="@+id/scrollview">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

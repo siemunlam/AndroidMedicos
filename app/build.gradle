@@ -23,8 +23,8 @@ android {
         applicationId "com.siem.siemmedicos"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 5
-        versionName "1.5"
+        versionCode 6
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_MAPSGOOGLE_URL", "\"https://maps.googleapis.com/\""
         buildConfigField "String", "BASE_API_URL", "\"https://siemunlam.pythonanywhere.com/api/\""

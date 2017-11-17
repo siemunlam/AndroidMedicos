@@ -3,8 +3,13 @@ package com.siem.siemmedicos.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
@@ -56,6 +61,8 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
                 }
             }
         });
+
+        setBackgroundImage();
     }
 
     @Override
@@ -81,6 +88,25 @@ public class LoginActivity extends Activity implements Callback<LoginResponse> {
     @Override
     public void onFailure(Call<LoginResponse> call, Throwable t) {
         serverError();
+    }
+
+    private void setBackgroundImage() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background_login, options);
+        Bitmap resizedbitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+        BitmapDrawable bmpDrawable = new BitmapDrawable(getResources(), resizedbitmap);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            mBinding.scrollview.setBackground(bmpDrawable);
+        }else{
+            mBinding.scrollview.setBackgroundDrawable(bmpDrawable);
+        }
+        bitmap.recycle();
     }
 
     private boolean isLoginFullComplete() {
